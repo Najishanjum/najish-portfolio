@@ -18,6 +18,14 @@ import hacktoberfestBadges2 from "@/assets/hacktoberfest-badges2.png";
 import hacktoberfestSwag from "@/assets/hacktoberfest-swag.jpg";
 import hacktoberfestSelfie from "@/assets/hacktoberfest-selfie.jpg";
 import hacktoberfestProfile from "@/assets/hacktoberfest-profile.jpg";
+import esummitImg1 from "@/assets/esummit-iitb-1.jpg";
+import esummitImg2 from "@/assets/esummit-iitb-2.jpg";
+import esummitImg3 from "@/assets/esummit-iitb-3.jpg";
+import esummitImg4 from "@/assets/esummit-iitb-4.jpg";
+import esummitImg5 from "@/assets/esummit-iitb-5.jpg";
+import esummitImg6 from "@/assets/esummit-iitb-6.jpg";
+import esummitImg7 from "@/assets/esummit-iitb-7.jpg";
+import esummitImg8 from "@/assets/esummit-iitb-8.jpg";
 
 const experiences = [
   {
@@ -45,6 +53,19 @@ const experiences = [
     logo: ajinavaEdgeLogo,
     link: "https://www.instagram.com/ajinava.edge?igsh=MXNrNXpoOWpqcDBnaQ==",
     images: [],
+  },
+  {
+    title: "E-Summit 2025 Attendee",
+    company: "E-Cell IIT Bombay",
+    type: "Conference",
+    duration: "11th - 14th Dec 2025",
+    length: "4 days",
+    location: "IIT Bombay, Mumbai",
+    description: "Deciphering the Labyrinth of Entrepreneurship – Exposure to global business leaders, startup founders, and innovation-driven discussions shaping the future of entrepreneurship.",
+    skills: ["Entrepreneurship", "Networking", "Innovation"],
+    logo: techfestLogo,
+    link: "",
+    images: [esummitImg1, esummitImg2, esummitImg3, esummitImg4, esummitImg5, esummitImg6, esummitImg7, esummitImg8],
   },
   {
     title: "Campus Ambassador – Paranox 2.0 Hackathon 2025",
