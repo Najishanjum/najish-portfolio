@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { SiHtml5, SiCss3, SiTailwindcss, SiJavascript, SiReact, SiRedux, SiNextdotjs, SiNodedotjs, SiExpress, SiMongodb, SiPostgresql, SiGraphql, SiRedis, SiDocker, SiAmazon, SiCplusplus, SiPython, SiTypescript } from "react-icons/si";
+import { SiHtml5, SiCss3, SiTailwindcss, SiJavascript, SiReact, SiNodedotjs, SiExpress, SiDjango, SiMongodb, SiPostgresql, SiMysql, SiAmazon, SiCplusplus, SiPython, SiTypescript, SiGit, SiGithub, SiGitlab } from "react-icons/si";
 
 const techStack = {
   frontend: [
@@ -7,24 +7,25 @@ const techStack = {
     { name: "CSS3", icon: SiCss3, color: "#1572B6" },
     { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
     { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-    { name: "React", icon: SiReact, color: "#61DAFB" },
-    { name: "Redux", icon: SiRedux, color: "#764ABC" },
-    { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" }
+    { name: "React", icon: SiReact, color: "#61DAFB" }
   ],
   backend: [
     { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
     { name: "Express", icon: SiExpress, color: "#FFFFFF" },
-    { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" }
+    { name: "Django", icon: SiDjango, color: "#092E20" }
   ],
   databases: [
     { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
-    { name: "GraphQL", icon: SiGraphql, color: "#E10098" },
-    { name: "Redis", icon: SiRedis, color: "#DC382D" }
+    { name: "MySQL", icon: SiMysql, color: "#4479A1" }
   ],
   devops: [
-    { name: "Docker", icon: SiDocker, color: "#2496ED" },
     { name: "AWS", icon: SiAmazon, color: "#FF9900" }
+  ],
+  versionControl: [
+    { name: "Git", icon: SiGit, color: "#F05032" },
+    { name: "GitHub", icon: SiGithub, color: "#FFFFFF" },
+    { name: "GitLab", icon: SiGitlab, color: "#FC6D26" }
   ],
   languages: [
     { name: "C++", icon: SiCplusplus, color: "#00599C" },
@@ -99,6 +100,16 @@ export const TechStack = () => {
                 <div className="grid grid-cols-4 gap-3">
                   {techStack.devops.map((tech, index) => (
                     <TechItem key={tech.name} {...tech} delay={0.55 + index * 0.05} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Version Control */}
+              <div>
+                <h3 className="text-xl font-semibold font-mono mb-4 text-foreground">Version Control</h3>
+                <div className="grid grid-cols-4 gap-3">
+                  {techStack.versionControl.map((tech, index) => (
+                    <TechItem key={tech.name} {...tech} delay={0.6 + index * 0.05} />
                   ))}
                 </div>
               </div>
