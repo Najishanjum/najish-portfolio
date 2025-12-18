@@ -2,14 +2,34 @@ import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import shopGenieBg from "@/assets/shopgenie-bg.webp";
+import routinexBg from "@/assets/routinex-bg.jpg";
+import nastackBg from "@/assets/nastack-bg.jpg";
+import spacehabitatxBg from "@/assets/spacehabitatx-bg.jpg";
 
 const projects = [
   {
-    title: "Grow Plus",
-    description: "AI-powered agricultural solution for crop optimization and yield prediction.",
-    tags: ["AI/ML", "Python", "TensorFlow", "React"],
-    color: "from-green-500/20 to-emerald-500/20",
-    borderColor: "border-green-500/50"
+    title: "Space HabitatX",
+    description: "Concept-based futuristic project focused on space living and sustainable habitats with innovation and advanced technology.",
+    tags: ["Innovation", "Future Tech", "Research", "Systems"],
+    color: "from-cyan-500/20 to-indigo-500/20",
+    borderColor: "border-cyan-500/50",
+    bgImage: spacehabitatxBg
+  },
+  {
+    title: "Routine X",
+    description: "Productivity & routine management system helping users build daily habits, track tasks, and optimize routines.",
+    tags: ["Productivity", "React", "User-Centric", "Design"],
+    color: "from-blue-500/20 to-slate-500/20",
+    borderColor: "border-blue-500/50",
+    bgImage: routinexBg
+  },
+  {
+    title: "NAStack",
+    description: "Tech-focused stack/project related to development and systems, representing developer mindset and technical foundation.",
+    tags: ["Development", "DSA", "Algorithms", "Tech Stack"],
+    color: "from-purple-500/20 to-orange-500/20",
+    borderColor: "border-purple-500/50",
+    bgImage: nastackBg
   },
   {
     title: "CareCall24on",
@@ -25,13 +45,6 @@ const projects = [
     color: "from-blue-500/20 to-cyan-500/20",
     borderColor: "border-blue-500/50",
     bgImage: shopGenieBg
-  },
-  {
-    title: "Educational Performance Tracker",
-    description: "Analytics platform for student performance with predictive modeling.",
-    tags: ["React", "Python", "MySQL", "Data Viz"],
-    color: "from-purple-500/20 to-indigo-500/20",
-    borderColor: "border-purple-500/50"
   },
   {
     title: "Mental Health AI Detector",
