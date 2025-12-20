@@ -115,10 +115,12 @@ export const Hero = () => {
             transition={{ delay: 1.2 }}
             className="flex flex-wrap gap-4"
           >
-            <Button size="lg" className="border-glow bg-primary/10 hover:bg-primary/20 text-primary font-mono group">
-              <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
-              Download Resume
-            </Button>
+            <a href="/resume/Najish_Anjum_Resume.pdf" target="_blank" rel="noopener noreferrer" download>
+              <Button size="lg" className="border-glow bg-primary/10 hover:bg-primary/20 text-primary font-mono group">
+                <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
+                Download Resume
+              </Button>
+            </a>
           </motion.div>
         </motion.div>
       </div>
