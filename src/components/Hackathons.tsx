@@ -39,6 +39,66 @@ const hackathons = [
     bgImage: paranoxBg
   },
   {
+    title: "0 to 1 – Hack with Uttar Pradesh",
+    organizer: "Chandigarh University, Uttar Pradesh (TBI & IEDC)",
+    description: "A flagship founders-focused hackathon centered on agentic AI startups, where participants build AI-powered products, co-pilots, and autonomous workflows for real-world problems.",
+    status: "Completed",
+    type: "hackathon",
+    date: "2–3 November 2025",
+    badge: "Participated",
+    color: "from-neon-pink to-neon-cyan"
+  },
+  {
+    title: "CodeMatrix: Genesis Hackathon",
+    organizer: "Dr. Ambedkar Institute of Technology, Kanpur",
+    description: "A multi-day coding and innovation hackathon for student developers to build solutions across web development, AI/ML, automation, and problem-solving challenges.",
+    status: "Completed",
+    type: "hackathon",
+    date: "6–8 December 2025",
+    badge: "Participated",
+    color: "from-neon-cyan to-neon-purple"
+  },
+  {
+    title: "Error 404: Beyond the Limit",
+    organizer: "Jai Hind College, Mumbai",
+    description: "A 48-hour semi-offline innovation sprint tackling real-world challenges in software engineering, debugging, cybersecurity, and product design.",
+    status: "Completed",
+    type: "hackathon",
+    date: "10 December 2025",
+    badge: "Participated",
+    color: "from-neon-blue to-neon-pink"
+  },
+  {
+    title: "CBIT Hacktoberfest Hackathon 2025",
+    organizer: "CBIT Open Source Community",
+    description: "An open-source hackathon aligned with Hacktoberfest, encouraging participants to contribute to real GitHub repositories and build community-driven projects.",
+    status: "Completed",
+    type: "hackathon",
+    date: "25 October 2025",
+    badge: "Participated",
+    color: "from-neon-purple to-neon-cyan"
+  },
+  {
+    title: "Gen AI Academy 2.0 – Google Cloud Gen AI",
+    organizer: "Google Cloud",
+    description: "A hands-on generative AI learning program focused on building with Google Cloud's Gen AI stack, including model APIs, prompt engineering, and end-to-end app development.",
+    status: "Completed",
+    type: "program",
+    date: "November 2025",
+    badge: "Completed",
+    color: "from-neon-cyan to-neon-blue"
+  },
+  {
+    title: "Pixel Riot Hackathon",
+    organizer: "Online Design & Creative Tech Hackathon",
+    description: "A creativity-first hackathon themed around UI/UX, visual design, graphics, and interactive experiences for building visually striking digital products.",
+    status: "Completed",
+    type: "hackathon",
+    date: "2025",
+    badge: "Participated",
+    color: "from-neon-pink to-neon-purple"
+  },
+  {
     title: "CodeSpark – 72 Hours Coding Challenge",
     organizer: "Siwan Engineering College, Siwan",
     description: "A high-energy coding competition where participants work for 72 hours to develop innovative software solutions.",
