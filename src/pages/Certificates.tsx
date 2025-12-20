@@ -20,6 +20,10 @@ import certTataCrucible from "@/assets/cert-tata-crucible.png";
 import certInfosys from "@/assets/cert-infosys.jpg";
 import certAwsForage from "@/assets/cert-aws-forage.jpg";
 import certCodespark from "@/assets/cert-codespark.jpg";
+import certCodematrixGenesis from "@/assets/cert-codematrix-genesis.jpg";
+import certAwsGenai from "@/assets/cert-aws-genai.jpg";
+import certCiscoCpp from "@/assets/cert-cisco-cpp.png";
+import certError404 from "@/assets/cert-error404.png";
 
 interface Certificate {
   id: number;
@@ -135,6 +139,35 @@ const certificates: Certificate[] = [
     issuer: "Developer Community, GEC Siwan",
     date: "2025",
     image: certCodespark,
+  },
+  {
+    id: 16,
+    title: "CodeMatrix: Genesis Hackathon",
+    issuer: "GDG DR AITD, Kanpur & AITD-Events Community",
+    date: "December 6-8, 2025",
+    image: certCodematrixGenesis,
+  },
+  {
+    id: 17,
+    title: "AWS Academy Graduate - Generative AI Foundations",
+    issuer: "AWS Academy",
+    date: "September 25, 2025",
+    image: certAwsGenai,
+    verificationLink: "https://www.credly.com/badges/b7ae1e6b-9228-4610-a7a8-bbfa92b4d1f4",
+  },
+  {
+    id: 18,
+    title: "C++ Essentials 1 - Statement of Achievement",
+    issuer: "Cisco Networking Academy & OpenEDG C++ Institute",
+    date: "March 25, 2025",
+    image: certCiscoCpp,
+  },
+  {
+    id: 19,
+    title: "Error 404: Beyond the Limit",
+    issuer: "Jai Hind College, Mumbai",
+    date: "December 10, 2025",
+    image: certError404,
   },
 ];
 
