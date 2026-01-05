@@ -297,18 +297,17 @@ export const Experience = () => {
 
                   {/* Images Gallery */}
                   {exp.images && exp.images.length > 0 && (
-                    <div className={`mt-4 pt-4 border-t border-border/30 flex flex-wrap gap-3 ${
-                      exp.images.length <= 2 ? '' : ''
+                    <div className={`mt-4 pt-4 border-t border-border/30 grid gap-3 ${
+                      exp.images.length === 1 ? 'grid-cols-1 max-w-[200px]' : 
+                      exp.images.length === 2 ? 'grid-cols-2' : 
+                      exp.images.length === 3 ? 'grid-cols-3' : 
+                      'grid-cols-2 md:grid-cols-4'
                     }`}>
                       {exp.images.map((img, imgIndex) => (
                         <motion.div
                           key={imgIndex}
                           whileHover={{ scale: 1.05 }}
-                          className={`rounded-lg overflow-hidden border border-border/30 ${
-                            exp.images.length === 1 ? 'w-[200px]' : 
-                            exp.images.length === 2 ? 'w-[170px]' : 
-                            'w-[150px]'
-                          }`}
+                          className="rounded-lg overflow-hidden border border-border/30"
                         >
                           <img
                             src={img}
