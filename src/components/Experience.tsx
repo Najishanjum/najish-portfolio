@@ -18,6 +18,10 @@ import hacktoberfestBadges2 from "@/assets/hacktoberfest-badges2.png";
 import hacktoberfestSwag from "@/assets/hacktoberfest-swag.jpg";
 import hacktoberfestSelfie from "@/assets/hacktoberfest-selfie.jpg";
 import hacktoberfestProfile from "@/assets/hacktoberfest-profile.jpg";
+import ecwocLogo from "@/assets/ecwoc-logo.png";
+import ecwocBadges from "@/assets/ecwoc-badges.jpg";
+import ecwocWork from "@/assets/ecwoc-work.jpg";
+import osciProfile from "@/assets/osci-profile.jpg";
 import esummitImg1 from "@/assets/esummit-iitb-1.jpg";
 import esummitImg2 from "@/assets/esummit-iitb-2.jpg";
 import esummitImg3 from "@/assets/esummit-iitb-3.jpg";
@@ -133,6 +137,19 @@ const experiences = [
     images: [hacktoberfestProfile, hacktoberfestBadges1, hacktoberfestBadges2, hacktoberfestSwag, hacktoberfestSelfie],
   },
   {
+    title: "Mentor | Campus Representative | Open-Source Contributor",
+    company: "Elite Coders Winter of Code (ECWoC) 2026",
+    type: "Open-Source Program",
+    duration: "Jan 2026 – Mar 2026",
+    length: "3 mos",
+    location: "India",
+    description: "As a Mentor, Campus Representative, and Contributor, my goal is to support students at every stage of their open-source journey—helping beginners get started, guiding contributors, and fostering a strong culture of learning and collaboration on campus.",
+    skills: ["Open Source", "Git", "GitHub", "Leadership"],
+    logo: ecwocLogo,
+    link: "",
+    images: [ecwocBadges, ecwocWork],
+  },
+  {
     title: "Indigo Squad Member",
     company: "Mood Indigo IIT Bombay",
     type: "Internship · Remote",
@@ -146,8 +163,8 @@ const experiences = [
     images: [],
   },
   {
-    title: "Contributor 2025",
-    company: "Open Source Connect",
+    title: "Contributor 2025 | Core Team Member | Campus Lead 2026",
+    company: "Open Source Connect Global",
     type: "Full-time",
     duration: "Jul 2025 – Aug 2025",
     length: "2 mos",
@@ -156,7 +173,7 @@ const experiences = [
     skills: ["Open Source", "UI/UX Enhancement", "+2 skills"],
     logo: osciLogo,
     link: "",
-    images: [],
+    images: [osciProfile],
   },
 ];
 

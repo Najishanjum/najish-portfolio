@@ -43,8 +43,7 @@ const projects = [
     description: "Smart e-commerce with AI recommendations and personalized shopping.",
     tags: ["Django", "React", "PostgreSQL", "ML"],
     color: "from-blue-500/20 to-cyan-500/20",
-    borderColor: "border-blue-500/50",
-    bgImage: shopGenieBg
+    borderColor: "border-blue-500/50"
   },
   {
     title: "Mental Health AI Detector",
