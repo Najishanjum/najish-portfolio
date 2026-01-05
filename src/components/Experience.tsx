@@ -298,7 +298,7 @@ export const Experience = () => {
                   {/* Images Gallery */}
                   {exp.images && exp.images.length > 0 && (
                     <div className={`mt-4 pt-4 border-t border-border/30 grid gap-3 ${
-                      exp.images.length === 1 ? 'grid-cols-1' : 
+                      exp.images.length === 1 ? 'grid-cols-1 max-w-[200px]' : 
                       exp.images.length === 2 ? 'grid-cols-2' : 
                       exp.images.length === 3 ? 'grid-cols-3' : 
                       'grid-cols-2 md:grid-cols-4'
