@@ -51,6 +51,13 @@ const projects = [
     tags: ["NLP", "TensorFlow", "React", "Express"],
     color: "from-teal-500/20 to-cyan-500/20",
     borderColor: "border-teal-500/50"
+  },
+  {
+    title: "One Nation One Service",
+    description: "An innovation-driven Digital India initiative unifying public, social, and smart services into one national platform.",
+    tags: ["Innovation", "AI Systems", "Public Services", "National Impact"],
+    color: "from-orange-500/20 to-green-500/20",
+    borderColor: "border-orange-500/50"
   }
 ];
 
