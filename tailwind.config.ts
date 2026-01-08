@@ -58,6 +58,8 @@ export default {
       fontFamily: {
         mono: ["Fira Code", "monospace"],
         sans: ["Inter", "sans-serif"],
+        script: ["Great Vibes", "cursive"],
+        display: ["Montserrat", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
