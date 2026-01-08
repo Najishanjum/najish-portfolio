@@ -24,6 +24,8 @@ import certCodematrixGenesis from "@/assets/cert-codematrix-genesis.jpg";
 import certAwsGenai from "@/assets/cert-aws-genai.jpg";
 import certCiscoCpp from "@/assets/cert-cisco-cpp.png";
 import certError404 from "@/assets/cert-error404.png";
+import certNeo4j from "@/assets/cert-neo4j.png";
+import certEcwocAssessment from "@/assets/cert-ecwoc-assessment.jpg";
 
 interface Certificate {
   id: number;
@@ -168,6 +170,20 @@ const certificates: Certificate[] = [
     issuer: "Jai Hind College, Mumbai",
     date: "December 10, 2025",
     image: certError404,
+  },
+  {
+    id: 20,
+    title: "Neo4j Certified Professional",
+    issuer: "Neo4j GraphAcademy",
+    date: "December 26, 2025",
+    image: certNeo4j,
+  },
+  {
+    id: 21,
+    title: "ECWoC Assessment - Certificate of Participation",
+    issuer: "Elite Coders",
+    date: "January 2026",
+    image: certEcwocAssessment,
   },
 ];
 
