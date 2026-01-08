@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Music, Play, Pause, SkipForward, Instagram } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { Music, Play, Pause, SkipForward } from "lucide-react";
 
 // Import gallery images
 import gallery1 from "@/assets/gallery-1.jpg";
@@ -13,16 +13,6 @@ import gallery7 from "@/assets/gallery-7.jpg";
 import gallery8 from "@/assets/gallery-8.jpg";
 import gallery9 from "@/assets/gallery-9.jpg";
 import gallery10 from "@/assets/gallery-10.jpg";
-import gallery11 from "@/assets/gallery-11.jpg";
-import gallery12 from "@/assets/gallery-12.jpg";
-import gallery13 from "@/assets/gallery-13.jpg";
-import gallery14 from "@/assets/gallery-14.jpg";
-import gallery15 from "@/assets/gallery-15.jpg";
-import gallery16 from "@/assets/gallery-16.jpg";
-import gallery17 from "@/assets/gallery-17.jpg";
-import gallery18 from "@/assets/gallery-18.jpg";
-import gallery19 from "@/assets/gallery-19.jpg";
-import gallery20 from "@/assets/gallery-20.jpg";
 
 const galleryImages = [
   { src: gallery1, label: "Conference Session" },
@@ -33,35 +23,22 @@ const galleryImages = [
   { src: gallery6, label: "Team Discussion" },
   { src: gallery7, label: "Coding Session" },
   { src: gallery8, label: "Networking" },
-  { src: gallery11, label: "Team ILM Tech" },
-  { src: gallery12, label: "Story Protocol Meetup" },
-  { src: gallery13, label: "Hackathon Night" },
-  { src: gallery14, label: "Coding Setup" },
-  { src: gallery15, label: "Team Collab" },
-  { src: gallery16, label: "Campus Workshop" },
-  { src: gallery17, label: "Team Spirit" },
-  { src: gallery18, label: "Event Day" },
+  { src: gallery9, label: "IIT Bombay" },
+  { src: gallery10, label: "Story Protocol" },
 ];
 
-// Floating positions for each image (16 items for a balanced layout)
+// Floating positions for each image
 const floatingPositions = [
-  { x: 2, y: 8, size: "w-36 h-28", rotate: -5 },
-  { x: 78, y: 5, size: "w-32 h-44", rotate: 8 },
-  { x: 20, y: 3, size: "w-36 h-28", rotate: -3 },
-  { x: 3, y: 45, size: "w-40 h-32", rotate: 6 },
-  { x: 82, y: 35, size: "w-28 h-40", rotate: -8 },
-  { x: 88, y: 68, size: "w-36 h-28", rotate: 4 },
-  { x: 8, y: 72, size: "w-32 h-44", rotate: -6 },
-  { x: 75, y: 82, size: "w-40 h-32", rotate: 7 },
-  // Second row of 8
-  { x: 58, y: 2, size: "w-28 h-36", rotate: -4 },
-  { x: 92, y: 18, size: "w-32 h-24", rotate: 5 },
-  { x: 0, y: 28, size: "w-28 h-36", rotate: -7 },
-  { x: 85, y: 52, size: "w-36 h-28", rotate: 3 },
-  { x: 5, y: 88, size: "w-32 h-44", rotate: -5 },
-  { x: 55, y: 88, size: "w-36 h-28", rotate: 6 },
-  { x: 28, y: 85, size: "w-28 h-36", rotate: -4 },
-  { x: 95, y: 88, size: "w-32 h-24", rotate: 5 },
+  { x: 5, y: 10, size: "w-48 h-32", rotate: -5 },
+  { x: 75, y: 5, size: "w-40 h-56", rotate: 8 },
+  { x: 40, y: 15, size: "w-44 h-36", rotate: -3 },
+  { x: 15, y: 55, size: "w-52 h-40", rotate: 6 },
+  { x: 60, y: 45, size: "w-36 h-48", rotate: -8 },
+  { x: 85, y: 60, size: "w-44 h-32", rotate: 4 },
+  { x: 30, y: 70, size: "w-40 h-52", rotate: -6 },
+  { x: 70, y: 75, size: "w-48 h-36", rotate: 7 },
+  { x: 5, y: 80, size: "w-36 h-44", rotate: -4 },
+  { x: 50, y: 85, size: "w-44 h-40", rotate: 5 },
 ];
 
 interface FloatingImageProps {
@@ -86,14 +63,14 @@ const FloatingImage = ({ src, label, position, index, mouseX, mouseY }: Floating
   
   // Parallax effect based on mouse position
   const parallaxX = useTransform(
-    () => (mouseX - 50) * (0.02 + index * 0.003)
+    () => (mouseX - 50) * (0.02 + index * 0.005)
   );
   const parallaxY = useTransform(
-    () => (mouseY - 50) * (0.02 + index * 0.003)
+    () => (mouseY - 50) * (0.02 + index * 0.005)
   );
 
   // Floating animation duration varies by index
-  const floatDuration = 5 + (index % 4) * 1.5;
+  const floatDuration = 4 + (index % 3) * 2;
   
   return (
     <motion.div
@@ -114,12 +91,12 @@ const FloatingImage = ({ src, label, position, index, mouseX, mouseY }: Floating
         opacity: isLoaded ? 1 : 0, 
         scale: 1,
         rotate: position.rotate,
-        translateX: isDragging ? 0 : [0, 6, 0, -6, 0],
-        translateY: isDragging ? 0 : [0, -8, 0, 8, 0],
+        translateX: isDragging ? 0 : [0, 8, 0, -8, 0],
+        translateY: isDragging ? 0 : [0, -10, 0, 10, 0],
       }}
       transition={{
-        opacity: { duration: 0.5, delay: index * 0.08 },
-        scale: { duration: 0.5, delay: index * 0.08 },
+        opacity: { duration: 0.5, delay: index * 0.1 },
+        scale: { duration: 0.5, delay: index * 0.1 },
         translateX: { duration: floatDuration, repeat: Infinity, ease: "easeInOut" },
         translateY: { duration: floatDuration + 1, repeat: Infinity, ease: "easeInOut" },
       }}
@@ -150,64 +127,13 @@ const FloatingImage = ({ src, label, position, index, mouseX, mouseY }: Floating
         />
         
         {/* Label overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-b-2xl z-20">
-          <p className="text-[10px] font-medium text-foreground truncate">{label}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-b-2xl z-20">
+          <p className="text-xs font-medium text-foreground truncate">{label}</p>
         </div>
         
         {/* Glass border effect */}
         <div className="absolute inset-0 rounded-2xl border border-white/20 group-hover:border-primary/50 transition-colors duration-300 z-30 pointer-events-none" />
       </motion.div>
-    </motion.div>
-  );
-};
-
-// Instagram Connect Section
-const InstagramConnect = () => {
-  return (
-    <motion.div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40 text-center"
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-    >
-      {/* Glassmorphism container */}
-      <div className="relative bg-background/30 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl max-w-md mx-4">
-        {/* Glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-purple-500/10 to-orange-500/20 rounded-3xl opacity-60" />
-        <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-orange-500/20 rounded-3xl blur-xl opacity-40" />
-        
-        <div className="relative z-10">
-          {/* Heading with mixed fonts */}
-          <div className="mb-6">
-            <span className="font-script text-2xl md:text-3xl text-white/90 tracking-wide">
-              Connect on
-            </span>
-            <h3 className="font-display text-4xl md:text-5xl font-extrabold text-white mt-1 tracking-tight">
-              Instagram
-            </h3>
-          </div>
-          
-          {/* Description */}
-          <p className="text-[#9CA3AF] text-sm md:text-base leading-relaxed mb-8 font-sans">
-            My digital sketchbook. A space for unfinished thoughts and late-night
-            experiments. Catch the behind-the-scenes of my journey — from early
-            prototypes to ideas that shape my creative workflow.
-          </p>
-          
-          {/* CTA Button */}
-          <motion.a
-            href="https://www.instagram.com/najish.official1?igsh=bnF6cWVmZ3dpdGMw"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 text-white font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-pink-500/30 transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Instagram className="w-5 h-5" />
-            <span>Follow me</span>
-          </motion.a>
-        </div>
-      </div>
     </motion.div>
   );
 };
@@ -342,7 +268,7 @@ export const Gallery = () => {
         </motion.div>
       </div>
       
-      {/* Floating images container with Instagram in center */}
+      {/* Floating images container */}
       <div className="relative h-[800px] md:h-[900px] w-full">
         {galleryImages.map((image, index) => (
           <FloatingImage
@@ -355,9 +281,6 @@ export const Gallery = () => {
             mouseY={mousePosition.y}
           />
         ))}
-        
-        {/* Instagram Connect in the center */}
-        <InstagramConnect />
       </div>
       
       {/* Music widget */}
