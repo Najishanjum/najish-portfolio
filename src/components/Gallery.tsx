@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Music, Play, Pause, SkipForward } from "lucide-react";
 
 // Import gallery images
@@ -15,7 +15,6 @@ import gallery9 from "@/assets/gallery-9.jpg";
 import gallery10 from "@/assets/gallery-10.jpg";
 import gallery11 from "@/assets/gallery-11.jpg";
 import gallery12 from "@/assets/gallery-12.jpg";
-import gallery13 from "@/assets/gallery-13.jpg";
 import gallery14 from "@/assets/gallery-14.jpg";
 import gallery15 from "@/assets/gallery-15.jpg";
 import gallery16 from "@/assets/gallery-16.jpg";
@@ -26,7 +25,6 @@ import gallery20 from "@/assets/gallery-20.jpg";
 import gallery21 from "@/assets/gallery-21.jpg";
 import gallery22 from "@/assets/gallery-22.jpg";
 import gallery23 from "@/assets/gallery-23.jpg";
-import gallery24 from "@/assets/gallery-24.jpg";
 import gallery25 from "@/assets/gallery-25.jpg";
 import gallery26 from "@/assets/gallery-26.jpg";
 import gallery27 from "@/assets/gallery-27.jpg";
@@ -44,7 +42,6 @@ const galleryImages = [
   { src: gallery10, label: "Story Protocol" },
   { src: gallery11, label: "Team IlmTech" },
   { src: gallery12, label: "Duo Moment" },
-  { src: gallery13, label: "Codecrax Meetup" },
   { src: gallery14, label: "Hackathon Grind" },
   { src: gallery15, label: "Friends at Event" },
   { src: gallery16, label: "Chandigarh University" },
@@ -55,13 +52,12 @@ const galleryImages = [
   { src: gallery21, label: "Seminar Hall" },
   { src: gallery22, label: "Gyan Ganga Lab" },
   { src: gallery23, label: "Thoughtful Moment" },
-  { src: gallery24, label: "Story Meetup Jabalpur" },
   { src: gallery25, label: "Hackathon Vibes" },
   { src: gallery26, label: "IlmTech Demo" },
   { src: gallery27, label: "Agentic AI Hackathon" },
 ];
 
-// Floating positions for each image (27 items)
+// Floating positions for each image (25 items)
 const floatingPositions = [
   { x: 5, y: 2, size: "w-48 h-32", rotate: -5 },
   { x: 75, y: 1, size: "w-40 h-56", rotate: 8 },
@@ -75,7 +71,6 @@ const floatingPositions = [
   { x: 50, y: 42, size: "w-44 h-40", rotate: 5 },
   { x: 20, y: 50, size: "w-42 h-48", rotate: -7 },
   { x: 80, y: 48, size: "w-38 h-44", rotate: 3 },
-  { x: 45, y: 55, size: "w-46 h-38", rotate: -5 },
   { x: 10, y: 60, size: "w-40 h-52", rotate: 6 },
   { x: 65, y: 58, size: "w-44 h-36", rotate: -4 },
   { x: 35, y: 65, size: "w-48 h-40", rotate: 8 },
@@ -86,7 +81,6 @@ const floatingPositions = [
   { x: 42, y: 78, size: "w-46 h-36", rotate: -3 },
   { x: 22, y: 85, size: "w-38 h-48", rotate: 7 },
   { x: 60, y: 82, size: "w-44 h-42", rotate: -6 },
-  { x: 85, y: 88, size: "w-40 h-36", rotate: 4 },
   { x: 5, y: 92, size: "w-48 h-44", rotate: -7 },
   { x: 48, y: 90, size: "w-42 h-50", rotate: 5 },
   { x: 70, y: 95, size: "w-46 h-38", rotate: -4 },
@@ -133,8 +127,9 @@ const FloatingImage = ({ src, label, position, index, mouseX, mouseY }: Floating
         y: springY,
       }}
       drag
-      dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
-      dragElastic={0.1}
+      dragConstraints={false}
+      dragElastic={0.2}
+      dragMomentum={true}
       onDragStart={() => setIsDragging(true)}
       onDragEnd={() => setIsDragging(false)}
       initial={{ opacity: 0, scale: 0.8, rotate: position.rotate }}
