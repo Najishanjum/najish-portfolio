@@ -26,7 +26,6 @@ import gallery21 from "@/assets/gallery-21.jpg";
 import gallery22 from "@/assets/gallery-22.jpg";
 import gallery23 from "@/assets/gallery-23.jpg";
 import gallery25 from "@/assets/gallery-25.jpg";
-import gallery26 from "@/assets/gallery-26.jpg";
 import gallery27 from "@/assets/gallery-27.jpg";
 
 const galleryImages = [
@@ -53,11 +52,10 @@ const galleryImages = [
   { src: gallery22, label: "Gyan Ganga Lab" },
   { src: gallery23, label: "Thoughtful Moment" },
   { src: gallery25, label: "Hackathon Vibes" },
-  { src: gallery26, label: "IlmTech Demo" },
   { src: gallery27, label: "Agentic AI Hackathon" },
 ];
 
-// Floating positions for each image (25 items)
+// Floating positions for each image (24 items)
 const floatingPositions = [
   { x: 5, y: 2, size: "w-48 h-32", rotate: -5 },
   { x: 75, y: 1, size: "w-40 h-56", rotate: 8 },
@@ -83,7 +81,6 @@ const floatingPositions = [
   { x: 60, y: 82, size: "w-44 h-42", rotate: -6 },
   { x: 5, y: 92, size: "w-48 h-44", rotate: -7 },
   { x: 48, y: 90, size: "w-42 h-50", rotate: 5 },
-  { x: 70, y: 95, size: "w-46 h-38", rotate: -4 },
 ];
 
 interface FloatingImageProps {
