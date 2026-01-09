@@ -13,6 +13,14 @@ import gallery7 from "@/assets/gallery-7.jpg";
 import gallery8 from "@/assets/gallery-8.jpg";
 import gallery9 from "@/assets/gallery-9.jpg";
 import gallery10 from "@/assets/gallery-10.jpg";
+import gallery11 from "@/assets/gallery-11.jpg";
+import gallery12 from "@/assets/gallery-12.jpg";
+import gallery13 from "@/assets/gallery-13.jpg";
+import gallery14 from "@/assets/gallery-14.jpg";
+import gallery15 from "@/assets/gallery-15.jpg";
+import gallery16 from "@/assets/gallery-16.jpg";
+import gallery17 from "@/assets/gallery-17.jpg";
+import gallery18 from "@/assets/gallery-18.jpg";
 
 const galleryImages = [
   { src: gallery1, label: "Conference Session" },
@@ -25,20 +33,36 @@ const galleryImages = [
   { src: gallery8, label: "Networking" },
   { src: gallery9, label: "IIT Bombay" },
   { src: gallery10, label: "Story Protocol" },
+  { src: gallery11, label: "Team IlmTech" },
+  { src: gallery12, label: "Duo Moment" },
+  { src: gallery13, label: "Codecrax Meetup" },
+  { src: gallery14, label: "Hackathon Grind" },
+  { src: gallery15, label: "Friends at Event" },
+  { src: gallery16, label: "Chandigarh University" },
+  { src: gallery17, label: "CU Campus" },
+  { src: gallery18, label: "AI Founders Hackathon" },
 ];
 
-// Floating positions for each image
+// Floating positions for each image (18 items)
 const floatingPositions = [
-  { x: 5, y: 10, size: "w-48 h-32", rotate: -5 },
-  { x: 75, y: 5, size: "w-40 h-56", rotate: 8 },
-  { x: 40, y: 15, size: "w-44 h-36", rotate: -3 },
-  { x: 15, y: 55, size: "w-52 h-40", rotate: 6 },
-  { x: 60, y: 45, size: "w-36 h-48", rotate: -8 },
-  { x: 85, y: 60, size: "w-44 h-32", rotate: 4 },
-  { x: 30, y: 70, size: "w-40 h-52", rotate: -6 },
-  { x: 70, y: 75, size: "w-48 h-36", rotate: 7 },
-  { x: 5, y: 80, size: "w-36 h-44", rotate: -4 },
-  { x: 50, y: 85, size: "w-44 h-40", rotate: 5 },
+  { x: 5, y: 5, size: "w-48 h-32", rotate: -5 },
+  { x: 75, y: 3, size: "w-40 h-56", rotate: 8 },
+  { x: 40, y: 8, size: "w-44 h-36", rotate: -3 },
+  { x: 15, y: 35, size: "w-52 h-40", rotate: 6 },
+  { x: 60, y: 28, size: "w-36 h-48", rotate: -8 },
+  { x: 85, y: 40, size: "w-44 h-32", rotate: 4 },
+  { x: 30, y: 50, size: "w-40 h-52", rotate: -6 },
+  { x: 70, y: 55, size: "w-48 h-36", rotate: 7 },
+  { x: 5, y: 60, size: "w-36 h-44", rotate: -4 },
+  { x: 50, y: 65, size: "w-44 h-40", rotate: 5 },
+  { x: 20, y: 75, size: "w-42 h-48", rotate: -7 },
+  { x: 80, y: 72, size: "w-38 h-44", rotate: 3 },
+  { x: 45, y: 82, size: "w-46 h-38", rotate: -5 },
+  { x: 10, y: 88, size: "w-40 h-52", rotate: 6 },
+  { x: 65, y: 85, size: "w-44 h-36", rotate: -4 },
+  { x: 35, y: 92, size: "w-48 h-40", rotate: 8 },
+  { x: 88, y: 90, size: "w-36 h-48", rotate: -6 },
+  { x: 55, y: 95, size: "w-42 h-44", rotate: 4 },
 ];
 
 interface FloatingImageProps {
@@ -269,7 +293,7 @@ export const Gallery = () => {
       </div>
       
       {/* Floating images container */}
-      <div className="relative h-[800px] md:h-[900px] w-full">
+      <div className="relative h-[1200px] md:h-[1400px] w-full">
         {galleryImages.map((image, index) => (
           <FloatingImage
             key={index}
