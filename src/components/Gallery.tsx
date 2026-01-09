@@ -21,6 +21,15 @@ import gallery15 from "@/assets/gallery-15.jpg";
 import gallery16 from "@/assets/gallery-16.jpg";
 import gallery17 from "@/assets/gallery-17.jpg";
 import gallery18 from "@/assets/gallery-18.jpg";
+import gallery19 from "@/assets/gallery-19.jpg";
+import gallery20 from "@/assets/gallery-20.jpg";
+import gallery21 from "@/assets/gallery-21.jpg";
+import gallery22 from "@/assets/gallery-22.jpg";
+import gallery23 from "@/assets/gallery-23.jpg";
+import gallery24 from "@/assets/gallery-24.jpg";
+import gallery25 from "@/assets/gallery-25.jpg";
+import gallery26 from "@/assets/gallery-26.jpg";
+import gallery27 from "@/assets/gallery-27.jpg";
 
 const galleryImages = [
   { src: gallery1, label: "Conference Session" },
@@ -41,28 +50,46 @@ const galleryImages = [
   { src: gallery16, label: "Chandigarh University" },
   { src: gallery17, label: "CU Campus" },
   { src: gallery18, label: "AI Founders Hackathon" },
+  { src: gallery19, label: "Setup Station" },
+  { src: gallery20, label: "Team Selfie" },
+  { src: gallery21, label: "Seminar Hall" },
+  { src: gallery22, label: "Gyan Ganga Lab" },
+  { src: gallery23, label: "Thoughtful Moment" },
+  { src: gallery24, label: "Story Meetup Jabalpur" },
+  { src: gallery25, label: "Hackathon Vibes" },
+  { src: gallery26, label: "IlmTech Demo" },
+  { src: gallery27, label: "Agentic AI Hackathon" },
 ];
 
-// Floating positions for each image (18 items)
+// Floating positions for each image (27 items)
 const floatingPositions = [
-  { x: 5, y: 5, size: "w-48 h-32", rotate: -5 },
-  { x: 75, y: 3, size: "w-40 h-56", rotate: 8 },
-  { x: 40, y: 8, size: "w-44 h-36", rotate: -3 },
-  { x: 15, y: 35, size: "w-52 h-40", rotate: 6 },
-  { x: 60, y: 28, size: "w-36 h-48", rotate: -8 },
-  { x: 85, y: 40, size: "w-44 h-32", rotate: 4 },
-  { x: 30, y: 50, size: "w-40 h-52", rotate: -6 },
-  { x: 70, y: 55, size: "w-48 h-36", rotate: 7 },
-  { x: 5, y: 60, size: "w-36 h-44", rotate: -4 },
-  { x: 50, y: 65, size: "w-44 h-40", rotate: 5 },
-  { x: 20, y: 75, size: "w-42 h-48", rotate: -7 },
-  { x: 80, y: 72, size: "w-38 h-44", rotate: 3 },
-  { x: 45, y: 82, size: "w-46 h-38", rotate: -5 },
-  { x: 10, y: 88, size: "w-40 h-52", rotate: 6 },
-  { x: 65, y: 85, size: "w-44 h-36", rotate: -4 },
-  { x: 35, y: 92, size: "w-48 h-40", rotate: 8 },
-  { x: 88, y: 90, size: "w-36 h-48", rotate: -6 },
-  { x: 55, y: 95, size: "w-42 h-44", rotate: 4 },
+  { x: 5, y: 2, size: "w-48 h-32", rotate: -5 },
+  { x: 75, y: 1, size: "w-40 h-56", rotate: 8 },
+  { x: 40, y: 5, size: "w-44 h-36", rotate: -3 },
+  { x: 15, y: 18, size: "w-52 h-40", rotate: 6 },
+  { x: 60, y: 15, size: "w-36 h-48", rotate: -8 },
+  { x: 85, y: 22, size: "w-44 h-32", rotate: 4 },
+  { x: 30, y: 30, size: "w-40 h-52", rotate: -6 },
+  { x: 70, y: 35, size: "w-48 h-36", rotate: 7 },
+  { x: 5, y: 38, size: "w-36 h-44", rotate: -4 },
+  { x: 50, y: 42, size: "w-44 h-40", rotate: 5 },
+  { x: 20, y: 50, size: "w-42 h-48", rotate: -7 },
+  { x: 80, y: 48, size: "w-38 h-44", rotate: 3 },
+  { x: 45, y: 55, size: "w-46 h-38", rotate: -5 },
+  { x: 10, y: 60, size: "w-40 h-52", rotate: 6 },
+  { x: 65, y: 58, size: "w-44 h-36", rotate: -4 },
+  { x: 35, y: 65, size: "w-48 h-40", rotate: 8 },
+  { x: 88, y: 62, size: "w-36 h-48", rotate: -6 },
+  { x: 55, y: 70, size: "w-42 h-44", rotate: 4 },
+  { x: 8, y: 75, size: "w-44 h-38", rotate: -5 },
+  { x: 75, y: 73, size: "w-40 h-50", rotate: 6 },
+  { x: 42, y: 78, size: "w-46 h-36", rotate: -3 },
+  { x: 22, y: 85, size: "w-38 h-48", rotate: 7 },
+  { x: 60, y: 82, size: "w-44 h-42", rotate: -6 },
+  { x: 85, y: 88, size: "w-40 h-36", rotate: 4 },
+  { x: 5, y: 92, size: "w-48 h-44", rotate: -7 },
+  { x: 48, y: 90, size: "w-42 h-50", rotate: 5 },
+  { x: 70, y: 95, size: "w-46 h-38", rotate: -4 },
 ];
 
 interface FloatingImageProps {
@@ -293,7 +320,7 @@ export const Gallery = () => {
       </div>
       
       {/* Floating images container */}
-      <div className="relative h-[1200px] md:h-[1400px] w-full">
+      <div className="relative h-[1600px] md:h-[1900px] w-full">
         {galleryImages.map((image, index) => (
           <FloatingImage
             key={index}
