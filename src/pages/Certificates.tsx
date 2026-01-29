@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Award, Calendar, Building } from "lucide-react";
+import { X, ExternalLink, Award, Calendar, Building, Ticket } from "lucide-react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+
+// Badge/Pass images
+import passArtemis from "@/assets/pass-artemis.jpg";
+import passAiSummit from "@/assets/pass-ai-summit.jpg";
+import passRektoff from "@/assets/pass-rektoff.jpg";
+import passApertre from "@/assets/pass-apertre.jpg";
 
 // Certificate images
 import certHackUp from "@/assets/cert-hack-up.png";
@@ -187,7 +193,41 @@ const certificates: Certificate[] = [
   },
 ];
 
-const CertificateCard = ({ 
+interface Pass {
+  id: number;
+  title: string;
+  issuer: string;
+  image: string;
+}
+
+const passes: Pass[] = [
+  {
+    id: 1,
+    title: "NASA Artemis II Boarding Pass",
+    issuer: "NASA",
+    image: passArtemis,
+  },
+  {
+    id: 2,
+    title: "Great Asia AI Summit 2026",
+    issuer: "Salesforce",
+    image: passAiSummit,
+  },
+  {
+    id: 3,
+    title: "Solana Rust Security Bootcamp",
+    issuer: "Rektoff - Cohort 3",
+    image: passRektoff,
+  },
+  {
+    id: 4,
+    title: "Apertre 3.0 Mentee",
+    issuer: "Resourcio Community",
+    image: passApertre,
+  },
+];
+
+const CertificateCard = ({
   certificate, 
   onClick,
   isPaused 
@@ -322,6 +362,7 @@ const CertificateModal = ({
 
 const Certificates = () => {
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
+  const [selectedPass, setSelectedPass] = useState<Pass | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -412,12 +453,67 @@ const Certificates = () => {
           </div>
         </div>
 
+        {/* Badges & Passes Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-16 mb-20"
+        >
+          <div className="text-center px-4 mb-10">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Ticket className="w-7 h-7 text-primary" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                Badges & Passes
+              </h2>
+            </div>
+            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
+              Event passes, program acceptances, and special badges I've earned
+            </p>
+          </div>
+
+          {/* Passes Carousel - Right to Left */}
+          <div className="relative overflow-hidden">
+            {/* Gradient Overlays */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+            {/* Scrolling Container - Reverse Direction */}
+            <div className="flex gap-6 py-6 animate-marquee-reverse hover:[animation-play-state:paused]">
+              {[...passes, ...passes].map((pass, index) => (
+                <div
+                  key={`${pass.title}-${index}`}
+                  className="flex-shrink-0 w-[320px] md:w-[400px] group cursor-pointer"
+                  onClick={() => setSelectedPass(pass)}
+                >
+                  <div className="relative overflow-hidden rounded-2xl bg-background/40 backdrop-blur-xl border border-border/30 shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-105">
+                    <div className="relative aspect-[16/9] overflow-hidden">
+                      <img
+                        src={pass.image}
+                        alt={pass.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold text-foreground text-sm md:text-base line-clamp-1">
+                        {pass.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-1">{pass.issuer}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
         {/* Stats Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-4xl mx-auto mt-20 px-4"
+          className="max-w-4xl mx-auto mt-10 px-4"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
@@ -452,6 +548,54 @@ const Certificates = () => {
             certificate={selectedCertificate}
             onClose={() => setSelectedCertificate(null)}
           />
+        )}
+      </AnimatePresence>
+
+      {/* Pass Modal */}
+      <AnimatePresence>
+        {selectedPass && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedPass(null)}
+          >
+            <div className="absolute inset-0 bg-background/90 backdrop-blur-xl" />
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative max-w-4xl w-full max-h-[90vh] overflow-auto bg-background/60 backdrop-blur-2xl rounded-3xl border border-border/30 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedPass(null)}
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/80 hover:bg-background border border-border/30 transition-colors"
+              >
+                <X className="w-5 h-5 text-foreground" />
+              </button>
+              <div className="p-4 md:p-6">
+                <div className="rounded-2xl overflow-hidden shadow-lg">
+                  <img
+                    src={selectedPass.image}
+                    alt={selectedPass.title}
+                    className="w-full h-auto"
+                  />
+                </div>
+              </div>
+              <div className="p-6 pt-0 space-y-4">
+                <h2 className="text-xl md:text-2xl font-bold text-foreground">
+                  {selectedPass.title}
+                </h2>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Building className="w-4 h-4 text-primary" />
+                  <span>{selectedPass.issuer}</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
