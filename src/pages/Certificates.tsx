@@ -32,6 +32,9 @@ import certCiscoCpp from "@/assets/cert-cisco-cpp.png";
 import certError404 from "@/assets/cert-error404.png";
 import certNeo4j from "@/assets/cert-neo4j.png";
 import certEcwocAssessment from "@/assets/cert-ecwoc-assessment.jpg";
+import certNasaSpaceAppsJabalpur from "@/assets/cert-nasa-space-apps-jabalpur.png";
+import certEncodeIitg from "@/assets/cert-encode-iitg.png";
+import certAiqrew from "@/assets/cert-aiqrew.png";
 
 interface Certificate {
   id: number;
@@ -190,6 +193,27 @@ const certificates: Certificate[] = [
     issuer: "Elite Coders",
     date: "January 2026",
     image: certEcwocAssessment,
+  },
+  {
+    id: 22,
+    title: "NASA Space Apps Challenge 2025 - Jabalpur Edition",
+    issuer: "GGITS / Unstop",
+    date: "October 2025",
+    image: certNasaSpaceAppsJabalpur,
+  },
+  {
+    id: 23,
+    title: "EnCode 2026: Code To Innovate - Udgam 2026",
+    issuer: "IIT Guwahati",
+    date: "January 2026",
+    image: certEncodeIitg,
+  },
+  {
+    id: 24,
+    title: "AIQrew Participation",
+    issuer: "Google Student Ambassador Program",
+    date: "January 26, 2026",
+    image: certAiqrew,
   },
 ];
 
