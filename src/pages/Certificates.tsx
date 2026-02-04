@@ -38,6 +38,7 @@ import certAiqrew from "@/assets/cert-aiqrew.png";
 import certHackshastra from "@/assets/cert-hackshastra.png";
 import certTechsprintGdg from "@/assets/cert-techsprint-gdg.png";
 import passStellarMastery from "@/assets/pass-stellar-mastery.jpg";
+import passApertreMentor from "@/assets/pass-apertre-mentor.jpg";
 
 interface Certificate {
   id: number;
@@ -271,6 +272,12 @@ const passes: Pass[] = [
     title: "Stellar Journey to Mastery",
     issuer: "Stellar / Rise In",
     image: passStellarMastery,
+  },
+  {
+    id: 6,
+    title: "Apertre 3.0 Mentor",
+    issuer: "Resourcio Community",
+    image: passApertreMentor,
   },
 ];
 
