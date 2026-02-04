@@ -35,6 +35,9 @@ import certEcwocAssessment from "@/assets/cert-ecwoc-assessment.jpg";
 import certNasaSpaceAppsJabalpur from "@/assets/cert-nasa-space-apps-jabalpur.png";
 import certEncodeIitg from "@/assets/cert-encode-iitg.png";
 import certAiqrew from "@/assets/cert-aiqrew.png";
+import certHackshastra from "@/assets/cert-hackshastra.png";
+import certTechsprintGdg from "@/assets/cert-techsprint-gdg.png";
+import passStellarMastery from "@/assets/pass-stellar-mastery.jpg";
 
 interface Certificate {
   id: number;
@@ -215,6 +218,20 @@ const certificates: Certificate[] = [
     date: "January 26, 2026",
     image: certAiqrew,
   },
+  {
+    id: 25,
+    title: "HackShastra SnowHackIPEC - Round 1 Participation",
+    issuer: "HackShastra / IPEC",
+    date: "February 2026",
+    image: certHackshastra,
+  },
+  {
+    id: 26,
+    title: "TechSprint Hackathon Participation",
+    issuer: "Google Developer Groups On Campus GGITS",
+    date: "December 27, 2025",
+    image: certTechsprintGdg,
+  },
 ];
 
 interface Pass {
@@ -248,6 +265,12 @@ const passes: Pass[] = [
     title: "Apertre 3.0 Mentee",
     issuer: "Resourcio Community",
     image: passApertre,
+  },
+  {
+    id: 5,
+    title: "Stellar Journey to Mastery",
+    issuer: "Stellar / Rise In",
+    image: passStellarMastery,
   },
 ];
 
