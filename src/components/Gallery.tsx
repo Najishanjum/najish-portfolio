@@ -27,6 +27,12 @@ import gallery22 from "@/assets/gallery-22.jpg";
 import gallery23 from "@/assets/gallery-23.jpg";
 import gallery25 from "@/assets/gallery-25.jpg";
 import gallery27 from "@/assets/gallery-27.jpg";
+import gallery28 from "@/assets/gallery-28.jpg";
+import gallery29 from "@/assets/gallery-29.jpg";
+import gallery30 from "@/assets/gallery-30.jpg";
+import gallery31 from "@/assets/gallery-31.jpg";
+import gallery32 from "@/assets/gallery-32.jpg";
+import gallery33 from "@/assets/gallery-33.jpg";
 
 const galleryImages = [
   { src: gallery1, label: "Conference Session" },
@@ -53,9 +59,15 @@ const galleryImages = [
   { src: gallery23, label: "Thoughtful Moment" },
   { src: gallery25, label: "Hackathon Vibes" },
   { src: gallery27, label: "Agentic AI Hackathon" },
+  { src: gallery28, label: "Team Gathering" },
+  { src: gallery29, label: "Friends Meetup" },
+  { src: gallery30, label: "P2P Workshop" },
+  { src: gallery31, label: "With a Friend" },
+  { src: gallery32, label: "Crypto Event Collage" },
+  { src: gallery33, label: "Freedom Through Crypto" },
 ];
 
-// Floating positions for each image (24 items)
+// Floating positions for each image (30 items)
 const floatingPositions = [
   { x: 5, y: 2, size: "w-48 h-32", rotate: -5 },
   { x: 75, y: 1, size: "w-40 h-56", rotate: 8 },
@@ -81,6 +93,12 @@ const floatingPositions = [
   { x: 60, y: 82, size: "w-44 h-42", rotate: -6 },
   { x: 5, y: 92, size: "w-48 h-44", rotate: -7 },
   { x: 48, y: 90, size: "w-42 h-50", rotate: 5 },
+  { x: 80, y: 88, size: "w-40 h-48", rotate: -4 },
+  { x: 25, y: 95, size: "w-44 h-40", rotate: 6 },
+  { x: 65, y: 93, size: "w-46 h-44", rotate: -5 },
+  { x: 10, y: 100, size: "w-42 h-52", rotate: 4 },
+  { x: 50, y: 98, size: "w-48 h-38", rotate: -7 },
+  { x: 85, y: 96, size: "w-40 h-46", rotate: 5 },
 ];
 
 interface FloatingImageProps {
@@ -312,7 +330,7 @@ export const Gallery = () => {
       </div>
       
       {/* Floating images container */}
-      <div className="relative h-[1600px] md:h-[1900px] w-full">
+      <div className="relative h-[2000px] md:h-[2400px] w-full">
         {galleryImages.map((image, index) => (
           <FloatingImage
             key={index}
