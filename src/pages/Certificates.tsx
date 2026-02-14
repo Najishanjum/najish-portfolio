@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Award, Calendar, Building, Ticket } from "lucide-react";
+import { X, ExternalLink, Award, Calendar, Building, Ticket, Handshake } from "lucide-react";
+import collaborateCard from "@/assets/collaborate-card.jpg";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 
@@ -562,7 +563,36 @@ const Certificates = () => {
           </div>
         </motion.div>
 
-        {/* Stats Section */}
+        {/* Collaborate Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-16 mb-20 px-4"
+        >
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Handshake className="w-7 h-7 text-primary" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                Collaborate
+              </h2>
+            </div>
+            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
+              Open to collaborate on hackathons, open source, and impactful projects
+            </p>
+          </div>
+          <div className="max-w-2xl mx-auto">
+            <div className="rounded-2xl overflow-hidden bg-background/40 backdrop-blur-xl border border-border/30 shadow-lg hover:shadow-primary/20 transition-all duration-300">
+              <img
+                src={collaborateCard}
+                alt="Najish Anjum - Open to Collaborate"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+        </motion.div>
+
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
