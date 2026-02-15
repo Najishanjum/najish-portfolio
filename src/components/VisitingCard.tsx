@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Sparkles, MapPin, Mail, User, MessageSquare, Rocket, Download } from "lucide-react";
+import { Sparkles, MapPin, Mail, User, MessageSquare, Rocket, Download, Image } from "lucide-react";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 import profileImg from "@/assets/profile.jpg";
 
 export const VisitingCard = () => {
@@ -15,11 +17,45 @@ export const VisitingCard = () => {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
     toast.success(`Thanks ${formData.name}, great to connect with someone from ${formData.city || "around the world"}. I'll reach out soon! 🚀`);
+  };
+
+  const captureCard = async () => {
+    if (!cardRef.current) return null;
+    return await html2canvas(cardRef.current, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: "#0a0a0f",
+    });
+  };
+
+  const handleDownloadPDF = async () => {
+    const canvas = await captureCard();
+    if (!canvas) return;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgData = canvas.toDataURL("image/png");
+    const imgWidth = 190;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+    pdf.save(`visiting-card-${formData.name.replace(/\s+/g, "-").toLowerCase()}.pdf`);
+    toast.success("PDF downloaded!");
+  };
+
+  const handleDownloadImage = async () => {
+    const canvas = await captureCard();
+    if (!canvas) return;
+    const url = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `visiting-card-${formData.name.replace(/\s+/g, "-").toLowerCase()}.png`;
+    a.click();
+    toast.success("Image downloaded!");
   };
 
   return (
@@ -36,6 +72,7 @@ export const VisitingCard = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
+          ref={cardRef}
           className="relative rounded-2xl border border-primary/20 bg-card/20 backdrop-blur-xl p-8 md:p-10 shadow-[0_0_40px_hsl(var(--primary)/0.08),inset_0_1px_0_hsl(var(--primary)/0.1)]"
         >
           {/* Glowing border effect */}
@@ -141,7 +178,7 @@ export const VisitingCard = () => {
               </motion.div>
             </motion.form>
           ) : (
-             <motion.div
+            <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-8 space-y-4"
@@ -153,26 +190,28 @@ export const VisitingCard = () => {
               <p className="text-muted-foreground text-sm">
                 Great to connect with someone from <span className="text-primary font-medium">{formData.city || "around the world"}</span>. I'll reach out soon!
               </p>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button
-                  onClick={() => {
-                    const cardText = `Digital Visiting Card\n\nName: ${formData.name}\nCity: ${formData.city}\nEmail: ${formData.email || "N/A"}\nMessage: ${formData.message || "N/A"}\n\n— Connected with Najish Anjum\nPortfolio: ${window.location.origin}`;
-                    const blob = new Blob([cardText], { type: "text/plain" });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = `visiting-card-${formData.name.replace(/\s+/g, "-").toLowerCase()}.txt`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                    toast.success("Card downloaded!");
-                  }}
-                  variant="outline"
-                  className="border-primary/30 text-primary hover:bg-primary/10"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Download Card
-                </Button>
-              </motion.div>
+              <div className="flex items-center justify-center gap-3 flex-wrap">
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    onClick={handleDownloadPDF}
+                    variant="outline"
+                    className="border-primary/30 text-primary hover:bg-primary/10"
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Download PDF
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    onClick={handleDownloadImage}
+                    variant="outline"
+                    className="border-primary/30 text-primary hover:bg-primary/10"
+                  >
+                    <Image className="mr-2 h-4 w-4" />
+                    Download Image
+                  </Button>
+                </motion.div>
+              </div>
             </motion.div>
           )}
 

@@ -33,6 +33,13 @@ import gallery30 from "@/assets/gallery-30.jpg";
 import gallery31 from "@/assets/gallery-31.jpg";
 import gallery32 from "@/assets/gallery-32.jpg";
 import gallery33 from "@/assets/gallery-33.jpg";
+import gallery34 from "@/assets/gallery-34.jpg";
+import gallery35 from "@/assets/gallery-35.jpg";
+import gallery36 from "@/assets/gallery-36.jpg";
+import gallery37 from "@/assets/gallery-37.jpg";
+import gallery38 from "@/assets/gallery-38.jpg";
+import gallery39 from "@/assets/gallery-39.jpg";
+import gallery40 from "@/assets/gallery-40.jpg";
 
 const galleryImages = [
   { src: gallery1, label: "Conference Session" },
@@ -65,6 +72,13 @@ const galleryImages = [
   { src: gallery31, label: "With a Friend" },
   { src: gallery32, label: "Crypto Event Collage" },
   { src: gallery33, label: "Freedom Through Crypto" },
+  { src: gallery34, label: "Community Builder Night" },
+  { src: gallery35, label: "Squad Goals" },
+  { src: gallery36, label: "Working Session" },
+  { src: gallery37, label: "Thumbs Up" },
+  { src: gallery38, label: "MetaMask Meetup" },
+  { src: gallery39, label: "Builder Vibes" },
+  { src: gallery40, label: "Selfie Time" },
 ];
 
 // Floating positions for each image (30 items)
@@ -99,6 +113,13 @@ const floatingPositions = [
   { x: 10, y: 100, size: "w-42 h-52", rotate: 4 },
   { x: 50, y: 98, size: "w-48 h-38", rotate: -7 },
   { x: 85, y: 96, size: "w-40 h-46", rotate: 5 },
+  { x: 30, y: 105, size: "w-44 h-36", rotate: -4 },
+  { x: 70, y: 103, size: "w-42 h-48", rotate: 6 },
+  { x: 15, y: 110, size: "w-48 h-40", rotate: -7 },
+  { x: 55, y: 108, size: "w-40 h-44", rotate: 3 },
+  { x: 80, y: 112, size: "w-46 h-38", rotate: -5 },
+  { x: 25, y: 115, size: "w-44 h-50", rotate: 7 },
+  { x: 60, y: 113, size: "w-42 h-42", rotate: -3 },
 ];
 
 interface FloatingImageProps {
