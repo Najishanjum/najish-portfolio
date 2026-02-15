@@ -113,6 +113,13 @@ const floatingPositions = [
   { x: 10, y: 100, size: "w-42 h-52", rotate: 4 },
   { x: 50, y: 98, size: "w-48 h-38", rotate: -7 },
   { x: 85, y: 96, size: "w-40 h-46", rotate: 5 },
+  { x: 30, y: 105, size: "w-44 h-36", rotate: -4 },
+  { x: 70, y: 103, size: "w-42 h-48", rotate: 6 },
+  { x: 15, y: 110, size: "w-48 h-40", rotate: -7 },
+  { x: 55, y: 108, size: "w-40 h-44", rotate: 3 },
+  { x: 80, y: 112, size: "w-46 h-38", rotate: -5 },
+  { x: 25, y: 115, size: "w-44 h-50", rotate: 7 },
+  { x: 60, y: 113, size: "w-42 h-42", rotate: -3 },
 ];
 
 interface FloatingImageProps {
