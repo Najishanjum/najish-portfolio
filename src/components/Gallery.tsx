@@ -72,6 +72,13 @@ const galleryImages = [
   { src: gallery31, label: "With a Friend" },
   { src: gallery32, label: "Crypto Event Collage" },
   { src: gallery33, label: "Freedom Through Crypto" },
+  { src: gallery34, label: "Community Builder Night" },
+  { src: gallery35, label: "Squad Goals" },
+  { src: gallery36, label: "Working Session" },
+  { src: gallery37, label: "Thumbs Up" },
+  { src: gallery38, label: "MetaMask Meetup" },
+  { src: gallery39, label: "Builder Vibes" },
+  { src: gallery40, label: "Selfie Time" },
 ];
 
 // Floating positions for each image (30 items)
