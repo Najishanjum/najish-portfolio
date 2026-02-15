@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Sparkles, MapPin, Mail, User, MessageSquare, Rocket } from "lucide-react";
+import { Sparkles, MapPin, Mail, User, MessageSquare, Rocket, Download } from "lucide-react";
 import profileImg from "@/assets/profile.jpg";
 
 export const VisitingCard = () => {
@@ -141,10 +141,10 @@ export const VisitingCard = () => {
               </motion.div>
             </motion.form>
           ) : (
-            <motion.div
+             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-8 space-y-3"
+              className="text-center py-8 space-y-4"
             >
               <div className="text-4xl">🎉</div>
               <h3 className="text-xl font-bold text-foreground">
@@ -153,6 +153,26 @@ export const VisitingCard = () => {
               <p className="text-muted-foreground text-sm">
                 Great to connect with someone from <span className="text-primary font-medium">{formData.city || "around the world"}</span>. I'll reach out soon!
               </p>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  onClick={() => {
+                    const cardText = `Digital Visiting Card\n\nName: ${formData.name}\nCity: ${formData.city}\nEmail: ${formData.email || "N/A"}\nMessage: ${formData.message || "N/A"}\n\n— Connected with Najish Anjum\nPortfolio: ${window.location.origin}`;
+                    const blob = new Blob([cardText], { type: "text/plain" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `visiting-card-${formData.name.replace(/\s+/g, "-").toLowerCase()}.txt`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    toast.success("Card downloaded!");
+                  }}
+                  variant="outline"
+                  className="border-primary/30 text-primary hover:bg-primary/10"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Card
+                </Button>
+              </motion.div>
             </motion.div>
           )}
 
@@ -165,8 +185,9 @@ export const VisitingCard = () => {
             className="mt-8 pt-6 border-t border-border/30 text-center"
           >
             <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-              Hi, I'm <span className="text-primary font-medium">Najish Anjum</span>, a Computer Science student focused on AI, ML, Web3, and building real-world impact projects. I love turning ideas into scalable digital products.
+              I appreciate your visit more than you know.
             </p>
+            <p className="text-primary font-semibold mt-1 text-sm md:text-base">Let's get connected!</p>
             <p className="mt-3 text-muted-foreground/60 font-mono text-xs italic">— Najish</p>
           </motion.div>
         </motion.div>
