@@ -87,6 +87,16 @@ const galleryImages = [
   { src: gallery38, label: "MetaMask Meetup" },
   { src: gallery39, label: "Builder Vibes" },
   { src: gallery40, label: "Selfie Time" },
+  { src: gallery41, label: "CodecraX Web3" },
+  { src: gallery42, label: "CodecraX Event" },
+  { src: gallery43, label: "CodecraX Pose" },
+  { src: gallery44, label: "CodecraX Group Photo" },
+  { src: gallery45, label: "CodecraX Buddy" },
+  { src: gallery46, label: "CodecraX Workshop" },
+  { src: gallery47, label: "Laptop Stickers" },
+  { src: gallery48, label: "Community Builder Night" },
+  { src: gallery49, label: "Builder Night Duo" },
+  { src: gallery50, label: "Agentic AI Hackathon Pass" },
 ];
 
 // Floating positions for each image (30 items)
