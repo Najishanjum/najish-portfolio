@@ -12,6 +12,7 @@ import gallery6 from "@/assets/gallery-6.jpg";
 import gallery7 from "@/assets/gallery-7.jpg";
 import gallery8 from "@/assets/gallery-8.jpg";
 import gallery9 from "@/assets/gallery-9.jpg";
+import gallery10 from "@/assets/gallery-10.jpg";
 import gallery11 from "@/assets/gallery-11.jpg";
 import gallery12 from "@/assets/gallery-12.jpg";
 import gallery14 from "@/assets/gallery-14.jpg";
@@ -39,16 +40,6 @@ import gallery37 from "@/assets/gallery-37.jpg";
 import gallery38 from "@/assets/gallery-38.jpg";
 import gallery39 from "@/assets/gallery-39.jpg";
 import gallery40 from "@/assets/gallery-40.jpg";
-import gallery41 from "@/assets/gallery-41.jpg";
-import gallery42 from "@/assets/gallery-42.jpg";
-import gallery43 from "@/assets/gallery-43.jpg";
-import gallery44 from "@/assets/gallery-44.jpg";
-import gallery45 from "@/assets/gallery-45.jpg";
-import gallery46 from "@/assets/gallery-46.jpg";
-import gallery47 from "@/assets/gallery-47.jpg";
-import gallery48 from "@/assets/gallery-48.jpg";
-import gallery49 from "@/assets/gallery-49.jpg";
-import gallery50 from "@/assets/gallery-50.jpg";
 
 const galleryImages = [
   { src: gallery1, label: "Conference Session" },
@@ -60,6 +51,7 @@ const galleryImages = [
   { src: gallery7, label: "Coding Session" },
   { src: gallery8, label: "Networking" },
   { src: gallery9, label: "IIT Bombay" },
+  { src: gallery10, label: "Story Protocol" },
   { src: gallery11, label: "Team IlmTech" },
   { src: gallery12, label: "Duo Moment" },
   { src: gallery14, label: "Hackathon Grind" },
@@ -87,16 +79,6 @@ const galleryImages = [
   { src: gallery38, label: "MetaMask Meetup" },
   { src: gallery39, label: "Builder Vibes" },
   { src: gallery40, label: "Selfie Time" },
-  { src: gallery41, label: "CodecraX Web3" },
-  { src: gallery42, label: "CodecraX Event" },
-  { src: gallery43, label: "CodecraX Pose" },
-  { src: gallery44, label: "CodecraX Group Photo" },
-  { src: gallery45, label: "CodecraX Buddy" },
-  { src: gallery46, label: "CodecraX Workshop" },
-  { src: gallery47, label: "Laptop Stickers" },
-  { src: gallery48, label: "Community Builder Night" },
-  { src: gallery49, label: "Builder Night Duo" },
-  { src: gallery50, label: "Agentic AI Hackathon Pass" },
 ];
 
 // Floating positions for each image (30 items)
@@ -138,16 +120,6 @@ const floatingPositions = [
   { x: 80, y: 112, size: "w-46 h-38", rotate: -5 },
   { x: 25, y: 115, size: "w-44 h-50", rotate: 7 },
   { x: 60, y: 113, size: "w-42 h-42", rotate: -3 },
-  { x: 10, y: 118, size: "w-44 h-52", rotate: 5 },
-  { x: 50, y: 120, size: "w-40 h-48", rotate: -6 },
-  { x: 82, y: 118, size: "w-46 h-40", rotate: 4 },
-  { x: 30, y: 125, size: "w-48 h-36", rotate: -5 },
-  { x: 68, y: 123, size: "w-42 h-50", rotate: 7 },
-  { x: 8, y: 130, size: "w-44 h-44", rotate: -4 },
-  { x: 45, y: 128, size: "w-40 h-48", rotate: 6 },
-  { x: 78, y: 130, size: "w-46 h-42", rotate: -3 },
-  { x: 22, y: 135, size: "w-42 h-50", rotate: 5 },
-  { x: 60, y: 133, size: "w-48 h-44", rotate: -7 },
 ];
 
 interface FloatingImageProps {
@@ -379,7 +351,7 @@ export const Gallery = () => {
       </div>
       
       {/* Floating images container */}
-      <div className="relative h-[2400px] md:h-[2800px] w-full">
+      <div className="relative h-[2000px] md:h-[2400px] w-full">
         {galleryImages.map((image, index) => (
           <FloatingImage
             key={index}
