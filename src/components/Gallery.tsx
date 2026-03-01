@@ -60,7 +60,6 @@ const galleryImages = [
   { src: gallery7, label: "Coding Session" },
   { src: gallery8, label: "Networking" },
   { src: gallery9, label: "IIT Bombay" },
-  { src: gallery10, label: "Story Protocol" },
   { src: gallery11, label: "Team IlmTech" },
   { src: gallery12, label: "Duo Moment" },
   { src: gallery14, label: "Hackathon Grind" },
