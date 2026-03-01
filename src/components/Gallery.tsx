@@ -379,7 +379,7 @@ export const Gallery = () => {
       </div>
       
       {/* Floating images container */}
-      <div className="relative h-[2000px] md:h-[2400px] w-full">
+      <div className="relative h-[2400px] md:h-[2800px] w-full">
         {galleryImages.map((image, index) => (
           <FloatingImage
             key={index}
