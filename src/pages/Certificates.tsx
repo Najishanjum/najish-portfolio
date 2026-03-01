@@ -10,7 +10,9 @@ import passArtemis from "@/assets/pass-artemis.jpg";
 import passAiSummit from "@/assets/pass-ai-summit.jpg";
 import passRektoff from "@/assets/pass-rektoff.jpg";
 import passApertre from "@/assets/pass-apertre.jpg";
-
+import passAcehack from "@/assets/pass-acehack.jpg";
+import passGwyPreconf from "@/assets/pass-gwy-preconf.jpg";
+import passEliteHack from "@/assets/pass-elite-hack.jpg";
 // Certificate images
 import certHackUp from "@/assets/cert-hack-up.png";
 import certCbitHacktoberfest from "@/assets/cert-cbit-hacktoberfest.png";
