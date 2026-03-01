@@ -282,8 +282,25 @@ const passes: Pass[] = [
     issuer: "Resourcio Community",
     image: passApertreMentor,
   },
+  {
+    id: 7,
+    title: "Ace Hack 5.0 - Hacker Pass",
+    issuer: "UEM Jaipur",
+    image: passAcehack,
+  },
+  {
+    id: 8,
+    title: "GWY PreConf - Virtual Attendee",
+    issuer: "DoraDAO / Bevy",
+    image: passGwyPreconf,
+  },
+  {
+    id: 9,
+    title: "Elite Hack 1.0 - Participant",
+    issuer: "Elite Coders / Team ILM Tech",
+    image: passEliteHack,
+  },
 ];
-
 const CertificateCard = ({
   certificate, 
   onClick,
