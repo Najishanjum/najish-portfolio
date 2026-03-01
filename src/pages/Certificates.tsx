@@ -10,7 +10,9 @@ import passArtemis from "@/assets/pass-artemis.jpg";
 import passAiSummit from "@/assets/pass-ai-summit.jpg";
 import passRektoff from "@/assets/pass-rektoff.jpg";
 import passApertre from "@/assets/pass-apertre.jpg";
-
+import passAcehack from "@/assets/pass-acehack.jpg";
+import passGwyPreconf from "@/assets/pass-gwy-preconf.jpg";
+import passEliteHack from "@/assets/pass-elite-hack.jpg";
 // Certificate images
 import certHackUp from "@/assets/cert-hack-up.png";
 import certCbitHacktoberfest from "@/assets/cert-cbit-hacktoberfest.png";
@@ -280,8 +282,25 @@ const passes: Pass[] = [
     issuer: "Resourcio Community",
     image: passApertreMentor,
   },
+  {
+    id: 7,
+    title: "Ace Hack 5.0 - Hacker Pass",
+    issuer: "UEM Jaipur",
+    image: passAcehack,
+  },
+  {
+    id: 8,
+    title: "GWY PreConf - Virtual Attendee",
+    issuer: "DoraDAO / Bevy",
+    image: passGwyPreconf,
+  },
+  {
+    id: 9,
+    title: "Elite Hack 1.0 - Participant",
+    issuer: "Elite Coders / Team ILM Tech",
+    image: passEliteHack,
+  },
 ];
-
 const CertificateCard = ({
   certificate, 
   onClick,
