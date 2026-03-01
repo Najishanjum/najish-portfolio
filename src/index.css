@@ -127,5 +127,5 @@ All colors MUST be HSL.
 }
 
 .animate-marquee-reverse {
-  animation: marquee-reverse 6s linear infinite;
+  animation: marquee-reverse 40s linear infinite;
 }
