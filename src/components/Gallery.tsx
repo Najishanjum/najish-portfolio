@@ -40,6 +40,15 @@ import gallery37 from "@/assets/gallery-37.jpg";
 import gallery38 from "@/assets/gallery-38.jpg";
 import gallery39 from "@/assets/gallery-39.jpg";
 import gallery40 from "@/assets/gallery-40.jpg";
+import gallery41 from "@/assets/gallery-41.jpg";
+import gallery42 from "@/assets/gallery-42.jpg";
+import gallery43 from "@/assets/gallery-43.jpg";
+import gallery44 from "@/assets/gallery-44.jpg";
+import gallery45 from "@/assets/gallery-45.jpg";
+import gallery46 from "@/assets/gallery-46.jpg";
+import gallery47 from "@/assets/gallery-47.jpg";
+import gallery48 from "@/assets/gallery-48.jpg";
+import gallery49 from "@/assets/gallery-49.jpg";
 
 const galleryImages = [
   { src: gallery1, label: "Conference Session" },
