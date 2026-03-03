@@ -334,17 +334,21 @@ export const Gallery = () => {
       
       {/* Floating images container */}
       <div className="relative h-[2400px] md:h-[2800px] w-full">
-        {galleryImages.map((image, index) => (
-          <FloatingImage
-            key={index}
-            src={image.src}
-            label={image.label}
-            position={floatingPositions[index]}
-            index={index}
-            mouseX={mousePosition.x}
-            mouseY={mousePosition.y}
-          />
-        ))}
+        {galleryImages.map((image, index) => {
+          const position = floatingPositions[index];
+          if (!position) return null;
+          return (
+            <FloatingImage
+              key={index}
+              src={image.src}
+              label={image.label}
+              position={position}
+              index={index}
+              mouseX={mousePosition.x}
+              mouseY={mousePosition.y}
+            />
+          );
+        })}
       </div>
       
       
