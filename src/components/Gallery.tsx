@@ -165,15 +165,6 @@ const floatingPositions = [
   { x: 35, y: 130, size: "w-48 h-40", rotate: 6 },
   { x: 65, y: 128, size: "w-44 h-48", rotate: -4 },
   { x: 10, y: 133, size: "w-42 h-38", rotate: 5 },
-  { x: 40, y: 135, size: "w-46 h-44", rotate: -4 },
-  { x: 70, y: 133, size: "w-44 h-40", rotate: 6 },
-  { x: 15, y: 140, size: "w-40 h-48", rotate: -7 },
-  { x: 50, y: 138, size: "w-48 h-36", rotate: 3 },
-  { x: 82, y: 140, size: "w-42 h-44", rotate: -5 },
-  { x: 28, y: 145, size: "w-44 h-42", rotate: 7 },
-  { x: 58, y: 143, size: "w-40 h-50", rotate: -3 },
-  { x: 5, y: 148, size: "w-46 h-38", rotate: 4 },
-  { x: 75, y: 146, size: "w-42 h-46", rotate: -6 },
 ];
 
 interface FloatingImageProps {
@@ -342,7 +333,7 @@ export const Gallery = () => {
       </div>
       
       {/* Floating images container */}
-      <div className="relative h-[2800px] md:h-[3200px] w-full">
+      <div className="relative h-[2400px] md:h-[2800px] w-full">
         {galleryImages.map((image, index) => (
           <FloatingImage
             key={index}
