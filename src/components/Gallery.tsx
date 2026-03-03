@@ -265,70 +265,7 @@ const FloatingImage = ({ src, label, position, index, mouseX, mouseY }: Floating
   );
 };
 
-// Mini Spotify-style music widget
-const MusicWidget = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  
-  return (
-    <motion.div
-      className="absolute bottom-8 right-8 z-50"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5 }}
-    >
-      <div className="bg-background/30 backdrop-blur-xl border border-white/10 rounded-2xl p-4 w-72 shadow-2xl">
-        {/* Glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-transparent to-primary/20 rounded-2xl opacity-50" />
-        
-        <div className="relative z-10 flex items-center gap-3">
-          {/* Album art placeholder */}
-          <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
-            <Music className="w-6 h-6 text-white" />
-          </div>
-          
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-foreground truncate">Coding Vibes</p>
-            <p className="text-xs text-muted-foreground truncate">Focus Playlist</p>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white"
-            >
-              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-6 h-6 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground"
-            >
-              <SkipForward className="w-4 h-4" />
-            </motion.button>
-          </div>
-        </div>
-        
-        {/* Progress bar */}
-        <div className="relative z-10 mt-3">
-          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-green-500 rounded-full"
-              initial={{ width: "30%" }}
-              animate={isPlaying ? { width: "100%" } : { width: "30%" }}
-              transition={isPlaying ? { duration: 180, ease: "linear" } : { duration: 0.3 }}
-            />
-          </div>
-          <div className="flex justify-between mt-1">
-            <span className="text-[10px] text-muted-foreground">1:23</span>
-            <span className="text-[10px] text-muted-foreground">3:45</span>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
+// Music widget removed
 
 export const Gallery = () => {
   const containerRef = useRef<HTMLDivElement>(null);
