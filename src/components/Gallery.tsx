@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Music, Play, Pause, SkipForward } from "lucide-react";
+// Icons removed - music widget removed
 
 // Import gallery images
 import gallery1 from "@/assets/gallery-1.jpg";
