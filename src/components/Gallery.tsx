@@ -49,8 +49,26 @@ import gallery46 from "@/assets/gallery-46.jpg";
 import gallery47 from "@/assets/gallery-47.jpg";
 import gallery48 from "@/assets/gallery-48.jpg";
 import gallery49 from "@/assets/gallery-49.jpg";
+import gallery50 from "@/assets/gallery-50.jpg";
+import gallery51 from "@/assets/gallery-51.jpg";
+import gallery52 from "@/assets/gallery-52.jpg";
+import gallery53 from "@/assets/gallery-53.jpg";
+import gallery54 from "@/assets/gallery-54.jpg";
+import gallery55 from "@/assets/gallery-55.jpg";
+import gallery56 from "@/assets/gallery-56.jpg";
+import gallery57 from "@/assets/gallery-57.jpg";
+import gallery58 from "@/assets/gallery-58.jpg";
 
 const galleryImages = [
+  { src: gallery50, label: "CodecraX Group Photo" },
+  { src: gallery51, label: "With a Builder" },
+  { src: gallery52, label: "CodecraX Banner" },
+  { src: gallery53, label: "CodecraX Pose" },
+  { src: gallery54, label: "Workshop Session" },
+  { src: gallery55, label: "CodecraX Audience" },
+  { src: gallery56, label: "Deep Focus Coding" },
+  { src: gallery57, label: "Community Builder Night Duo" },
+  { src: gallery58, label: "MetaMask Builder Night" },
   { src: gallery1, label: "Conference Session" },
   { src: gallery2, label: "Make Progress" },
   { src: gallery3, label: "Event Moments" },
