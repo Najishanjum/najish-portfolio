@@ -122,10 +122,6 @@ export const Hero = () => {
           >
             <Terminal className="w-4 h-4 text-primary" />
             <span className="text-primary">najishanjumportfolio.tech</span>
-            <span>:</span>
-            <span className="text-neon-blue">~</span>
-            <span>$</span>
-            <span className="text-muted-foreground">cat intro.txt</span>
           </motion.div>
 
           {/* Main Content */}
@@ -223,6 +219,12 @@ export const Hero = () => {
               <Button size="lg" className="border-glow bg-primary/10 hover:bg-primary/20 text-primary font-mono group">
                 <Download className="mr-2 h-5 w-5 group-hover:animate-bounce" />
                 Download Resume
+              </Button>
+            </a>
+            <a href="https://connect-with-najish.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="border-glow bg-primary/10 hover:bg-primary/20 text-primary font-mono group">
+                <Send className="mr-2 h-5 w-5 group-hover:animate-bounce" />
+                Contact Me
               </Button>
             </a>
           </motion.div>
