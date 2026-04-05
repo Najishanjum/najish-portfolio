@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, Terminal, Clock, Globe, CalendarDays, Timer, CloudSun, RefreshCw } from "lucide-react";
+import { Download, Terminal, Clock, CalendarDays, Timer, CloudSun, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
@@ -13,12 +13,6 @@ const roles = [
 
 const PORTFOLIO_LAST_UPDATED = "2026-04-05";
 
-function getVisitorCount() {
-  // Simulated visitor count based on date seed
-  const today = new Date();
-  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  return 87 + (seed % 156);
-}
 
 function getLastUpdatedText() {
   const updated = new Date(PORTFOLIO_LAST_UPDATED);
@@ -46,7 +40,7 @@ export const Hero = () => {
   const [seconds, setSeconds] = useState(0);
   const [weather, setWeather] = useState<{ temp: number; condition: string; icon: string } | null>(null);
   const [locationName, setLocationName] = useState("");
-  const [visitorCount] = useState(getVisitorCount());
+  
 
   // Real-time clock + time spent
   useEffect(() => {
@@ -196,11 +190,6 @@ export const Hero = () => {
               <span>{formatDate(now)}</span>
             </div>
 
-            {/* Visitor Counter */}
-            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 font-mono text-xs md:text-sm text-muted-foreground">
-              <Globe className="w-3.5 h-3.5 text-primary" />
-              <span>👀 {visitorCount} people viewed this portfolio today</span>
-            </div>
 
             {/* Weather */}
             {weather && (
