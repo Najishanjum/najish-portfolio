@@ -40,6 +40,8 @@ import certEncodeIitg from "@/assets/cert-encode-iitg.png";
 import certAiqrew from "@/assets/cert-aiqrew.png";
 import certHackshastra from "@/assets/cert-hackshastra.png";
 import certTechsprintGdg from "@/assets/cert-techsprint-gdg.png";
+import certCodefront from "@/assets/cert-codefront.png";
+import certEcwocCampusRep from "@/assets/cert-ecwoc-campus-rep.jpg";
 import passStellarMastery from "@/assets/pass-stellar-mastery.jpg";
 import passApertreMentor from "@/assets/pass-apertre-mentor.jpg";
 
