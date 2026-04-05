@@ -238,6 +238,20 @@ const certificates: Certificate[] = [
     date: "December 27, 2025",
     image: certTechsprintGdg,
   },
+  {
+    id: 27,
+    title: "Codefront 2.0 Hackathon Participation",
+    issuer: "Google Developer Groups On Campus - J.K Institute of Applied Physics and Technology",
+    date: "2026",
+    image: certCodefront,
+  },
+  {
+    id: 28,
+    title: "ECWoC Campus Representative - Certificate of Appreciation",
+    issuer: "Elite Coders",
+    date: "2026",
+    image: certEcwocCampusRep,
+  },
 ];
 
 interface Pass {
