@@ -13,11 +13,11 @@ const roles = [
 
 const PORTFOLIO_LAST_UPDATED = "2026-04-05";
 
-function getGreeting() {
-  const hour = new Date().getHours();
-  if (hour < 12) return { text: "Good Morning", emoji: "☀️" };
-  if (hour < 18) return { text: "Good Afternoon", emoji: "🌤️" };
-  return { text: "Good Evening", emoji: "🌙" };
+function getVisitorCount() {
+  // Simulated visitor count based on date seed
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  return 87 + (seed % 156);
 }
 
 function getLastUpdatedText() {
@@ -46,6 +46,7 @@ export const Hero = () => {
   const [seconds, setSeconds] = useState(0);
   const [weather, setWeather] = useState<{ temp: number; condition: string; icon: string } | null>(null);
   const [locationName, setLocationName] = useState("");
+  const [visitorCount] = useState(getVisitorCount());
 
   // Real-time clock + time spent
   useEffect(() => {
@@ -104,8 +105,7 @@ export const Hero = () => {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, roleIndex]);
 
-  const greeting = getGreeting();
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   const timeSpentText = mins > 0 ? `${mins} min ${secs} sec` : `${secs} sec`;
@@ -142,7 +142,7 @@ export const Hero = () => {
               transition={{ delay: 0.4 }}
               className="text-foreground/80 text-xl md:text-2xl font-mono"
             >
-              👋 {greeting.emoji} {greeting.text}, I'm
+              Hello, I'm
             </motion.h2>
 
             <motion.h1
@@ -196,10 +196,10 @@ export const Hero = () => {
               <span>{formatDate(now)}</span>
             </div>
 
-            {/* Timezone */}
+            {/* Visitor Counter */}
             <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 font-mono text-xs md:text-sm text-muted-foreground">
               <Globe className="w-3.5 h-3.5 text-primary" />
-              <span>{timezone}</span>
+              <span>👀 {visitorCount} people viewed this portfolio today</span>
             </div>
 
             {/* Weather */}
