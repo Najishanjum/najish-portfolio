@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, Terminal } from "lucide-react";
+import { Download, Terminal, Clock, Globe, CalendarDays, Timer, CloudSun, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
@@ -11,11 +11,75 @@ const roles = [
   "Team Lead Team ILM Tech"
 ];
 
+const PORTFOLIO_LAST_UPDATED = "2026-04-05";
+
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return { text: "Good Morning", emoji: "☀️" };
+  if (hour < 18) return { text: "Good Afternoon", emoji: "🌤️" };
+  return { text: "Good Evening", emoji: "🌙" };
+}
+
+function getLastUpdatedText() {
+  const updated = new Date(PORTFOLIO_LAST_UPDATED);
+  const now = new Date();
+  const diffMs = now.getTime() - updated.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  if (diffDays === 0) return "today";
+  if (diffDays === 1) return "yesterday";
+  return `${diffDays} days ago`;
+}
+
+function formatTime(date: Date) {
+  return date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
+}
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+}
+
 export const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [now, setNow] = useState(new Date());
+  const [seconds, setSeconds] = useState(0);
+  const [weather, setWeather] = useState<{ temp: number; condition: string; icon: string } | null>(null);
+  const [locationName, setLocationName] = useState("");
 
+  // Real-time clock + time spent
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date());
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Weather
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          const { latitude, longitude } = pos.coords;
+          const res = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=c2a723daff9648e8b47172042260504`
+          );
+          const data = await res.json();
+          setWeather({
+            temp: Math.round(data.main.temp),
+            condition: data.weather[0].main,
+            icon: data.weather[0].icon,
+          });
+          setLocationName(data.name);
+        } catch { /* silent */ }
+      },
+      () => { /* denied */ }
+    );
+  }, []);
+
+  // Typing effect
   useEffect(() => {
     const currentRole = roles[roleIndex];
     const timeout = setTimeout(
@@ -37,9 +101,14 @@ export const Hero = () => {
       },
       isDeleting ? 50 : 100
     );
-
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, roleIndex]);
+
+  const greeting = getGreeting();
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  const timeSpentText = mins > 0 ? `${mins} min ${secs} sec` : `${secs} sec`;
 
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-20">
@@ -73,7 +142,7 @@ export const Hero = () => {
               transition={{ delay: 0.4 }}
               className="text-foreground/80 text-xl md:text-2xl font-mono"
             >
-              Hello, I'm
+              👋 {greeting.emoji} {greeting.text}, I'm
             </motion.h2>
 
             <motion.h1
@@ -107,6 +176,52 @@ export const Hero = () => {
               Hackathon enthusiast and full-stack developer crafting the future with code.
             </motion.p>
           </div>
+
+          {/* Real-Time Info Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1 }}
+            className="flex flex-wrap gap-3"
+          >
+            {/* Clock */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 font-mono text-xs md:text-sm text-primary">
+              <Clock className="w-3.5 h-3.5" />
+              <span>{formatTime(now)}</span>
+            </div>
+
+            {/* Date */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 font-mono text-xs md:text-sm text-muted-foreground">
+              <CalendarDays className="w-3.5 h-3.5 text-primary" />
+              <span>{formatDate(now)}</span>
+            </div>
+
+            {/* Timezone */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 font-mono text-xs md:text-sm text-muted-foreground">
+              <Globe className="w-3.5 h-3.5 text-primary" />
+              <span>{timezone}</span>
+            </div>
+
+            {/* Weather */}
+            {weather && (
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 font-mono text-xs md:text-sm text-muted-foreground">
+                <CloudSun className="w-3.5 h-3.5 text-primary" />
+                <span>🌤️ {weather.temp}°C {weather.condition}{locationName ? ` in ${locationName}` : ""}</span>
+              </div>
+            )}
+
+            {/* Time Spent */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-accent/30 border border-accent/40 font-mono text-xs md:text-sm text-muted-foreground">
+              <Timer className="w-3.5 h-3.5 text-primary" />
+              <span>⏳ Here for {timeSpentText}</span>
+            </div>
+
+            {/* Last Updated */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-accent/30 border border-accent/40 font-mono text-xs md:text-sm text-muted-foreground">
+              <RefreshCw className="w-3.5 h-3.5 text-primary" />
+              <span>🔄 Updated {getLastUpdatedText()}</span>
+            </div>
+          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div
