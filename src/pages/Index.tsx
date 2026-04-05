@@ -13,6 +13,7 @@ import { VisitingCard } from "@/components/VisitingCard";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { IntroAnimation } from "@/components/IntroAnimation";
+import { ViewCounter } from "@/components/ViewCounter";
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -46,6 +47,7 @@ const Index = () => {
         <VisitingCard />
         <Contact />
         <Footer />
+        <ViewCounter />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, Terminal, Clock, Globe, CalendarDays, Timer, CloudSun, RefreshCw } from "lucide-react";
+import { Download, Terminal, Clock, CalendarDays, Timer, CloudSun, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
@@ -46,7 +46,7 @@ export const Hero = () => {
   const [seconds, setSeconds] = useState(0);
   const [weather, setWeather] = useState<{ temp: number; condition: string; icon: string } | null>(null);
   const [locationName, setLocationName] = useState("");
-  const [visitorCount] = useState(getVisitorCount());
+  
 
   // Real-time clock + time spent
   useEffect(() => {
