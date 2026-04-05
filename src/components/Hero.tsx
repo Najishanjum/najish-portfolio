@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, Terminal, Clock, CalendarDays, Timer, CloudSun, RefreshCw } from "lucide-react";
+import { Download, Terminal, Clock, CalendarDays, Timer, CloudSun, RefreshCw, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
