@@ -58,8 +58,14 @@ import gallery55 from "@/assets/gallery-55.jpg";
 import gallery56 from "@/assets/gallery-56.jpg";
 import gallery57 from "@/assets/gallery-57.jpg";
 import gallery58 from "@/assets/gallery-58.jpg";
+import galleryMonad1 from "@/assets/gallery-monad-blitz-1.jpg";
+import galleryMonad2 from "@/assets/gallery-monad-blitz-2.jpg";
+import galleryMonad3 from "@/assets/gallery-monad-blitz-3.jpg";
 
 const galleryImages = [
+  { src: galleryMonad1, label: "Monad Blitz Stage" },
+  { src: galleryMonad2, label: "Monad Blitz Duo" },
+  { src: galleryMonad3, label: "Monad Event Pose" },
   { src: gallery50, label: "CodecraX Group Photo" },
   { src: gallery51, label: "With a Builder" },
   { src: gallery52, label: "CodecraX Banner" },
