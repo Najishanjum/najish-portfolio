@@ -13,12 +13,6 @@ const roles = [
 
 const PORTFOLIO_LAST_UPDATED = "2026-04-05";
 
-function getVisitorCount() {
-  // Simulated visitor count based on date seed
-  const today = new Date();
-  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-  return 87 + (seed % 156);
-}
 
 function getLastUpdatedText() {
   const updated = new Date(PORTFOLIO_LAST_UPDATED);
