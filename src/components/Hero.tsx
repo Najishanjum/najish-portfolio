@@ -196,11 +196,6 @@ export const Hero = () => {
               <span>{formatDate(now)}</span>
             </div>
 
-            {/* Visitor Counter */}
-            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/10 border border-primary/20 font-mono text-xs md:text-sm text-muted-foreground">
-              <Globe className="w-3.5 h-3.5 text-primary" />
-              <span>👀 {visitorCount} people viewed this portfolio today</span>
-            </div>
 
             {/* Weather */}
             {weather && (
