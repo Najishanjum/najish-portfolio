@@ -14,6 +14,7 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { IntroAnimation } from "@/components/IntroAnimation";
 import { ViewCounter } from "@/components/ViewCounter";
+import { NAChatBot } from "@/components/NAChatBot";
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -48,6 +49,7 @@ const Index = () => {
         <Contact />
         <Footer />
         <ViewCounter />
+        <NAChatBot />
       </div>
     </>
   );
