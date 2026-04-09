@@ -49,6 +49,7 @@ const Index = () => {
         <Contact />
         <Footer />
         <ViewCounter />
+        <NAChatBot />
       </div>
     </>
   );
