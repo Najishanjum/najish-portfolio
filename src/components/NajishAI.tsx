@@ -1,12 +1,12 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mic, MicOff, X, Volume2, Loader2 } from "lucide-react";
+import naChatbotLogo from "@/assets/na-chatbot-logo.png";
 
 const AI_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/najish-ai`;
 
 type Message = { role: "user" | "assistant"; content: string };
 
-// Extend Window for SpeechRecognition
 interface SpeechRecognitionEvent extends Event {
   results: SpeechRecognitionResultList;
   resultIndex: number;
@@ -25,7 +25,6 @@ export const NajishAI = () => {
   const recognitionRef = useRef<any>(null);
   const synthRef = useRef(window.speechSynthesis);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       recognitionRef.current?.stop();
@@ -40,7 +39,6 @@ export const NajishAI = () => {
     utterance.pitch = 1;
     utterance.volume = 1;
 
-    // Try to pick a good voice
     const voices = synthRef.current.getVoices();
     const preferred = voices.find(v =>
       v.name.includes("Google") && v.lang.startsWith("en")
@@ -146,16 +144,15 @@ export const NajishAI = () => {
     setResponse("");
   };
 
-  // Pulse animation colors based on status
   const pulseColor = {
-    idle: "from-primary/40 to-secondary/40",
+    idle: "from-cyan-400/40 to-blue-500/40",
     listening: "from-green-500/60 to-emerald-500/60",
     thinking: "from-yellow-500/60 to-amber-500/60",
-    speaking: "from-primary/60 to-secondary/60",
+    speaking: "from-cyan-400/60 to-blue-500/60",
   }[status];
 
   const statusText = {
-    idle: "Tap the mic to speak",
+    idle: 'Say "Hey Najish" or tap the mic',
     listening: "Listening...",
     thinking: "Processing...",
     speaking: "Speaking...",
@@ -172,7 +169,6 @@ export const NajishAI = () => {
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="fixed inset-0 z-[60] flex items-center justify-center bg-background/80 backdrop-blur-xl"
           >
-            {/* Close button */}
             <button
               onClick={handleClose}
               className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center hover:bg-muted/50 transition-colors z-10"
@@ -181,15 +177,15 @@ export const NajishAI = () => {
             </button>
 
             <div className="flex flex-col items-center gap-8 max-w-md px-6 text-center">
-              {/* Title */}
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-1">Najish AI</h2>
-                <p className="text-xs text-muted-foreground">Voice-enabled AI Assistant</p>
+              {/* Logo & Title */}
+              <div className="flex flex-col items-center gap-2">
+                <img src={naChatbotLogo} alt="Najish AI" className="w-16 h-16 rounded-full object-cover" />
+                <h2 className="text-2xl font-bold text-foreground">Najish AI</h2>
+                <p className="text-xs text-muted-foreground">JARVIS-like Voice Assistant</p>
               </div>
 
               {/* Orb / Mic Button */}
               <div className="relative">
-                {/* Pulse rings */}
                 {(isListening || isSpeaking) && (
                   <>
                     <motion.div
@@ -214,20 +210,20 @@ export const NajishAI = () => {
                     isListening
                       ? "bg-gradient-to-br from-green-500 to-emerald-600 shadow-green-500/30"
                       : isSpeaking
-                      ? "bg-gradient-to-br from-primary to-secondary shadow-primary/30"
+                      ? "bg-gradient-to-br from-cyan-400 to-blue-600 shadow-cyan-500/30"
                       : isProcessing
                       ? "bg-gradient-to-br from-yellow-500 to-amber-600 shadow-yellow-500/30"
-                      : "bg-gradient-to-br from-primary to-secondary shadow-primary/30 hover:shadow-primary/50"
+                      : "bg-gradient-to-br from-cyan-400 to-blue-600 shadow-cyan-500/30 hover:shadow-cyan-500/50"
                   }`}
                 >
                   {isProcessing ? (
-                    <Loader2 className="w-10 h-10 text-primary-foreground animate-spin" />
+                    <Loader2 className="w-10 h-10 text-white animate-spin" />
                   ) : isSpeaking ? (
-                    <Volume2 className="w-10 h-10 text-primary-foreground" />
+                    <Volume2 className="w-10 h-10 text-white" />
                   ) : isListening ? (
-                    <MicOff className="w-10 h-10 text-primary-foreground" />
+                    <MicOff className="w-10 h-10 text-white" />
                   ) : (
-                    <Mic className="w-10 h-10 text-primary-foreground" />
+                    <Mic className="w-10 h-10 text-white" />
                   )}
                 </motion.button>
               </div>
@@ -252,9 +248,9 @@ export const NajishAI = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="w-full px-4 py-3 rounded-xl bg-primary/5 border border-primary/10"
+                  className="w-full px-4 py-3 rounded-xl bg-cyan-500/5 border border-cyan-500/10"
                 >
-                  <p className="text-xs text-primary mb-1">Najish AI:</p>
+                  <p className="text-xs text-cyan-400 mb-1">Najish AI:</p>
                   <p className="text-sm text-foreground">{response}</p>
                 </motion.div>
               )}
@@ -263,12 +259,12 @@ export const NajishAI = () => {
         )}
       </AnimatePresence>
 
-      {/* Trigger button - rendered where parent places it */}
+      {/* Trigger button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="w-full px-3 py-2 text-xs rounded-full border border-primary/20 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary hover:from-primary/20 hover:to-secondary/20 transition-all flex items-center justify-center gap-2 font-medium"
+        className="w-full px-3 py-2 text-xs rounded-full border border-cyan-500/20 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-400 hover:from-cyan-500/20 hover:to-blue-500/20 transition-all flex items-center justify-center gap-2 font-medium"
       >
-        <Mic className="w-3.5 h-3.5" />
+        <img src={naChatbotLogo} alt="" className="w-4 h-4 rounded-full" />
         Talk to Najish AI
       </button>
     </>

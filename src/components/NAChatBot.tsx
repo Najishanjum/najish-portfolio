@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Bot, User, Loader2 } from "lucide-react";
+import { X, Send, User, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { NajishAI } from "./NajishAI";
+import naChatbotLogo from "@/assets/na-chatbot-logo.png";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -74,7 +75,6 @@ async function streamChat({
       }
     }
 
-    // flush
     if (buffer.trim()) {
       for (let raw of buffer.split("\n")) {
         if (!raw) continue;
@@ -143,7 +143,7 @@ export const NAChatBot = () => {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Button with Logo */}
       <AnimatePresence>
         {!isOpen && (
           <motion.button
@@ -153,11 +153,10 @@ export const NAChatBot = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/30 border-2 border-primary/30"
+            className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/30 border-2 border-cyan-400/30 overflow-hidden"
           >
-            <MessageCircle className="w-6 h-6 text-primary-foreground" />
-            {/* Pulse ring */}
-            <span className="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-30" />
+            <img src={naChatbotLogo} alt="NA ChatBot" className="w-10 h-10 rounded-full object-cover" />
+            <span className="absolute inset-0 rounded-full border-2 border-cyan-400 animate-ping opacity-30" />
           </motion.button>
         )}
       </AnimatePresence>
@@ -170,15 +169,13 @@ export const NAChatBot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.9 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[550px] max-h-[calc(100vh-4rem)] flex flex-col rounded-2xl overflow-hidden border border-primary/20 shadow-2xl shadow-primary/10 bg-card/95 backdrop-blur-xl"
+            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[550px] max-h-[calc(100vh-4rem)] flex flex-col rounded-2xl overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10 bg-card/95 backdrop-blur-xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-primary/15 to-secondary/15 border-b border-primary/10">
+            <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-cyan-500/15 to-blue-500/15 border-b border-cyan-500/10">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                    <Bot className="w-5 h-5 text-primary-foreground" />
-                  </div>
+                  <img src={naChatbotLogo} alt="NA" className="w-9 h-9 rounded-full object-cover border border-cyan-400/30" />
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-card" />
                 </div>
                 <div>
@@ -198,9 +195,7 @@ export const NAChatBot = () => {
             <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
               {messages.length === 0 && (
                 <div className="text-center pt-6">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                    <Bot className="w-8 h-8 text-primary" />
-                  </div>
+                  <img src={naChatbotLogo} alt="NA ChatBot" className="w-16 h-16 mx-auto mb-4 rounded-full object-cover border-2 border-cyan-400/20" />
                   <h4 className="text-foreground font-semibold mb-1">Hey there! 👋</h4>
                   <p className="text-xs text-muted-foreground mb-5">
                     I'm NA ChatBot. Ask me anything about Najish's skills, projects, or experience!
@@ -210,7 +205,7 @@ export const NAChatBot = () => {
                       <button
                         key={q}
                         onClick={() => sendMessage(q)}
-                        className="px-3 py-1.5 text-xs rounded-full border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 transition-colors"
+                        className="px-3 py-1.5 text-xs rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 hover:bg-cyan-500/10 transition-colors"
                       >
                         {q}
                       </button>
@@ -228,15 +223,13 @@ export const NAChatBot = () => {
                   className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.role === "assistant" && (
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-secondary flex-shrink-0 flex items-center justify-center mt-0.5">
-                      <Bot className="w-3.5 h-3.5 text-primary-foreground" />
-                    </div>
+                    <img src={naChatbotLogo} alt="NA" className="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-0.5 border border-cyan-400/20" />
                   )}
                   <div
                     className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-br-md"
-                        : "bg-muted/50 text-foreground rounded-bl-md border border-primary/5"
+                        ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-br-md"
+                        : "bg-muted/50 text-foreground rounded-bl-md border border-cyan-500/5"
                     }`}
                   >
                     {msg.role === "assistant" ? (
@@ -257,11 +250,9 @@ export const NAChatBot = () => {
 
               {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
                 <div className="flex gap-2 items-start">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-secondary flex-shrink-0 flex items-center justify-center">
-                    <Bot className="w-3.5 h-3.5 text-primary-foreground" />
-                  </div>
-                  <div className="bg-muted/50 rounded-2xl rounded-bl-md px-4 py-3 border border-primary/5">
-                    <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                  <img src={naChatbotLogo} alt="NA" className="w-7 h-7 rounded-full object-cover flex-shrink-0 border border-cyan-400/20" />
+                  <div className="bg-muted/50 rounded-2xl rounded-bl-md px-4 py-3 border border-cyan-500/5">
+                    <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
                   </div>
                 </div>
               )}
@@ -270,7 +261,7 @@ export const NAChatBot = () => {
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-primary/10 bg-card/80">
+            <div className="p-3 border-t border-cyan-500/10 bg-card/80">
               <form
                 onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
                 className="flex items-center gap-2"
@@ -281,12 +272,12 @@ export const NAChatBot = () => {
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask about Najish..."
                   disabled={isLoading}
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-muted/50 text-sm text-foreground placeholder:text-muted-foreground border border-primary/10 focus:outline-none focus:border-primary/30 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-2.5 rounded-xl bg-muted/50 text-sm text-foreground placeholder:text-muted-foreground border border-cyan-500/10 focus:outline-none focus:border-cyan-500/30 transition-colors disabled:opacity-50"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-primary-foreground disabled:opacity-30 hover:shadow-lg hover:shadow-primary/20 transition-all"
+                  className="w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 flex items-center justify-center text-white disabled:opacity-30 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
                 >
                   <Send className="w-4 h-4" />
                 </button>
