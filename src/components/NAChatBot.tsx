@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Bot, User, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { NajishAI } from "./NajishAI";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -214,6 +215,9 @@ export const NAChatBot = () => {
                         {q}
                       </button>
                     ))}
+                  </div>
+                  <div className="mt-3">
+                    <NajishAI />
                   </div>
                 </div>
               )}
