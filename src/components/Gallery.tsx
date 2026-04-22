@@ -61,8 +61,28 @@ import gallery58 from "@/assets/gallery-58.jpg";
 import galleryMonad1 from "@/assets/gallery-monad-blitz-1.jpg";
 import galleryMonad2 from "@/assets/gallery-monad-blitz-2.jpg";
 import galleryMonad3 from "@/assets/gallery-monad-blitz-3.jpg";
+import galleryNew1 from "@/assets/gallery-new-1.jpg";
+import galleryNew2 from "@/assets/gallery-new-2.jpg";
+import galleryNew3 from "@/assets/gallery-new-3.jpg";
+import galleryNew4 from "@/assets/gallery-new-4.jpg";
+import galleryNew5 from "@/assets/gallery-new-5.jpg";
+import galleryNew6 from "@/assets/gallery-new-6.jpg";
+import galleryNew7 from "@/assets/gallery-new-7.jpg";
+import galleryNew8 from "@/assets/gallery-new-8.jpg";
+import galleryNew9 from "@/assets/gallery-new-9.jpg";
+import galleryNew10 from "@/assets/gallery-new-10.jpg";
 
 const galleryImages = [
+  { src: galleryNew1, label: "Solana Builder Pose" },
+  { src: galleryNew2, label: "Late Night Coding Session" },
+  { src: galleryNew3, label: "Deep Work Mode" },
+  { src: galleryNew4, label: "In the Zone" },
+  { src: galleryNew5, label: "Frontier Hackathon Squad" },
+  { src: galleryNew6, label: "Hacker's Workstation" },
+  { src: galleryNew7, label: "Builder Vibes" },
+  { src: galleryNew8, label: "Builder Community Group" },
+  { src: galleryNew9, label: "Frontier Hackathon Hall" },
+  { src: galleryNew10, label: "Hackathon Conference Room" },
   { src: galleryMonad1, label: "Monad Blitz Stage" },
   { src: galleryMonad2, label: "Monad Blitz Duo" },
   { src: galleryMonad3, label: "Monad Event Pose" },
