@@ -563,59 +563,17 @@ const Certificates = () => {
           </div>
         </div>
 
-        {/* Badges & Passes Section */}
+        {/* Badges & Passes Section - Premium 3D Carousel */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-16 mb-20"
         >
-          <div className="text-center px-4 mb-10">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Ticket className="w-7 h-7 text-primary" />
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Badges & Passes
-              </h2>
-            </div>
-            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-              Event passes, program acceptances, and special badges I've earned
-            </p>
-          </div>
-
-          {/* Passes Carousel - Right to Left */}
-          <div className="relative overflow-hidden">
-            {/* Gradient Overlays */}
-            <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-            {/* Scrolling Container - Reverse Direction */}
-            <div className="flex gap-6 py-6 animate-marquee-reverse hover:[animation-play-state:paused]">
-              {[...passes, ...passes].map((pass, index) => (
-                <div
-                  key={`${pass.title}-${index}`}
-                  className="flex-shrink-0 w-[320px] md:w-[400px] group cursor-pointer"
-                  onClick={() => setSelectedPass(pass)}
-                >
-                  <div className="relative overflow-hidden rounded-2xl bg-background/40 backdrop-blur-xl border border-border/30 shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-105">
-                    <div className="relative aspect-[16/9] overflow-hidden">
-                      <img
-                        src={pass.image}
-                        alt={pass.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-foreground text-sm md:text-base line-clamp-1">
-                        {pass.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground mt-1">{pass.issuer}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <BadgesCarousel3D
+            passes={passes}
+            onCardClick={(pass) => setSelectedPass(pass)}
+          />
         </motion.div>
 
         {/* Collaborate Section */}
