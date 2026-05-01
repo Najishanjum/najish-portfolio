@@ -4,6 +4,7 @@ import { X, ExternalLink, Award, Calendar, Building, Ticket, Handshake } from "l
 import collaborateCard from "@/assets/collaborate-card.jpg";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { BadgesCarousel3D } from "@/components/BadgesCarousel3D";
 
 // Badge/Pass images
 import passArtemis from "@/assets/pass-artemis.jpg";
@@ -258,6 +259,7 @@ interface Pass {
   id: number;
   title: string;
   issuer: string;
+  description: string;
   image: string;
 }
 
@@ -266,54 +268,72 @@ const passes: Pass[] = [
     id: 1,
     title: "NASA Artemis II Boarding Pass",
     issuer: "NASA",
+    description:
+      "Exclusive participation badge representing involvement in the NASA Artemis II initiative — humanity's return to the Moon.",
     image: passArtemis,
   },
   {
     id: 2,
     title: "Great Asia AI Summit 2026",
     issuer: "Salesforce",
+    description:
+      "Attendee pass for one of Asia's leading AI innovation summits, bringing together founders, researchers and engineers.",
     image: passAiSummit,
   },
   {
     id: 3,
     title: "Solana Rust Security Bootcamp",
     issuer: "Rektoff - Cohort 3",
+    description:
+      "Completed advanced Web3 security training focused on Solana programs, Rust auditing and on-chain attack vectors.",
     image: passRektoff,
   },
   {
     id: 4,
     title: "Apertre 3.0 Mentee",
     issuer: "Resourcio Community",
+    description:
+      "Selected mentee in a competitive growth and innovation program guiding builders through real-world open-source projects.",
     image: passApertre,
   },
   {
     id: 5,
     title: "Stellar Journey to Mastery",
     issuer: "Stellar / Rise In",
+    description:
+      "Successfully completed the structured learning journey in blockchain development on the Stellar ecosystem.",
     image: passStellarMastery,
   },
   {
     id: 6,
     title: "Apertre 3.0 Mentor",
     issuer: "Resourcio Community",
+    description:
+      "Recognized as a mentor in Apertre 3.0 — guiding upcoming developers through open-source contributions and product thinking.",
     image: passApertreMentor,
   },
   {
     id: 7,
     title: "Ace Hack 5.0 - Hacker Pass",
     issuer: "UEM Jaipur",
+    description:
+      "Official hacker pass for Ace Hack 5.0, a flagship national-level hackathon for student innovators and builders.",
     image: passAcehack,
   },
   {
     id: 8,
     title: "GWY PreConf - Virtual Attendee",
     issuer: "DoraDAO / Bevy",
+    description:
+      "Virtual attendee credential for the GWY PreConf — a global Web3 gathering of builders, designers and protocol teams.",
     image: passGwyPreconf,
   },
   {
     id: 9,
     title: "Elite Hack 1.0 - Participant",
     issuer: "Elite Coders / Team ILM Tech",
+    description:
+      "Participant badge for Elite Hack 1.0, building production-ready solutions under tight deadlines as Team ILM Tech.",
     image: passEliteHack,
   },
 ];
@@ -543,59 +563,17 @@ const Certificates = () => {
           </div>
         </div>
 
-        {/* Badges & Passes Section */}
+        {/* Badges & Passes Section - Premium 3D Carousel */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-16 mb-20"
         >
-          <div className="text-center px-4 mb-10">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Ticket className="w-7 h-7 text-primary" />
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Badges & Passes
-              </h2>
-            </div>
-            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-              Event passes, program acceptances, and special badges I've earned
-            </p>
-          </div>
-
-          {/* Passes Carousel - Right to Left */}
-          <div className="relative overflow-hidden">
-            {/* Gradient Overlays */}
-            <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-            {/* Scrolling Container - Reverse Direction */}
-            <div className="flex gap-6 py-6 animate-marquee-reverse hover:[animation-play-state:paused]">
-              {[...passes, ...passes].map((pass, index) => (
-                <div
-                  key={`${pass.title}-${index}`}
-                  className="flex-shrink-0 w-[320px] md:w-[400px] group cursor-pointer"
-                  onClick={() => setSelectedPass(pass)}
-                >
-                  <div className="relative overflow-hidden rounded-2xl bg-background/40 backdrop-blur-xl border border-border/30 shadow-lg hover:shadow-primary/20 transition-all duration-300 hover:scale-105">
-                    <div className="relative aspect-[16/9] overflow-hidden">
-                      <img
-                        src={pass.image}
-                        alt={pass.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-semibold text-foreground text-sm md:text-base line-clamp-1">
-                        {pass.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground mt-1">{pass.issuer}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <BadgesCarousel3D
+            passes={passes}
+            onCardClick={(pass) => setSelectedPass(pass)}
+          />
         </motion.div>
 
         {/* Collaborate Section */}
