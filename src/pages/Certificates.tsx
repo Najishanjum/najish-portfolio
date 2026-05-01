@@ -258,6 +258,7 @@ interface Pass {
   id: number;
   title: string;
   issuer: string;
+  description: string;
   image: string;
 }
 
@@ -266,54 +267,72 @@ const passes: Pass[] = [
     id: 1,
     title: "NASA Artemis II Boarding Pass",
     issuer: "NASA",
+    description:
+      "Exclusive participation badge representing involvement in the NASA Artemis II initiative — humanity's return to the Moon.",
     image: passArtemis,
   },
   {
     id: 2,
     title: "Great Asia AI Summit 2026",
     issuer: "Salesforce",
+    description:
+      "Attendee pass for one of Asia's leading AI innovation summits, bringing together founders, researchers and engineers.",
     image: passAiSummit,
   },
   {
     id: 3,
     title: "Solana Rust Security Bootcamp",
     issuer: "Rektoff - Cohort 3",
+    description:
+      "Completed advanced Web3 security training focused on Solana programs, Rust auditing and on-chain attack vectors.",
     image: passRektoff,
   },
   {
     id: 4,
     title: "Apertre 3.0 Mentee",
     issuer: "Resourcio Community",
+    description:
+      "Selected mentee in a competitive growth and innovation program guiding builders through real-world open-source projects.",
     image: passApertre,
   },
   {
     id: 5,
     title: "Stellar Journey to Mastery",
     issuer: "Stellar / Rise In",
+    description:
+      "Successfully completed the structured learning journey in blockchain development on the Stellar ecosystem.",
     image: passStellarMastery,
   },
   {
     id: 6,
     title: "Apertre 3.0 Mentor",
     issuer: "Resourcio Community",
+    description:
+      "Recognized as a mentor in Apertre 3.0 — guiding upcoming developers through open-source contributions and product thinking.",
     image: passApertreMentor,
   },
   {
     id: 7,
     title: "Ace Hack 5.0 - Hacker Pass",
     issuer: "UEM Jaipur",
+    description:
+      "Official hacker pass for Ace Hack 5.0, a flagship national-level hackathon for student innovators and builders.",
     image: passAcehack,
   },
   {
     id: 8,
     title: "GWY PreConf - Virtual Attendee",
     issuer: "DoraDAO / Bevy",
+    description:
+      "Virtual attendee credential for the GWY PreConf — a global Web3 gathering of builders, designers and protocol teams.",
     image: passGwyPreconf,
   },
   {
     id: 9,
     title: "Elite Hack 1.0 - Participant",
     issuer: "Elite Coders / Team ILM Tech",
+    description:
+      "Participant badge for Elite Hack 1.0, building production-ready solutions under tight deadlines as Team ILM Tech.",
     image: passEliteHack,
   },
 ];
