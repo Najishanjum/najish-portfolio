@@ -4,6 +4,7 @@ import { X, ExternalLink, Award, Calendar, Building, Ticket, Handshake } from "l
 import collaborateCard from "@/assets/collaborate-card.jpg";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { BadgesCarousel3D } from "@/components/BadgesCarousel3D";
 
 // Badge/Pass images
 import passArtemis from "@/assets/pass-artemis.jpg";
