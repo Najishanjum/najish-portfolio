@@ -45,6 +45,10 @@ import certCodefront from "@/assets/cert-codefront.png";
 import certEcwocCampusRep from "@/assets/cert-ecwoc-campus-rep.jpg";
 import passStellarMastery from "@/assets/pass-stellar-mastery.jpg";
 import passApertreMentor from "@/assets/pass-apertre-mentor.jpg";
+import passOpenSourceDay from "@/assets/pass-open-source-day.jpg";
+import passMonadBlitz from "@/assets/pass-monad-blitz.jpg";
+import passDev3pack from "@/assets/pass-dev3pack.png";
+import passFrontierSuperteam from "@/assets/pass-frontier-superteam.png";
 
 interface Certificate {
   id: number;
@@ -335,6 +339,38 @@ const passes: Pass[] = [
     description:
       "Participant badge for Elite Hack 1.0, building production-ready solutions under tight deadlines as Team ILM Tech.",
     image: passEliteHack,
+  },
+  {
+    id: 10,
+    title: "Open Source Day 2026 - Community Leader",
+    issuer: "Open Source Day",
+    description:
+      "Recognized as a Community Leader at Open Source Day 2026 — a flagship gathering of open-source contributors and maintainers in Gandhinagar.",
+    image: passOpenSourceDay,
+  },
+  {
+    id: 11,
+    title: "Monad Blitz - Builder Pass",
+    issuer: "Monad",
+    description:
+      "Official builder pass for Monad Blitz — an exclusive on-site hacker event exploring the Monad high-performance EVM.",
+    image: passMonadBlitz,
+  },
+  {
+    id: 12,
+    title: "Dev3Pack Hackathon - Hacker",
+    issuer: "Solana × v0 × ElevenLabs",
+    description:
+      "Selected hacker for the Dev3Pack Hackathon (8–10 May), building Web3 + AI products powered by Solana, v0 and ElevenLabs.",
+    image: passDev3pack,
+  },
+  {
+    id: 13,
+    title: "Colosseum Frontier - Just Signed Up",
+    issuer: "Superteam India",
+    description:
+      "Signed up for the Colosseum Frontier Hackathon (Apr 6 – May 11) under Superteam India — competing in the global Solana builders arena.",
+    image: passFrontierSuperteam,
   },
 ];
 const CertificateCard = ({
