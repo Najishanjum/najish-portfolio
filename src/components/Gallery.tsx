@@ -69,10 +69,26 @@ import galleryNew7 from "@/assets/gallery-new-7.jpg";
 import galleryNew8 from "@/assets/gallery-new-8.jpg";
 import galleryNew9 from "@/assets/gallery-new-9.jpg";
 import galleryNew10 from "@/assets/gallery-new-10.jpg";
+import galleryMm1 from "@/assets/gallery-mm-1.jpg";
+import galleryMm2 from "@/assets/gallery-mm-2.jpg";
+import galleryMm3 from "@/assets/gallery-mm-3.jpg";
+import galleryMm4 from "@/assets/gallery-mm-4.jpg";
+import galleryMm5 from "@/assets/gallery-mm-5.jpg";
+import galleryMm6 from "@/assets/gallery-mm-6.jpg";
+import galleryMm7 from "@/assets/gallery-mm-7.jpg";
+import galleryMm8 from "@/assets/gallery-mm-8.png";
 
 type Img = { src: string; label: string };
 
 const allImages: Img[] = [
+  { src: galleryMm8, label: "Monad Blitz Duo Stage" },
+  { src: galleryMm6, label: "Monad Hackathon Focus" },
+  { src: galleryMm3, label: "Frontier Hackathon Hall" },
+  { src: galleryMm7, label: "Builder Squad Selfie" },
+  { src: galleryMm1, label: "Solana Ecosystem Call" },
+  { src: galleryMm2, label: "Deep Coding Session" },
+  { src: galleryMm5, label: "Dev Duo Workstation" },
+  { src: galleryMm4, label: "Night Out with Builders" },
   { src: galleryNew1, label: "Solana Builder Pose" },
   { src: galleryNew2, label: "Late Night Coding Session" },
   { src: galleryNew3, label: "Deep Work Mode" },
