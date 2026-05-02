@@ -1,6 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-// Icons removed - music widget removed
+import { motion } from "framer-motion";
 
 // Import gallery images
 import gallery1 from "@/assets/gallery-1.jpg";
@@ -72,7 +70,9 @@ import galleryNew8 from "@/assets/gallery-new-8.jpg";
 import galleryNew9 from "@/assets/gallery-new-9.jpg";
 import galleryNew10 from "@/assets/gallery-new-10.jpg";
 
-const galleryImages = [
+type Img = { src: string; label: string };
+
+const allImages: Img[] = [
   { src: galleryNew1, label: "Solana Builder Pose" },
   { src: galleryNew2, label: "Late Night Coding Session" },
   { src: galleryNew3, label: "Deep Work Mode" },
@@ -143,207 +143,88 @@ const galleryImages = [
   { src: gallery49, label: "Builder Night Duo" },
 ];
 
-// Floating positions for each image (30 items)
-const floatingPositions = [
-  { x: 5, y: 2, size: "w-48 h-32", rotate: -5 },
-  { x: 75, y: 1, size: "w-40 h-56", rotate: 8 },
-  { x: 40, y: 5, size: "w-44 h-36", rotate: -3 },
-  { x: 15, y: 18, size: "w-52 h-40", rotate: 6 },
-  { x: 60, y: 15, size: "w-36 h-48", rotate: -8 },
-  { x: 85, y: 22, size: "w-44 h-32", rotate: 4 },
-  { x: 30, y: 30, size: "w-40 h-52", rotate: -6 },
-  { x: 70, y: 35, size: "w-48 h-36", rotate: 7 },
-  { x: 5, y: 38, size: "w-36 h-44", rotate: -4 },
-  { x: 50, y: 42, size: "w-44 h-40", rotate: 5 },
-  { x: 20, y: 50, size: "w-42 h-48", rotate: -7 },
-  { x: 80, y: 48, size: "w-38 h-44", rotate: 3 },
-  { x: 10, y: 60, size: "w-40 h-52", rotate: 6 },
-  { x: 65, y: 58, size: "w-44 h-36", rotate: -4 },
-  { x: 35, y: 65, size: "w-48 h-40", rotate: 8 },
-  { x: 88, y: 62, size: "w-36 h-48", rotate: -6 },
-  { x: 55, y: 70, size: "w-42 h-44", rotate: 4 },
-  { x: 8, y: 75, size: "w-44 h-38", rotate: -5 },
-  { x: 75, y: 73, size: "w-40 h-50", rotate: 6 },
-  { x: 42, y: 78, size: "w-46 h-36", rotate: -3 },
-  { x: 22, y: 85, size: "w-38 h-48", rotate: 7 },
-  { x: 60, y: 82, size: "w-44 h-42", rotate: -6 },
-  { x: 5, y: 92, size: "w-48 h-44", rotate: -7 },
-  { x: 48, y: 90, size: "w-42 h-50", rotate: 5 },
-  { x: 80, y: 88, size: "w-40 h-48", rotate: -4 },
-  { x: 25, y: 95, size: "w-44 h-40", rotate: 6 },
-  { x: 65, y: 93, size: "w-46 h-44", rotate: -5 },
-  { x: 10, y: 100, size: "w-42 h-52", rotate: 4 },
-  { x: 50, y: 98, size: "w-48 h-38", rotate: -7 },
-  { x: 85, y: 96, size: "w-40 h-46", rotate: 5 },
-  { x: 30, y: 105, size: "w-44 h-36", rotate: -4 },
-  { x: 70, y: 103, size: "w-42 h-48", rotate: 6 },
-  { x: 15, y: 110, size: "w-48 h-40", rotate: -7 },
-  { x: 55, y: 108, size: "w-40 h-44", rotate: 3 },
-  { x: 80, y: 112, size: "w-46 h-38", rotate: -5 },
-  { x: 25, y: 115, size: "w-44 h-50", rotate: 7 },
-  { x: 60, y: 113, size: "w-42 h-42", rotate: -3 },
-  { x: 10, y: 118, size: "w-48 h-36", rotate: 5 },
-  { x: 45, y: 120, size: "w-40 h-52", rotate: -6 },
-  { x: 75, y: 118, size: "w-44 h-40", rotate: 4 },
-  { x: 20, y: 125, size: "w-42 h-48", rotate: -3 },
-  { x: 55, y: 123, size: "w-46 h-36", rotate: 7 },
-  { x: 85, y: 126, size: "w-40 h-44", rotate: -5 },
-  { x: 35, y: 130, size: "w-48 h-40", rotate: 6 },
-  { x: 65, y: 128, size: "w-44 h-48", rotate: -4 },
-  { x: 10, y: 133, size: "w-42 h-38", rotate: 5 },
-];
+// Split into 3 rows
+const splitRows = (arr: Img[], rows: number): Img[][] => {
+  const out: Img[][] = Array.from({ length: rows }, () => []);
+  arr.forEach((it, i) => out[i % rows].push(it));
+  return out;
+};
 
-interface FloatingImageProps {
-  src: string;
-  label: string;
-  position: { x: number; y: number; size: string; rotate: number };
-  index: number;
-  mouseX: number;
-  mouseY: number;
+const rows = splitRows(allImages, 3);
+
+interface MarqueeRowProps {
+  images: Img[];
+  duration: number;
+  reverse?: boolean;
+  height: string;
 }
 
-const FloatingImage = ({ src, label, position, index, mouseX, mouseY }: FloatingImageProps) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const springConfig = { stiffness: 150, damping: 15, mass: 0.5 };
-  const springX = useSpring(x, springConfig);
-  const springY = useSpring(y, springConfig);
-  
-  // Parallax effect based on mouse position
-  const parallaxX = useTransform(
-    () => (mouseX - 50) * (0.02 + index * 0.005)
-  );
-  const parallaxY = useTransform(
-    () => (mouseY - 50) * (0.02 + index * 0.005)
-  );
-
-  // Floating animation duration varies by index
-  const floatDuration = 4 + (index % 3) * 2;
-  
+const MarqueeRow = ({ images, duration, reverse, height }: MarqueeRowProps) => {
+  const doubled = [...images, ...images];
   return (
-    <motion.div
-      className="absolute cursor-grab active:cursor-grabbing"
-      style={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
-        x: springX,
-        y: springY,
-      }}
-      drag
-      dragConstraints={false}
-      dragElastic={0.2}
-      dragMomentum={true}
-      onDragStart={() => setIsDragging(true)}
-      onDragEnd={() => setIsDragging(false)}
-      initial={{ opacity: 0, scale: 0.8, rotate: position.rotate }}
-      animate={{ 
-        opacity: isLoaded ? 1 : 0, 
-        scale: 1,
-        rotate: position.rotate,
-        translateX: isDragging ? 0 : [0, 8, 0, -8, 0],
-        translateY: isDragging ? 0 : [0, -10, 0, 10, 0],
-      }}
-      transition={{
-        opacity: { duration: 0.5, delay: index * 0.1 },
-        scale: { duration: 0.5, delay: index * 0.1 },
-        translateX: { duration: floatDuration, repeat: Infinity, ease: "easeInOut" },
-        translateY: { duration: floatDuration + 1, repeat: Infinity, ease: "easeInOut" },
-      }}
-      whileHover={{ scale: 1.1, zIndex: 50 }}
-    >
-      <motion.div
-        className={`${position.size} relative overflow-hidden rounded-2xl group`}
+    <div className="group relative overflow-hidden py-3">
+      <div
+        className="flex w-max gap-5"
         style={{
-          x: parallaxX,
-          y: parallaxY,
+          animation: `${reverse ? "marqueeReverse" : "marqueeX"} ${duration}s linear infinite`,
+          willChange: "transform",
         }}
       >
-        {/* Glassmorphism card */}
-        <div className="absolute inset-0 bg-background/20 backdrop-blur-sm border border-white/10 rounded-2xl" />
-        
-        {/* Glow effect on hover */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-neon-cyan/30 rounded-2xl blur-xl" />
-        </div>
-        
-        {/* Image */}
-        <img
-          src={src}
-          alt={label}
-          loading="lazy"
-          onLoad={() => setIsLoaded(true)}
-          className="w-full h-full object-cover rounded-2xl relative z-10"
-        />
-        
-        {/* Label overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-b-2xl z-20">
-          <p className="text-xs font-medium text-foreground truncate">{label}</p>
-        </div>
-        
-        {/* Glass border effect */}
-        <div className="absolute inset-0 rounded-2xl border border-white/20 group-hover:border-primary/50 transition-colors duration-300 z-30 pointer-events-none" />
-      </motion.div>
-    </motion.div>
+        {doubled.map((img, i) => (
+          <div
+            key={i}
+            className={`relative ${height} flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-all duration-500 hover:scale-[1.06] hover:border-primary/60 hover:shadow-[0_0_40px_hsl(var(--neon-cyan)/0.5)] hover:z-10`}
+          >
+            <img
+              src={img.src}
+              alt={img.label}
+              loading="lazy"
+              className="h-full w-auto object-cover"
+              draggable={false}
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-background/95 via-background/60 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
+              <p className="truncate text-xs font-medium text-foreground">{img.label}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <style>{`
+        .group:hover > div { animation-play-state: paused !important; }
+        @keyframes marqueeX {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marqueeReverse {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+      `}</style>
+    </div>
   );
 };
 
-// Music widget removed
-
 export const Gallery = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
-  
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setMousePosition({ x, y });
-  }, []);
-  
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    
-    container.addEventListener("mousemove", handleMouseMove);
-    return () => container.removeEventListener("mousemove", handleMouseMove);
-  }, [handleMouseMove]);
-  
   return (
     <section
-      ref={containerRef}
-      className="relative min-h-screen py-20 overflow-hidden"
+      className="relative overflow-hidden py-20"
       id="gallery"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
-      
-      {/* Animated background glow */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-30 blur-3xl"
+      {/* Futuristic background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(220_25%_4%)] to-background" />
+      <div
+        className="absolute inset-0 opacity-40"
         style={{
-          background: "radial-gradient(circle, hsl(var(--primary) / 0.3), transparent 70%)",
-        }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
+          background:
+            "radial-gradient(circle at 20% 30%, hsl(var(--neon-cyan) / 0.15), transparent 50%), radial-gradient(circle at 80% 70%, hsl(var(--neon-purple) / 0.15), transparent 50%)",
         }}
       />
-      
-      {/* Section header */}
-      <div className="relative z-20 container mx-auto px-4 mb-12">
+
+      {/* Header */}
+      <div className="relative z-10 container mx-auto px-4 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center"
         >
@@ -357,28 +238,23 @@ export const Gallery = () => {
           </p>
         </motion.div>
       </div>
-      
-      {/* Floating images container */}
-      <div className="relative h-[2400px] md:h-[2800px] w-full">
-        {galleryImages.map((image, index) => {
-          const position = floatingPositions[index];
-          if (!position) return null;
-          return (
-            <FloatingImage
-              key={index}
-              src={image.src}
-              label={image.label}
-              position={position}
-              index={index}
-              mouseX={mousePosition.x}
-              mouseY={mousePosition.y}
-            />
-          );
-        })}
+
+      {/* Marquee rows with edge fade mask */}
+      <div
+        className="relative z-10"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+        }}
+      >
+        <MarqueeRow images={rows[0]} duration={70} height="h-44 md:h-52" />
+        <MarqueeRow images={rows[1]} duration={90} reverse height="h-36 md:h-44" />
+        <MarqueeRow images={rows[2]} duration={80} height="h-44 md:h-52" />
       </div>
-      
-      
-      {/* Bottom gradient fade */}
+
+      {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
