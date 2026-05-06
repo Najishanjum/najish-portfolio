@@ -12,6 +12,7 @@ const projects = [
     description: "Concept-based futuristic project focused on space living and sustainable habitats with innovation and advanced technology.",
     tags: ["Innovation", "Future Tech", "Research", "Systems"],
     bgImage: spacehabitatxBg,
+    demoUrl: "https://space-habitatx.netlify.app/",
   },
   {
     title: "Routine X",
@@ -45,6 +46,7 @@ const projects = [
     title: "One Nation One Service",
     description: "Innovation-driven Digital India initiative unifying public, social, and smart services into one national platform.",
     tags: ["Innovation", "AI Systems", "Public Services", "National Impact"],
+    demoUrl: "https://allinoneilm.netlify.app/",
   },
 ];
 
@@ -146,10 +148,21 @@ const BrowserCard = ({ project, index }: { project: typeof projects[0]; index: n
             </Button>
             <Button
               size="sm"
+              asChild={!!project.demoUrl}
+              disabled={!project.demoUrl}
               className="bg-[hsl(320,100%,55%)] text-[hsl(220,25%,6%)] border-2 border-[hsl(220,25%,6%)] hover:bg-[hsl(320,100%,70%)] font-mono font-bold text-xs transition-all duration-200 active:scale-95"
             >
-              <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-              Demo
+              {project.demoUrl ? (
+                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
+                  Demo
+                </a>
+              ) : (
+                <>
+                  <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
+                  Demo
+                </>
+              )}
             </Button>
           </div>
         </div>
