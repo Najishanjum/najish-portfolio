@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Heart, MessageCircle, Repeat2, Share, BadgeCheck } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 type Tweet = {
   name: string;
@@ -13,7 +14,13 @@ type Tweet = {
   retweets: string;
   replies: string;
   gradient: string;
+  avatar?: string;
 };
+
+// DiceBear-generated illustrated avatars (deterministic by seed = handle)
+const avatarFor = (handle: string) =>
+  `https://api.dicebear.com/7.x/notionists/svg?seed=${encodeURIComponent(handle)}&backgroundType=gradientLinear&backgroundColor=0ea5e9,8b5cf6,ec4899,10b981,f59e0b`;
+
 
 const tweets: Tweet[] = [
   {
@@ -149,9 +156,12 @@ const TweetCard = ({ tweet, onOpen }: { tweet: Tweet; onOpen: (t: Tweet) => void
     {/* Header */}
     <div className="flex items-start justify-between mb-3 relative">
       <div className="flex items-center gap-3">
-        <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${tweet.gradient} flex items-center justify-center text-background font-bold text-base shadow-lg ring-2 ring-background`}>
-          {tweet.name.charAt(0)}
-        </div>
+        <Avatar className={`w-11 h-11 ring-2 ring-background shadow-lg bg-gradient-to-br ${tweet.gradient}`}>
+          <AvatarImage src={tweet.avatar ?? avatarFor(tweet.handle)} alt={tweet.name} />
+          <AvatarFallback className={`bg-gradient-to-br ${tweet.gradient} text-background font-bold text-base`}>
+            {tweet.name.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
             <span className="font-bold text-foreground text-sm leading-tight">{tweet.name}</span>
@@ -213,9 +223,12 @@ const TweetModal = ({ tweet, onClose }: { tweet: Tweet | null; onClose: () => vo
 
             {/* Header — enlarged avatar */}
             <div className="flex items-center gap-4 mb-5">
-              <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${tweet.gradient} flex items-center justify-center text-background font-bold text-3xl shadow-xl ring-4 ring-background`}>
-                {tweet.name.charAt(0)}
-              </div>
+              <Avatar className={`w-20 h-20 ring-4 ring-background shadow-xl bg-gradient-to-br ${tweet.gradient}`}>
+                <AvatarImage src={tweet.avatar ?? avatarFor(tweet.handle)} alt={tweet.name} />
+                <AvatarFallback className={`bg-gradient-to-br ${tweet.gradient} text-background font-bold text-3xl`}>
+                  {tweet.name.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
                   <span className="font-bold text-foreground text-lg leading-tight">{tweet.name}</span>
