@@ -156,9 +156,12 @@ const TweetCard = ({ tweet, onOpen }: { tweet: Tweet; onOpen: (t: Tweet) => void
     {/* Header */}
     <div className="flex items-start justify-between mb-3 relative">
       <div className="flex items-center gap-3">
-        <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${tweet.gradient} flex items-center justify-center text-background font-bold text-base shadow-lg ring-2 ring-background`}>
-          {tweet.name.charAt(0)}
-        </div>
+        <Avatar className={`w-11 h-11 ring-2 ring-background shadow-lg bg-gradient-to-br ${tweet.gradient}`}>
+          <AvatarImage src={tweet.avatar ?? avatarFor(tweet.handle)} alt={tweet.name} />
+          <AvatarFallback className={`bg-gradient-to-br ${tweet.gradient} text-background font-bold text-base`}>
+            {tweet.name.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
             <span className="font-bold text-foreground text-sm leading-tight">{tweet.name}</span>
