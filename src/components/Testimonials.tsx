@@ -122,8 +122,27 @@ const tweets: Tweet[] = [
   },
 ];
 
-const TweetCard = ({ tweet }: { tweet: Tweet }) => (
-  <div className="group relative flex-shrink-0 w-[340px] md:w-[400px] p-5 rounded-2xl bg-card/40 backdrop-blur-xl border border-border/40 hover:border-primary/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px_hsl(var(--primary)/0.4)]">
+// Convert relative date (e.g. "2h", "1d", "1w") into a full timestamp string
+const fullTimestamp = (relative: string): string => {
+  const now = new Date();
+  const match = relative.match(/^(\d+)([hdw])$/);
+  if (match) {
+    const n = parseInt(match[1], 10);
+    const unit = match[2];
+    const ms = unit === "h" ? n * 3600e3 : unit === "d" ? n * 86400e3 : n * 7 * 86400e3;
+    now.setTime(now.getTime() - ms);
+  }
+  const time = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true });
+  const date = now.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return `${time} · ${date}`;
+};
+
+const TweetCard = ({ tweet, onOpen }: { tweet: Tweet; onOpen: (t: Tweet) => void }) => (
+  <button
+    type="button"
+    onClick={() => onOpen(tweet)}
+    className="group relative flex-shrink-0 w-[340px] md:w-[400px] p-5 rounded-2xl bg-card/40 backdrop-blur-xl border border-border/40 hover:border-primary/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px_hsl(var(--primary)/0.4)] text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50"
+  >
     {/* Subtle gradient glow on hover */}
     <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${tweet.gradient} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-500 pointer-events-none`} />
 
@@ -150,30 +169,103 @@ const TweetCard = ({ tweet }: { tweet: Tweet }) => (
     </div>
 
     {/* Content */}
-    <p className="text-foreground/90 leading-relaxed text-[15px] mb-4 relative">
+    <p className="text-foreground/90 leading-relaxed text-[15px] mb-4 relative line-clamp-4">
       {tweet.content}
     </p>
 
     {/* Footer actions */}
     <div className="flex items-center justify-between text-muted-foreground text-xs pt-3 border-t border-border/30 relative">
-      <div className="flex items-center gap-1.5 hover:text-neon-blue transition-colors cursor-pointer">
+      <div className="flex items-center gap-1.5 hover:text-neon-blue transition-colors">
         <MessageCircle className="w-4 h-4" />
         <span>{tweet.replies}</span>
       </div>
-      <div className="flex items-center gap-1.5 hover:text-neon-green transition-colors cursor-pointer">
+      <div className="flex items-center gap-1.5 hover:text-neon-green transition-colors">
         <Repeat2 className="w-4 h-4" />
         <span>{tweet.retweets}</span>
       </div>
-      <div className="flex items-center gap-1.5 hover:text-neon-pink transition-colors cursor-pointer">
+      <div className="flex items-center gap-1.5 hover:text-neon-pink transition-colors">
         <Heart className="w-4 h-4" />
         <span>{tweet.likes}</span>
       </div>
-      <div className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer">
+      <div className="flex items-center gap-1.5 hover:text-primary transition-colors">
         <Share className="w-4 h-4" />
       </div>
     </div>
-  </div>
+  </button>
 );
+
+const TweetModal = ({ tweet, onClose }: { tweet: Tweet | null; onClose: () => void }) => (
+  <Dialog open={!!tweet} onOpenChange={(o) => !o && onClose()}>
+    <DialogContent className="max-w-xl bg-card/95 backdrop-blur-2xl border border-border/60 p-0 overflow-hidden">
+      {tweet && (
+        <div className="relative">
+          {/* Gradient header glow */}
+          <div className={`absolute -top-24 -left-24 w-72 h-72 bg-gradient-to-br ${tweet.gradient} opacity-20 blur-3xl pointer-events-none`} />
+          <div className={`absolute -bottom-24 -right-24 w-72 h-72 bg-gradient-to-br ${tweet.gradient} opacity-10 blur-3xl pointer-events-none`} />
+
+          <div className="relative p-7">
+            {/* X logo */}
+            <div className="flex justify-end mb-2">
+              <svg viewBox="0 0 24 24" className="w-6 h-6 fill-foreground/80" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </div>
+
+            {/* Header — enlarged avatar */}
+            <div className="flex items-center gap-4 mb-5">
+              <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${tweet.gradient} flex items-center justify-center text-background font-bold text-3xl shadow-xl ring-4 ring-background`}>
+                {tweet.name.charAt(0)}
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-bold text-foreground text-lg leading-tight">{tweet.name}</span>
+                  {tweet.verified && (
+                    <BadgeCheck className="w-5 h-5 text-neon-cyan fill-neon-cyan/20" />
+                  )}
+                </div>
+                <span className="text-muted-foreground text-sm">@{tweet.handle}</span>
+              </div>
+            </div>
+
+            {/* Full content */}
+            <p className="text-foreground text-xl leading-relaxed mb-5 whitespace-pre-line">
+              {tweet.content}
+            </p>
+
+            {/* Full timestamp */}
+            <div className="text-muted-foreground text-sm pb-4 border-b border-border/40">
+              {fullTimestamp(tweet.date)}
+            </div>
+
+            {/* Stats row */}
+            <div className="flex items-center gap-6 py-4 border-b border-border/40 text-sm">
+              <div><span className="font-bold text-foreground">{tweet.retweets}</span> <span className="text-muted-foreground">Reposts</span></div>
+              <div><span className="font-bold text-foreground">{tweet.likes}</span> <span className="text-muted-foreground">Likes</span></div>
+              <div><span className="font-bold text-foreground">{tweet.replies}</span> <span className="text-muted-foreground">Replies</span></div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center justify-around pt-4 text-muted-foreground">
+              <button className="flex items-center gap-2 hover:text-neon-blue transition-colors">
+                <MessageCircle className="w-5 h-5" />
+              </button>
+              <button className="flex items-center gap-2 hover:text-neon-green transition-colors">
+                <Repeat2 className="w-5 h-5" />
+              </button>
+              <button className="flex items-center gap-2 hover:text-neon-pink transition-colors">
+                <Heart className="w-5 h-5" />
+              </button>
+              <button className="flex items-center gap-2 hover:text-primary transition-colors">
+                <Share className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </DialogContent>
+  </Dialog>
+);
+
 
 export const Testimonials = () => {
   const sectionRef = useRef<HTMLElement>(null);
