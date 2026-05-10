@@ -270,6 +270,7 @@ const TweetModal = ({ tweet, onClose }: { tweet: Tweet | null; onClose: () => vo
 export const Testimonials = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [selected, setSelected] = useState<Tweet | null>(null);
 
   // Split into two rows for opposite-direction marquees
   const row1 = tweets.slice(0, 5);
