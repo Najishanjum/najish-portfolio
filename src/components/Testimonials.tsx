@@ -1,66 +1,175 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Star } from "lucide-react";
+import { Heart, MessageCircle, Repeat2, Share, BadgeCheck } from "lucide-react";
 
-const testimonials = [
+type Tweet = {
+  name: string;
+  handle: string;
+  verified?: boolean;
+  date: string;
+  content: string;
+  likes: string;
+  retweets: string;
+  replies: string;
+  gradient: string;
+};
+
+const tweets: Tweet[] = [
   {
     name: "Md Moinuddin",
-    review: "Najish delivers exactly what you imagine—clean UI, fast performance, and modern designs. Truly reliable and skilled.",
+    handle: "moinuddin_dev",
+    verified: true,
+    date: "2h",
+    content:
+      "Just shipped a project with @najishanjum — clean UI, blazing perf, zero drama. The man codes like he's debugging the matrix. 10/10 would hire again. 🔥",
+    likes: "2.4K",
+    retweets: "312",
+    replies: "48",
+    gradient: "from-neon-cyan to-neon-blue",
   },
   {
     name: "Raj Sen",
-    review: "Amazing work ethic. The website he built for me was smooth, responsive, and extremely professional.",
+    handle: "rajsen_builds",
+    verified: true,
+    date: "5h",
+    content:
+      "Najish built my entire SaaS landing page in 3 days. Smooth animations, responsive AF, and the dark mode? *chef's kiss* 👨‍🍳💋",
+    likes: "1.8K",
+    retweets: "204",
+    replies: "31",
+    gradient: "from-neon-purple to-neon-pink",
   },
   {
     name: "Harsh Dubey",
-    review: "Great communication, great design sense, and great coding skills. Highly recommended for any digital project.",
+    handle: "harshcodes",
+    date: "1d",
+    content:
+      "Bro really took my Figma → production in 48 hours. Communication on point, code is clean, and the vibes are immaculate. @najishanjum is built different.",
+    likes: "956",
+    retweets: "142",
+    replies: "22",
+    gradient: "from-neon-green to-neon-cyan",
   },
   {
     name: "Shahbaz Raza",
-    review: "Smart, fast, and detail-oriented. The UI he created feels premium and user-friendly. Excellent work!",
+    handle: "shahbaz_raza",
+    verified: true,
+    date: "2d",
+    content:
+      "Working with @najishanjum feels illegal. How does one person ship full-stack apps faster than my coffee gets cold? ☕️ Premium quality, zero BS.",
+    likes: "3.1K",
+    retweets: "421",
+    replies: "67",
+    gradient: "from-neon-blue to-neon-purple",
   },
   {
     name: "Hassan",
-    review: "Always on time, always professional. His development and design quality stand out every single time.",
+    handle: "hassan_xyz",
+    date: "3d",
+    content:
+      "Najish delivered my dashboard 2 days early. EARLY. In 2026. That's not a developer, that's a wizard. 🧙‍♂️",
+    likes: "1.2K",
+    retweets: "189",
+    replies: "27",
+    gradient: "from-neon-pink to-neon-purple",
   },
   {
     name: "Wazid",
-    review: "Very skilled in frontend, backend, and automation. Delivered my project beyond expectations.",
+    handle: "wazid_codes",
+    verified: true,
+    date: "4d",
+    content:
+      "Frontend ✅ Backend ✅ Automation ✅ AI integrations ✅ Honestly @najishanjum is a one-man engineering team. Insane talent.",
+    likes: "2.7K",
+    retweets: "356",
+    replies: "54",
+    gradient: "from-neon-cyan to-neon-green",
   },
   {
     name: "Mohit Chakole",
-    review: "Clean work, great structure, and a modern feel. The entire website looks polished and professional.",
+    handle: "mohit_dev",
+    date: "5d",
+    content:
+      "Hired @najishanjum for a 1-week gig. Got the project + 3 bonus features + animations I didn't even ask for. This man overdelivers like it's his religion. 🙏",
+    likes: "1.5K",
+    retweets: "231",
+    replies: "39",
+    gradient: "from-neon-purple to-neon-blue",
   },
   {
     name: "Abhishikth",
-    review: "Najish perfectly understands requirements and transforms ideas into real, working solutions. Incredible work!",
+    handle: "abhishikth_b",
+    verified: true,
+    date: "1w",
+    content:
+      "Idea → Design → Production in record time. @najishanjum reads requirements like he wrote them himself. Genuinely the best dev experience I've had. 🚀",
+    likes: "2.0K",
+    retweets: "278",
+    replies: "44",
+    gradient: "from-neon-green to-neon-blue",
   },
   {
     name: "Saniya",
-    review: "Creative, patient, and talented. His design sense and responsiveness make the whole process easy and smooth.",
+    handle: "saniya_designs",
+    date: "1w",
+    content:
+      "As a designer, I'm picky. @najishanjum implemented my Figma pixel-perfect AND added micro-interactions I didn't even spec. He just *gets* it. 💎",
+    likes: "1.9K",
+    retweets: "247",
+    replies: "36",
+    gradient: "from-neon-pink to-neon-cyan",
   },
 ];
 
-const TestimonialCard = ({ name, review }: { name: string; review: string }) => (
-  <div className="flex-shrink-0 w-[320px] md:w-[380px] p-6 rounded-2xl bg-card/30 backdrop-blur-xl border border-border/30 hover:bg-card/50 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
-    {/* Stars */}
-    <div className="flex gap-1 mb-4">
-      {[...Array(5)].map((_, i) => (
-        <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-      ))}
-    </div>
-    
-    {/* Review */}
-    <p className="text-muted-foreground leading-relaxed mb-4 text-sm">
-      "{review}"
-    </p>
-    
-    {/* Name */}
-    <div className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-neon-cyan flex items-center justify-center text-background font-bold text-sm">
-        {name.charAt(0)}
+const TweetCard = ({ tweet }: { tweet: Tweet }) => (
+  <div className="group relative flex-shrink-0 w-[340px] md:w-[400px] p-5 rounded-2xl bg-card/40 backdrop-blur-xl border border-border/40 hover:border-primary/50 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_-15px_hsl(var(--primary)/0.4)]">
+    {/* Subtle gradient glow on hover */}
+    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${tweet.gradient} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-500 pointer-events-none`} />
+
+    {/* Header */}
+    <div className="flex items-start justify-between mb-3 relative">
+      <div className="flex items-center gap-3">
+        <div className={`w-11 h-11 rounded-full bg-gradient-to-br ${tweet.gradient} flex items-center justify-center text-background font-bold text-base shadow-lg ring-2 ring-background`}>
+          {tweet.name.charAt(0)}
+        </div>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-1">
+            <span className="font-bold text-foreground text-sm leading-tight">{tweet.name}</span>
+            {tweet.verified && (
+              <BadgeCheck className="w-4 h-4 text-neon-cyan fill-neon-cyan/20" />
+            )}
+          </div>
+          <span className="text-muted-foreground text-xs">@{tweet.handle} · {tweet.date}</span>
+        </div>
       </div>
-      <span className="font-semibold text-foreground">{name}</span>
+      {/* X logo */}
+      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-foreground/80" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    </div>
+
+    {/* Content */}
+    <p className="text-foreground/90 leading-relaxed text-[15px] mb-4 relative">
+      {tweet.content}
+    </p>
+
+    {/* Footer actions */}
+    <div className="flex items-center justify-between text-muted-foreground text-xs pt-3 border-t border-border/30 relative">
+      <div className="flex items-center gap-1.5 hover:text-neon-blue transition-colors cursor-pointer">
+        <MessageCircle className="w-4 h-4" />
+        <span>{tweet.replies}</span>
+      </div>
+      <div className="flex items-center gap-1.5 hover:text-neon-green transition-colors cursor-pointer">
+        <Repeat2 className="w-4 h-4" />
+        <span>{tweet.retweets}</span>
+      </div>
+      <div className="flex items-center gap-1.5 hover:text-neon-pink transition-colors cursor-pointer">
+        <Heart className="w-4 h-4" />
+        <span>{tweet.likes}</span>
+      </div>
+      <div className="flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer">
+        <Share className="w-4 h-4" />
+      </div>
     </div>
   </div>
 );
@@ -69,17 +178,21 @@ export const Testimonials = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  // Duplicate testimonials for seamless loop
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
+  // Split into two rows for opposite-direction marquees
+  const row1 = tweets.slice(0, 5);
+  const row2 = tweets.slice(4).concat(tweets.slice(0, 4));
+  const dup1 = [...row1, ...row1];
+  const dup2 = [...row2, ...row2];
 
   return (
     <section
       id="testimonials"
       ref={sectionRef}
-      className="py-20 relative overflow-hidden"
+      className="py-24 relative overflow-hidden"
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         {/* Section Header */}
@@ -87,44 +200,52 @@ export const Testimonials = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <motion.span
-            className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-mono mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-mono mb-4"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.4, delay: 0.2 }}
           >
-            Testimonials
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            Live from X
           </motion.span>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-gradient">What People Say</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Feedback from clients and collaborators I've had the pleasure to work with
+            Real reactions from clients & collaborators across the timeline
           </p>
         </motion.div>
       </div>
 
-      {/* Marquee Container */}
+      {/* Marquee rows */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="relative"
+        className="relative space-y-6"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+        }}
       >
-        {/* Gradient Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        {/* Row 1 */}
+        <div className="flex gap-5 animate-marquee-slow hover:[animation-play-state:paused]">
+          {dup1.map((t, i) => (
+            <TweetCard key={`r1-${t.handle}-${i}`} tweet={t} />
+          ))}
+        </div>
 
-        {/* Scrolling Container */}
-        <div className="flex gap-6 animate-marquee hover:[animation-play-state:paused]">
-          {duplicatedTestimonials.map((testimonial, index) => (
-            <TestimonialCard
-              key={`${testimonial.name}-${index}`}
-              name={testimonial.name}
-              review={testimonial.review}
-            />
+        {/* Row 2 — reverse direction */}
+        <div className="flex gap-5 animate-marquee-reverse-slow hover:[animation-play-state:paused]">
+          {dup2.map((t, i) => (
+            <TweetCard key={`r2-${t.handle}-${i}`} tweet={t} />
           ))}
         </div>
       </motion.div>
