@@ -332,17 +332,19 @@ export const Testimonials = () => {
         {/* Row 1 */}
         <div className="flex gap-5 animate-marquee-slow hover:[animation-play-state:paused]">
           {dup1.map((t, i) => (
-            <TweetCard key={`r1-${t.handle}-${i}`} tweet={t} />
+            <TweetCard key={`r1-${t.handle}-${i}`} tweet={t} onOpen={setSelected} />
           ))}
         </div>
 
         {/* Row 2 — reverse direction */}
         <div className="flex gap-5 animate-marquee-reverse-slow hover:[animation-play-state:paused]">
           {dup2.map((t, i) => (
-            <TweetCard key={`r2-${t.handle}-${i}`} tweet={t} />
+            <TweetCard key={`r2-${t.handle}-${i}`} tweet={t} onOpen={setSelected} />
           ))}
         </div>
       </motion.div>
+
+      <TweetModal tweet={selected} onClose={() => setSelected(null)} />
     </section>
   );
 };
