@@ -223,9 +223,12 @@ const TweetModal = ({ tweet, onClose }: { tweet: Tweet | null; onClose: () => vo
 
             {/* Header — enlarged avatar */}
             <div className="flex items-center gap-4 mb-5">
-              <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${tweet.gradient} flex items-center justify-center text-background font-bold text-3xl shadow-xl ring-4 ring-background`}>
-                {tweet.name.charAt(0)}
-              </div>
+              <Avatar className={`w-20 h-20 ring-4 ring-background shadow-xl bg-gradient-to-br ${tweet.gradient}`}>
+                <AvatarImage src={tweet.avatar ?? avatarFor(tweet.handle)} alt={tweet.name} />
+                <AvatarFallback className={`bg-gradient-to-br ${tweet.gradient} text-background font-bold text-3xl`}>
+                  {tweet.name.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
                   <span className="font-bold text-foreground text-lg leading-tight">{tweet.name}</span>
