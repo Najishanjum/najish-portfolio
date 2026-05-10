@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Heart, MessageCircle, Repeat2, Share, BadgeCheck } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 type Tweet = {
   name: string;
