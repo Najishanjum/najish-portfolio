@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Heart, MessageCircle, Repeat2, Share, BadgeCheck } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 type Tweet = {
   name: string;
@@ -13,7 +14,13 @@ type Tweet = {
   retweets: string;
   replies: string;
   gradient: string;
+  avatar?: string;
 };
+
+// DiceBear-generated illustrated avatars (deterministic by seed = handle)
+const avatarFor = (handle: string) =>
+  `https://api.dicebear.com/7.x/notionists/svg?seed=${encodeURIComponent(handle)}&backgroundType=gradientLinear&backgroundColor=0ea5e9,8b5cf6,ec4899,10b981,f59e0b`;
+
 
 const tweets: Tweet[] = [
   {
