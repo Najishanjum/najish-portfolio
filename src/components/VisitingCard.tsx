@@ -208,6 +208,36 @@ export const VisitingCard = () => {
             <p className="mt-3 text-muted-foreground/60 font-mono text-xs italic">— Najish</p>
           </motion.div>
         </motion.div>
+
+        {submitted && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mt-6 flex items-center justify-center gap-3 flex-wrap"
+          >
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                onClick={handleDownloadPDF}
+                variant="outline"
+                className="border-primary/30 text-primary hover:bg-primary/10"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PDF
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button
+                onClick={handleDownloadImage}
+                variant="outline"
+                className="border-primary/30 text-primary hover:bg-primary/10"
+              >
+                <Image className="mr-2 h-4 w-4" />
+                Download Image
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
       </div>
     </section>
   );
