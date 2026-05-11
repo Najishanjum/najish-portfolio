@@ -190,28 +190,6 @@ export const VisitingCard = () => {
               <p className="text-muted-foreground text-sm">
                 Great to connect with someone from <span className="text-primary font-medium">{formData.city || "around the world"}</span>. I'll reach out soon!
               </p>
-              <div className="flex items-center justify-center gap-3 flex-wrap">
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    onClick={handleDownloadPDF}
-                    variant="outline"
-                    className="border-primary/30 text-primary hover:bg-primary/10"
-                  >
-                    <Download className="mr-2 h-4 w-4" />
-                    Download PDF
-                  </Button>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    onClick={handleDownloadImage}
-                    variant="outline"
-                    className="border-primary/30 text-primary hover:bg-primary/10"
-                  >
-                    <Image className="mr-2 h-4 w-4" />
-                    Download Image
-                  </Button>
-                </motion.div>
-              </div>
             </motion.div>
           )}
 
