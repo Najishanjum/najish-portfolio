@@ -20,12 +20,25 @@ export const Contact = () => {
   });
   const [focused, setFocused] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully! I'll get back to you soon.", {
-      description: "Thank you for reaching out!",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    setSubmitting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+      if (error || (data as any)?.error) throw new Error(error?.message || (data as any)?.error);
+      toast.success("Message sent successfully! I'll get back to you soon.", {
+        description: "Thank you for reaching out!",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err: any) {
+      toast.error("Failed to send message", { description: err?.message ?? "Please try again." });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
