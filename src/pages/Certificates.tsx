@@ -547,6 +547,47 @@ const CertificateModal = ({
             </div>
           </div>
 
+          {/* Likes & Rating */}
+          <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-border/30">
+            <button
+              onClick={onLike}
+              disabled={liked}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-background/60 border border-border/40 hover:bg-background disabled:opacity-70 transition-colors"
+            >
+              <Heart className={`w-4 h-4 ${liked ? "fill-red-500 text-red-500" : ""}`} />
+              <span className="text-sm font-medium">{stats?.likes ?? 0}</span>
+              <span className="text-xs text-muted-foreground">{liked ? "Liked" : "Like"}</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-0.5" onMouseLeave={() => setHover(0)}>
+                {[1, 2, 3, 4, 5].map((n) => {
+                  const active = (hover || userRating || Math.round(avg)) >= n;
+                  return (
+                    <button
+                      key={n}
+                      onMouseEnter={() => !userRating && setHover(n)}
+                      onClick={() => !userRating && onRate(n)}
+                      disabled={!!userRating}
+                      className="p-0.5 disabled:cursor-not-allowed"
+                      aria-label={`Rate ${n} stars`}
+                    >
+                      <Star
+                        className={`w-5 h-5 transition-colors ${
+                          active ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+              <span className="text-xs text-muted-foreground">
+                {avg ? `${avg.toFixed(1)} (${stats?.rating_count})` : "No ratings yet"}
+                {userRating ? ` • You: ${userRating}★` : ""}
+              </span>
+            </div>
+          </div>
+
           {certificate.verificationLink && (
             <a
               href={certificate.verificationLink}
