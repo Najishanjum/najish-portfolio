@@ -14,13 +14,67 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      certificate_stats: {
+        Row: {
+          certificate_id: number
+          likes: number
+          rating_count: number
+          rating_sum: number
+          updated_at: string
+        }
+        Insert: {
+          certificate_id: number
+          likes?: number
+          rating_count?: number
+          rating_sum?: number
+          updated_at?: string
+        }
+        Update: {
+          certificate_id?: number
+          likes?: number
+          rating_count?: number
+          rating_sum?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      add_certificate_rating: {
+        Args: { _cert_id: number; _rating: number }
+        Returns: {
+          certificate_id: number
+          likes: number
+          rating_count: number
+          rating_sum: number
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "certificate_stats"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      increment_certificate_like: {
+        Args: { _cert_id: number }
+        Returns: {
+          certificate_id: number
+          likes: number
+          rating_count: number
+          rating_sum: number
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "certificate_stats"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       [_ in never]: never
