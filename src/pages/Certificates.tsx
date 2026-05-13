@@ -1,10 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Award, Calendar, Building, Ticket, Handshake } from "lucide-react";
+import { X, ExternalLink, Award, Calendar, Building, Ticket, Handshake, Heart, Star } from "lucide-react";
 import collaborateCard from "@/assets/collaborate-card.jpg";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BadgesCarousel3D } from "@/components/BadgesCarousel3D";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
+
+interface CertStats {
+  likes: number;
+  rating_sum: number;
+  rating_count: number;
+}
+type StatsMap = Record<number, CertStats>;
 
 // Badge/Pass images
 import passArtemis from "@/assets/pass-artemis.jpg";
@@ -382,14 +391,21 @@ const passes: Pass[] = [
   },
 ];
 const CertificateCard = ({
-  certificate, 
+  certificate,
   onClick,
-  isPaused 
-}: { 
-  certificate: Certificate; 
+  isPaused,
+  stats,
+  liked,
+  onLike,
+}: {
+  certificate: Certificate;
   onClick: () => void;
   isPaused: boolean;
+  stats?: CertStats;
+  liked: boolean;
+  onLike: () => void;
 }) => {
+  const avg = stats && stats.rating_count > 0 ? stats.rating_sum / stats.rating_count : 0;
   return (
     <motion.div
       className="flex-shrink-0 w-[300px] md:w-[350px] mx-4 cursor-pointer group"
@@ -398,6 +414,21 @@ const CertificateCard = ({
       onClick={onClick}
     >
       <div className="relative overflow-hidden rounded-2xl bg-background/40 backdrop-blur-xl border border-border/30 shadow-lg hover:shadow-primary/20 transition-all duration-300">
+        {/* Like button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!liked) onLike();
+          }}
+          className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full bg-background/80 backdrop-blur-md border border-border/40 hover:bg-background transition-colors"
+          aria-label="Like certificate"
+        >
+          <Heart
+            className={`w-4 h-4 transition-colors ${liked ? "fill-red-500 text-red-500" : "text-foreground"}`}
+          />
+          <span className="text-xs font-medium text-foreground">{stats?.likes ?? 0}</span>
+        </button>
+
         {/* Certificate Image */}
         <div className="relative aspect-[4/3] overflow-hidden">
           <img
@@ -406,9 +437,9 @@ const CertificateCard = ({
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-          
+
           {/* Hover overlay */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0 flex items-center justify-center bg-primary/20 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
@@ -418,15 +449,22 @@ const CertificateCard = ({
             </span>
           </motion.div>
         </div>
-        
+
         {/* Card Content */}
         <div className="p-4">
           <h3 className="font-semibold text-foreground text-sm md:text-base line-clamp-2 mb-2">
             {certificate.title}
           </h3>
-          <div className="flex items-center gap-2 text-muted-foreground text-xs">
-            <Building className="w-3 h-3" />
-            <span className="truncate">{certificate.issuer}</span>
+          <div className="flex items-center justify-between gap-2 text-muted-foreground text-xs">
+            <div className="flex items-center gap-2 min-w-0">
+              <Building className="w-3 h-3 shrink-0" />
+              <span className="truncate">{certificate.issuer}</span>
+            </div>
+            <div className="flex items-center gap-1 shrink-0">
+              <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+              <span className="text-foreground font-medium">{avg ? avg.toFixed(1) : "—"}</span>
+              <span className="text-muted-foreground/70">({stats?.rating_count ?? 0})</span>
+            </div>
           </div>
         </div>
       </div>
@@ -434,13 +472,25 @@ const CertificateCard = ({
   );
 };
 
-const CertificateModal = ({ 
-  certificate, 
-  onClose 
-}: { 
-  certificate: Certificate; 
+const CertificateModal = ({
+  certificate,
+  onClose,
+  stats,
+  liked,
+  userRating,
+  onLike,
+  onRate,
+}: {
+  certificate: Certificate;
   onClose: () => void;
+  stats?: CertStats;
+  liked: boolean;
+  userRating: number;
+  onLike: () => void;
+  onRate: (rating: number) => void;
 }) => {
+  const [hover, setHover] = useState(0);
+  const avg = stats && stats.rating_count > 0 ? stats.rating_sum / stats.rating_count : 0;
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -497,6 +547,47 @@ const CertificateModal = ({
             </div>
           </div>
 
+          {/* Likes & Rating */}
+          <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-border/30">
+            <button
+              onClick={onLike}
+              disabled={liked}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-background/60 border border-border/40 hover:bg-background disabled:opacity-70 transition-colors"
+            >
+              <Heart className={`w-4 h-4 ${liked ? "fill-red-500 text-red-500" : ""}`} />
+              <span className="text-sm font-medium">{stats?.likes ?? 0}</span>
+              <span className="text-xs text-muted-foreground">{liked ? "Liked" : "Like"}</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-0.5" onMouseLeave={() => setHover(0)}>
+                {[1, 2, 3, 4, 5].map((n) => {
+                  const active = (hover || userRating || Math.round(avg)) >= n;
+                  return (
+                    <button
+                      key={n}
+                      onMouseEnter={() => !userRating && setHover(n)}
+                      onClick={() => !userRating && onRate(n)}
+                      disabled={!!userRating}
+                      className="p-0.5 disabled:cursor-not-allowed"
+                      aria-label={`Rate ${n} stars`}
+                    >
+                      <Star
+                        className={`w-5 h-5 transition-colors ${
+                          active ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+              <span className="text-xs text-muted-foreground">
+                {avg ? `${avg.toFixed(1)} (${stats?.rating_count})` : "No ratings yet"}
+                {userRating ? ` • You: ${userRating}★` : ""}
+              </span>
+            </div>
+          </div>
+
           {certificate.verificationLink && (
             <a
               href={certificate.verificationLink}
@@ -520,6 +611,71 @@ const Certificates = () => {
   const [isPaused, setIsPaused] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [stats, setStats] = useState<StatsMap>({});
+  const [likedIds, setLikedIds] = useState<Set<number>>(() => {
+    try {
+      return new Set<number>(JSON.parse(localStorage.getItem("cert_liked") || "[]"));
+    } catch { return new Set(); }
+  });
+  const [ratedMap, setRatedMap] = useState<Record<number, number>>(() => {
+    try {
+      return JSON.parse(localStorage.getItem("cert_rated") || "{}");
+    } catch { return {}; }
+  });
+
+  useEffect(() => {
+    (async () => {
+      const { data, error } = await supabase
+        .from("certificate_stats")
+        .select("certificate_id, likes, rating_sum, rating_count");
+      if (error || !data) return;
+      const map: StatsMap = {};
+      data.forEach((r: any) => {
+        map[r.certificate_id] = { likes: r.likes, rating_sum: r.rating_sum, rating_count: r.rating_count };
+      });
+      setStats(map);
+    })();
+  }, []);
+
+  const handleLike = async (certId: number) => {
+    if (likedIds.has(certId)) return;
+    const next = new Set(likedIds);
+    next.add(certId);
+    setLikedIds(next);
+    localStorage.setItem("cert_liked", JSON.stringify([...next]));
+    setStats((s) => ({
+      ...s,
+      [certId]: {
+        likes: (s[certId]?.likes ?? 0) + 1,
+        rating_sum: s[certId]?.rating_sum ?? 0,
+        rating_count: s[certId]?.rating_count ?? 0,
+      },
+    }));
+    const { data, error } = await supabase.rpc("increment_certificate_like", { _cert_id: certId });
+    if (error) {
+      toast({ title: "Couldn't like", description: error.message, variant: "destructive" });
+      return;
+    }
+    if (data) {
+      setStats((s) => ({ ...s, [certId]: { likes: data.likes, rating_sum: data.rating_sum, rating_count: data.rating_count } }));
+    }
+  };
+
+  const handleRate = async (certId: number, rating: number) => {
+    if (ratedMap[certId]) return;
+    const nextRated = { ...ratedMap, [certId]: rating };
+    setRatedMap(nextRated);
+    localStorage.setItem("cert_rated", JSON.stringify(nextRated));
+    const { data, error } = await supabase.rpc("add_certificate_rating", { _cert_id: certId, _rating: rating });
+    if (error) {
+      toast({ title: "Couldn't rate", description: error.message, variant: "destructive" });
+      return;
+    }
+    if (data) {
+      setStats((s) => ({ ...s, [certId]: { likes: data.likes, rating_sum: data.rating_sum, rating_count: data.rating_count } }));
+      toast({ title: "Thanks for rating!", description: `You rated ${rating}★` });
+    }
+  };
 
   // Auto-scroll animation
   useEffect(() => {
@@ -602,6 +758,9 @@ const Certificates = () => {
                 certificate={cert}
                 onClick={() => setSelectedCertificate(cert)}
                 isPaused={isPaused}
+                stats={stats[cert.id]}
+                liked={likedIds.has(cert.id)}
+                onLike={() => handleLike(cert.id)}
               />
             ))}
           </div>
@@ -688,6 +847,11 @@ const Certificates = () => {
           <CertificateModal
             certificate={selectedCertificate}
             onClose={() => setSelectedCertificate(null)}
+            stats={stats[selectedCertificate.id]}
+            liked={likedIds.has(selectedCertificate.id)}
+            userRating={ratedMap[selectedCertificate.id] ?? 0}
+            onLike={() => handleLike(selectedCertificate.id)}
+            onRate={(r) => handleRate(selectedCertificate.id, r)}
           />
         )}
       </AnimatePresence>
