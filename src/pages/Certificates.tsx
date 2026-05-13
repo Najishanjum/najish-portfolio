@@ -391,14 +391,21 @@ const passes: Pass[] = [
   },
 ];
 const CertificateCard = ({
-  certificate, 
+  certificate,
   onClick,
-  isPaused 
-}: { 
-  certificate: Certificate; 
+  isPaused,
+  stats,
+  liked,
+  onLike,
+}: {
+  certificate: Certificate;
   onClick: () => void;
   isPaused: boolean;
+  stats?: CertStats;
+  liked: boolean;
+  onLike: () => void;
 }) => {
+  const avg = stats && stats.rating_count > 0 ? stats.rating_sum / stats.rating_count : 0;
   return (
     <motion.div
       className="flex-shrink-0 w-[300px] md:w-[350px] mx-4 cursor-pointer group"
@@ -407,6 +414,21 @@ const CertificateCard = ({
       onClick={onClick}
     >
       <div className="relative overflow-hidden rounded-2xl bg-background/40 backdrop-blur-xl border border-border/30 shadow-lg hover:shadow-primary/20 transition-all duration-300">
+        {/* Like button */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!liked) onLike();
+          }}
+          className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full bg-background/80 backdrop-blur-md border border-border/40 hover:bg-background transition-colors"
+          aria-label="Like certificate"
+        >
+          <Heart
+            className={`w-4 h-4 transition-colors ${liked ? "fill-red-500 text-red-500" : "text-foreground"}`}
+          />
+          <span className="text-xs font-medium text-foreground">{stats?.likes ?? 0}</span>
+        </button>
+
         {/* Certificate Image */}
         <div className="relative aspect-[4/3] overflow-hidden">
           <img
@@ -415,9 +437,9 @@ const CertificateCard = ({
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
-          
+
           {/* Hover overlay */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0 flex items-center justify-center bg-primary/20 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
@@ -427,15 +449,22 @@ const CertificateCard = ({
             </span>
           </motion.div>
         </div>
-        
+
         {/* Card Content */}
         <div className="p-4">
           <h3 className="font-semibold text-foreground text-sm md:text-base line-clamp-2 mb-2">
             {certificate.title}
           </h3>
-          <div className="flex items-center gap-2 text-muted-foreground text-xs">
-            <Building className="w-3 h-3" />
-            <span className="truncate">{certificate.issuer}</span>
+          <div className="flex items-center justify-between gap-2 text-muted-foreground text-xs">
+            <div className="flex items-center gap-2 min-w-0">
+              <Building className="w-3 h-3 shrink-0" />
+              <span className="truncate">{certificate.issuer}</span>
+            </div>
+            <div className="flex items-center gap-1 shrink-0">
+              <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+              <span className="text-foreground font-medium">{avg ? avg.toFixed(1) : "—"}</span>
+              <span className="text-muted-foreground/70">({stats?.rating_count ?? 0})</span>
+            </div>
           </div>
         </div>
       </div>
@@ -443,13 +472,25 @@ const CertificateCard = ({
   );
 };
 
-const CertificateModal = ({ 
-  certificate, 
-  onClose 
-}: { 
-  certificate: Certificate; 
+const CertificateModal = ({
+  certificate,
+  onClose,
+  stats,
+  liked,
+  userRating,
+  onLike,
+  onRate,
+}: {
+  certificate: Certificate;
   onClose: () => void;
+  stats?: CertStats;
+  liked: boolean;
+  userRating: number;
+  onLike: () => void;
+  onRate: (rating: number) => void;
 }) => {
+  const [hover, setHover] = useState(0);
+  const avg = stats && stats.rating_count > 0 ? stats.rating_sum / stats.rating_count : 0;
   return (
     <motion.div
       initial={{ opacity: 0 }}
