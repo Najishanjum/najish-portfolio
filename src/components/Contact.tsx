@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Send, Mail, Linkedin, Github, Globe, Download, Twitter } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const socialLinks = [
   { icon: Linkedin, href: "https://linkedin.com/in/najishanjum", label: "LinkedIn" },
