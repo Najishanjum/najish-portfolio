@@ -1,10 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Award, Calendar, Building, Ticket, Handshake } from "lucide-react";
+import { X, ExternalLink, Award, Calendar, Building, Ticket, Handshake, Heart, Star } from "lucide-react";
 import collaborateCard from "@/assets/collaborate-card.jpg";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BadgesCarousel3D } from "@/components/BadgesCarousel3D";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
+
+interface CertStats {
+  likes: number;
+  rating_sum: number;
+  rating_count: number;
+}
+type StatsMap = Record<number, CertStats>;
 
 // Badge/Pass images
 import passArtemis from "@/assets/pass-artemis.jpg";
