@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Send, Mail, Linkedin, Github, Globe, Download, Twitter } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const socialLinks = [
   { icon: Linkedin, href: "https://linkedin.com/in/najishanjum", label: "LinkedIn" },
@@ -19,12 +20,25 @@ export const Contact = () => {
   });
   const [focused, setFocused] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully! I'll get back to you soon.", {
-      description: "Thank you for reaching out!",
-    });
-    setFormData({ name: "", email: "", message: "" });
+    setSubmitting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+      if (error || (data as any)?.error) throw new Error(error?.message || (data as any)?.error);
+      toast.success("Message sent successfully! I'll get back to you soon.", {
+        description: "Thank you for reaching out!",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err: any) {
+      toast.error("Failed to send message", { description: err?.message ?? "Please try again." });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -204,10 +218,11 @@ export const Contact = () => {
                   <div className="flex justify-center">
                     <Button
                       type="submit"
-                      className="px-8 py-3 rounded-full bg-gradient-to-r from-[hsl(320,100%,50%)] to-[hsl(320,80%,60%)] text-white font-mono font-bold text-sm border-[3px] border-[hsl(220,25%,6%)] hover:shadow-[0_0_25px_hsl(320,100%,65%/0.5)] transition-all active:scale-95"
+                      disabled={submitting}
+                      className="px-8 py-3 rounded-full bg-gradient-to-r from-[hsl(320,100%,50%)] to-[hsl(320,80%,60%)] text-white font-mono font-bold text-sm border-[3px] border-[hsl(220,25%,6%)] hover:shadow-[0_0_25px_hsl(320,100%,65%/0.5)] transition-all active:scale-95 disabled:opacity-60"
                     >
                       <Send className="mr-2 h-4 w-4" />
-                      Send Message
+                      {submitting ? "Sending..." : "Send Message"}
                     </Button>
                   </div>
                 </form>
