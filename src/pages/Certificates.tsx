@@ -611,6 +611,71 @@ const Certificates = () => {
   const [isPaused, setIsPaused] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [stats, setStats] = useState<StatsMap>({});
+  const [likedIds, setLikedIds] = useState<Set<number>>(() => {
+    try {
+      return new Set<number>(JSON.parse(localStorage.getItem("cert_liked") || "[]"));
+    } catch { return new Set(); }
+  });
+  const [ratedMap, setRatedMap] = useState<Record<number, number>>(() => {
+    try {
+      return JSON.parse(localStorage.getItem("cert_rated") || "{}");
+    } catch { return {}; }
+  });
+
+  useEffect(() => {
+    (async () => {
+      const { data, error } = await supabase
+        .from("certificate_stats")
+        .select("certificate_id, likes, rating_sum, rating_count");
+      if (error || !data) return;
+      const map: StatsMap = {};
+      data.forEach((r: any) => {
+        map[r.certificate_id] = { likes: r.likes, rating_sum: r.rating_sum, rating_count: r.rating_count };
+      });
+      setStats(map);
+    })();
+  }, []);
+
+  const handleLike = async (certId: number) => {
+    if (likedIds.has(certId)) return;
+    const next = new Set(likedIds);
+    next.add(certId);
+    setLikedIds(next);
+    localStorage.setItem("cert_liked", JSON.stringify([...next]));
+    setStats((s) => ({
+      ...s,
+      [certId]: {
+        likes: (s[certId]?.likes ?? 0) + 1,
+        rating_sum: s[certId]?.rating_sum ?? 0,
+        rating_count: s[certId]?.rating_count ?? 0,
+      },
+    }));
+    const { data, error } = await supabase.rpc("increment_certificate_like", { _cert_id: certId });
+    if (error) {
+      toast({ title: "Couldn't like", description: error.message, variant: "destructive" });
+      return;
+    }
+    if (data) {
+      setStats((s) => ({ ...s, [certId]: { likes: data.likes, rating_sum: data.rating_sum, rating_count: data.rating_count } }));
+    }
+  };
+
+  const handleRate = async (certId: number, rating: number) => {
+    if (ratedMap[certId]) return;
+    const nextRated = { ...ratedMap, [certId]: rating };
+    setRatedMap(nextRated);
+    localStorage.setItem("cert_rated", JSON.stringify(nextRated));
+    const { data, error } = await supabase.rpc("add_certificate_rating", { _cert_id: certId, _rating: rating });
+    if (error) {
+      toast({ title: "Couldn't rate", description: error.message, variant: "destructive" });
+      return;
+    }
+    if (data) {
+      setStats((s) => ({ ...s, [certId]: { likes: data.likes, rating_sum: data.rating_sum, rating_count: data.rating_count } }));
+      toast({ title: "Thanks for rating!", description: `You rated ${rating}★` });
+    }
+  };
 
   // Auto-scroll animation
   useEffect(() => {
