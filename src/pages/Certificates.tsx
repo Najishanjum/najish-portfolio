@@ -847,6 +847,11 @@ const Certificates = () => {
           <CertificateModal
             certificate={selectedCertificate}
             onClose={() => setSelectedCertificate(null)}
+            stats={stats[selectedCertificate.id]}
+            liked={likedIds.has(selectedCertificate.id)}
+            userRating={ratedMap[selectedCertificate.id] ?? 0}
+            onLike={() => handleLike(selectedCertificate.id)}
+            onRate={(r) => handleRate(selectedCertificate.id, r)}
           />
         )}
       </AnimatePresence>
