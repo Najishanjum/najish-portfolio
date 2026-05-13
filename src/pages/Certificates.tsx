@@ -43,6 +43,7 @@ import certHackshastra from "@/assets/cert-hackshastra.png";
 import certTechsprintGdg from "@/assets/cert-techsprint-gdg.png";
 import certCodefront from "@/assets/cert-codefront.png";
 import certEcwocCampusRep from "@/assets/cert-ecwoc-campus-rep.jpg";
+import certTechfestIitb from "@/assets/cert-techfest-iitb.png";
 import passStellarMastery from "@/assets/pass-stellar-mastery.jpg";
 import passApertreMentor from "@/assets/pass-apertre-mentor.jpg";
 import passOpenSourceDay from "@/assets/pass-open-source-day.jpg";
