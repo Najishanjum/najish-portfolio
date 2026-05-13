@@ -218,10 +218,11 @@ export const Contact = () => {
                   <div className="flex justify-center">
                     <Button
                       type="submit"
-                      className="px-8 py-3 rounded-full bg-gradient-to-r from-[hsl(320,100%,50%)] to-[hsl(320,80%,60%)] text-white font-mono font-bold text-sm border-[3px] border-[hsl(220,25%,6%)] hover:shadow-[0_0_25px_hsl(320,100%,65%/0.5)] transition-all active:scale-95"
+                      disabled={submitting}
+                      className="px-8 py-3 rounded-full bg-gradient-to-r from-[hsl(320,100%,50%)] to-[hsl(320,80%,60%)] text-white font-mono font-bold text-sm border-[3px] border-[hsl(220,25%,6%)] hover:shadow-[0_0_25px_hsl(320,100%,65%/0.5)] transition-all active:scale-95 disabled:opacity-60"
                     >
                       <Send className="mr-2 h-4 w-4" />
-                      Send Message
+                      {submitting ? "Sending..." : "Send Message"}
                     </Button>
                   </div>
                 </form>
