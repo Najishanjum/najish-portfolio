@@ -758,6 +758,9 @@ const Certificates = () => {
                 certificate={cert}
                 onClick={() => setSelectedCertificate(cert)}
                 isPaused={isPaused}
+                stats={stats[cert.id]}
+                liked={likedIds.has(cert.id)}
+                onLike={() => handleLike(cert.id)}
               />
             ))}
           </div>
