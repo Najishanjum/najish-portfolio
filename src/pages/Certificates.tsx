@@ -258,6 +258,13 @@ const certificates: Certificate[] = [
     date: "2026",
     image: certEcwocCampusRep,
   },
+  {
+    id: 29,
+    title: "Techfest IIT Bombay - College Ambassador",
+    issuer: "Techfest, IIT Bombay",
+    date: "2025-2026",
+    image: certTechfestIitb,
+  },
 ];
 
 interface Pass {
