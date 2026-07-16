@@ -400,6 +400,52 @@ export const Experience = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AnimatePresence>
+        {videoModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setVideoModal(null)}
+            className="fixed inset-0 z-[100] bg-background/90 backdrop-blur-md flex items-center justify-center p-4"
+          >
+            <motion.button
+              onClick={() => setVideoModal(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-card/80 border border-border/50 text-foreground hover:text-primary transition-colors z-10"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </motion.button>
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 22 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-4xl aspect-video rounded-xl overflow-hidden shadow-2xl shadow-primary/30 border border-primary/20 bg-black"
+            >
+              {/youtube\.com|youtu\.be|vimeo\.com/.test(videoModal) ? (
+                <iframe
+                  src={videoModal}
+                  title="Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              ) : (
+                <video
+                  src={videoModal}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-contain"
+                />
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
