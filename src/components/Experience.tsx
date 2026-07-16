@@ -194,6 +194,7 @@ const experiences = [
 
 export const Experience = () => {
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [videoModal, setVideoModal] = useState<string | null>(null);
   return (
     <section id="experience" className="py-20 relative">
       <div className="max-w-4xl mx-auto px-6">
