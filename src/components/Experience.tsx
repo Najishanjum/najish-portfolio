@@ -342,6 +342,26 @@ export const Experience = () => {
                       ))}
                     </div>
                   )}
+
+                  {/* Videos */}
+                  {(exp as { videos?: string[] }).videos && (exp as { videos?: string[] }).videos!.length > 0 && (
+                    <div className="mt-4 pt-4 border-t border-border/30 flex flex-wrap gap-3">
+                      {(exp as { videos?: string[] }).videos!.map((vid, vIdx) => (
+                        <motion.button
+                          key={vIdx}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => setVideoModal(vid)}
+                          className="group relative flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20 transition-colors"
+                        >
+                          <span className="relative flex items-center justify-center w-7 h-7 rounded-full bg-primary/20 group-hover:bg-primary/30">
+                            <Play className="w-3.5 h-3.5 fill-primary" />
+                          </span>
+                          <span className="text-sm font-medium">Watch video {(exp as { videos?: string[] }).videos!.length > 1 ? vIdx + 1 : ""}</span>
+                        </motion.button>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               </motion.div>
             ))}
