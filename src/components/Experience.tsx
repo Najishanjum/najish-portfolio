@@ -327,8 +327,10 @@ export const Experience = () => {
                       {exp.images.map((img, imgIndex) => (
                         <motion.div
                           key={imgIndex}
-                          whileHover={{ scale: 1.05 }}
-                          className="rounded-lg overflow-hidden border border-border/30"
+                          whileHover={{ scale: 1.05, rotate: -1 }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => setLightbox(img)}
+                          className="rounded-lg overflow-hidden border border-border/30 cursor-zoom-in"
                         >
                           <img
                             src={img}
