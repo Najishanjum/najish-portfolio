@@ -193,6 +193,14 @@ const experiences = [
   },
 ];
 
+const getEmbedUrl = (url: string) => {
+  const youtubeId = url.match(/(?:youtube\.com\/shorts\/|youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/)?.[1];
+  if (youtubeId) return `https://www.youtube.com/embed/${youtubeId}`;
+  const vimeoId = url.match(/vimeo\.com\/(\d+)/)?.[1];
+  if (vimeoId) return `https://player.vimeo.com/video/${vimeoId}`;
+  return url;
+};
+
 export const Experience = () => {
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [videoModal, setVideoModal] = useState<string | null>(null);
