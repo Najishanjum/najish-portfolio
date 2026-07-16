@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { MapPin, Calendar, Briefcase, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { MapPin, Calendar, Briefcase, ExternalLink, X } from "lucide-react";
 
 import ilmTechLogo from "@/assets/ilm-tech-logo.jpg";
 import ilmTechProfile from "@/assets/ilm-tech-profile.jpg";
@@ -192,6 +193,7 @@ const experiences = [
 ];
 
 export const Experience = () => {
+  const [lightbox, setLightbox] = useState<string | null>(null);
   return (
     <section id="experience" className="py-20 relative">
       <div className="max-w-4xl mx-auto px-6">
@@ -221,25 +223,30 @@ export const Experience = () => {
             {experiences.map((exp, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, x: -40, y: 20 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.08, type: "spring", stiffness: 80 }}
+                viewport={{ once: true, margin: "-50px" }}
                 className="relative pl-20 md:pl-28"
               >
                 {/* Timeline Dot with Logo */}
-                <div className="absolute left-4 md:left-8 w-8 h-8 md:w-10 md:h-10 rounded-full bg-card border-2 border-primary/30 overflow-hidden flex items-center justify-center shadow-lg shadow-primary/10">
+                <motion.div
+                  whileHover={{ scale: 1.2, rotate: 8 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="absolute left-4 md:left-8 w-8 h-8 md:w-10 md:h-10 rounded-full bg-card border-2 border-primary/30 overflow-hidden flex items-center justify-center shadow-lg shadow-primary/20 z-10"
+                >
                   <img
                     src={exp.logo}
                     alt={exp.company}
                     className="w-full h-full object-cover"
                   />
-                </div>
+                </motion.div>
 
                 {/* Card */}
                 <motion.div
-                  whileHover={{ scale: 1.01, y: -2 }}
-                  className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl p-5 md:p-6 shadow-lg hover:shadow-xl hover:border-primary/30 transition-all duration-300"
+                  whileHover={{ scale: 1.015, y: -4, boxShadow: "0 20px 40px -10px hsl(var(--primary) / 0.25)" }}
+                  transition={{ type: "spring", stiffness: 250, damping: 20 }}
+                  className="bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl p-5 md:p-6 shadow-lg hover:border-primary/40 transition-colors duration-300"
                 >
                   {/* Header */}
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
@@ -320,8 +327,10 @@ export const Experience = () => {
                       {exp.images.map((img, imgIndex) => (
                         <motion.div
                           key={imgIndex}
-                          whileHover={{ scale: 1.05 }}
-                          className="rounded-lg overflow-hidden border border-border/30"
+                          whileHover={{ scale: 1.05, rotate: -1 }}
+                          whileTap={{ scale: 0.97 }}
+                          onClick={() => setLightbox(img)}
+                          className="rounded-lg overflow-hidden border border-border/30 cursor-zoom-in"
                         >
                           <img
                             src={img}
@@ -338,6 +347,38 @@ export const Experience = () => {
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightbox(null)}
+            className="fixed inset-0 z-[100] bg-background/90 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
+          >
+            <motion.button
+              onClick={() => setLightbox(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-card/80 border border-border/50 text-foreground hover:text-primary transition-colors"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </motion.button>
+            <motion.img
+              key={lightbox}
+              src={lightbox}
+              alt="Enlarged view"
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 22 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-[92vw] max-h-[88vh] object-contain rounded-xl shadow-2xl shadow-primary/30 border border-primary/20"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
