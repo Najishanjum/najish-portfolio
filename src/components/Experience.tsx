@@ -437,7 +437,7 @@ export const Experience = () => {
             >
               {/youtube\.com|youtu\.be|vimeo\.com/.test(videoModal) ? (
                 <iframe
-                  src={videoModal}
+                  src={getEmbedUrl(videoModal)}
                   title="Video"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
