@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { MapPin, Calendar, Briefcase, ExternalLink, X } from "lucide-react";
+import { MapPin, Calendar, Briefcase, ExternalLink, X, Play } from "lucide-react";
 
 import ilmTechLogo from "@/assets/ilm-tech-logo.jpg";
 import ilmTechProfile from "@/assets/ilm-tech-profile.jpg";
@@ -194,6 +194,7 @@ const experiences = [
 
 export const Experience = () => {
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [videoModal, setVideoModal] = useState<string | null>(null);
   return (
     <section id="experience" className="py-20 relative">
       <div className="max-w-4xl mx-auto px-6">
@@ -341,6 +342,26 @@ export const Experience = () => {
                       ))}
                     </div>
                   )}
+
+                  {/* Videos */}
+                  {(exp as { videos?: string[] }).videos && (exp as { videos?: string[] }).videos!.length > 0 && (
+                    <div className="mt-4 pt-4 border-t border-border/30 flex flex-wrap gap-3">
+                      {(exp as { videos?: string[] }).videos!.map((vid, vIdx) => (
+                        <motion.button
+                          key={vIdx}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => setVideoModal(vid)}
+                          className="group relative flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20 transition-colors"
+                        >
+                          <span className="relative flex items-center justify-center w-7 h-7 rounded-full bg-primary/20 group-hover:bg-primary/30">
+                            <Play className="w-3.5 h-3.5 fill-primary" />
+                          </span>
+                          <span className="text-sm font-medium">Watch video {(exp as { videos?: string[] }).videos!.length > 1 ? vIdx + 1 : ""}</span>
+                        </motion.button>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               </motion.div>
             ))}
@@ -376,6 +397,52 @@ export const Experience = () => {
               onClick={(e) => e.stopPropagation()}
               className="max-w-[92vw] max-h-[88vh] object-contain rounded-xl shadow-2xl shadow-primary/30 border border-primary/20"
             />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {videoModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setVideoModal(null)}
+            className="fixed inset-0 z-[100] bg-background/90 backdrop-blur-md flex items-center justify-center p-4"
+          >
+            <motion.button
+              onClick={() => setVideoModal(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-card/80 border border-border/50 text-foreground hover:text-primary transition-colors z-10"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </motion.button>
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 22 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-4xl aspect-video rounded-xl overflow-hidden shadow-2xl shadow-primary/30 border border-primary/20 bg-black"
+            >
+              {/youtube\.com|youtu\.be|vimeo\.com/.test(videoModal) ? (
+                <iframe
+                  src={videoModal}
+                  title="Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              ) : (
+                <video
+                  src={videoModal}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-contain"
+                />
+              )}
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
