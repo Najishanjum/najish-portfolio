@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { MapPin, Calendar, Briefcase, ExternalLink, X } from "lucide-react";
+import { MapPin, Calendar, Briefcase, ExternalLink, X, Play } from "lucide-react";
 
 import ilmTechLogo from "@/assets/ilm-tech-logo.jpg";
 import ilmTechProfile from "@/assets/ilm-tech-profile.jpg";
