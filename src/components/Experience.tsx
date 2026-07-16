@@ -150,6 +150,7 @@ const experiences = [
     logo: stellarAmbassador.url,
     link: "",
     images: [stellarAmbassador.url],
+    videos: ["https://youtube.com/shorts/u6eRMGO0oA8?si=nmrIaDSolKCz3qhD"],
   },
   {
     title: "Mentor | Campus Representative | Open-Source Contributor",
@@ -191,6 +192,14 @@ const experiences = [
     images: [osciProfile],
   },
 ];
+
+const getEmbedUrl = (url: string) => {
+  const youtubeId = url.match(/(?:youtube\.com\/shorts\/|youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/)?.[1];
+  if (youtubeId) return `https://www.youtube.com/embed/${youtubeId}`;
+  const vimeoId = url.match(/vimeo\.com\/(\d+)/)?.[1];
+  if (vimeoId) return `https://player.vimeo.com/video/${vimeoId}`;
+  return url;
+};
 
 export const Experience = () => {
   const [lightbox, setLightbox] = useState<string | null>(null);
@@ -428,7 +437,7 @@ export const Experience = () => {
             >
               {/youtube\.com|youtu\.be|vimeo\.com/.test(videoModal) ? (
                 <iframe
-                  src={videoModal}
+                  src={getEmbedUrl(videoModal)}
                   title="Video"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
