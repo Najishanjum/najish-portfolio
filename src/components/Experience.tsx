@@ -347,6 +347,38 @@ export const Experience = () => {
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightbox(null)}
+            className="fixed inset-0 z-[100] bg-background/90 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
+          >
+            <motion.button
+              onClick={() => setLightbox(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-card/80 border border-border/50 text-foreground hover:text-primary transition-colors"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </motion.button>
+            <motion.img
+              key={lightbox}
+              src={lightbox}
+              alt="Enlarged view"
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 22 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-[92vw] max-h-[88vh] object-contain rounded-xl shadow-2xl shadow-primary/30 border border-primary/20"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
