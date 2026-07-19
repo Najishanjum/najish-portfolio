@@ -9,6 +9,10 @@ const videos = [
     id: "u6eRMGO0oA8",
     title: "Stellar Ambassador Journey",
   },
+  {
+    id: "Se5xXgulP3E",
+    title: "Journey Highlight",
+  },
 ];
 
 export const FeaturedVideo = () => {
@@ -30,7 +34,7 @@ export const FeaturedVideo = () => {
           <p className="text-muted-foreground font-mono">A glimpse into my journey</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start justify-center">
           {videos.map((video, index) => (
             <motion.div
               key={video.id}
