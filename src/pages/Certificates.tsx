@@ -651,7 +651,8 @@ const Certificates = () => {
         rating_count: s[certId]?.rating_count ?? 0,
       },
     }));
-    const { data, error } = await supabase.rpc("increment_certificate_like", { _cert_id: certId });
+    const { data: res, error } = await supabase.functions.invoke("certificate-action", { body: { action: "like", certId } });
+    const data = res?.data;
     if (error) {
       toast({ title: "Couldn't like", description: error.message, variant: "destructive" });
       return;
@@ -666,7 +667,8 @@ const Certificates = () => {
     const nextRated = { ...ratedMap, [certId]: rating };
     setRatedMap(nextRated);
     localStorage.setItem("cert_rated", JSON.stringify(nextRated));
-    const { data, error } = await supabase.rpc("add_certificate_rating", { _cert_id: certId, _rating: rating });
+    const { data: res, error } = await supabase.functions.invoke("certificate-action", { body: { action: "rate", certId, rating } });
+    const data = res?.data;
     if (error) {
       toast({ title: "Couldn't rate", description: error.message, variant: "destructive" });
       return;
