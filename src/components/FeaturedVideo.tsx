@@ -9,6 +9,10 @@ const videos = [
     id: "u6eRMGO0oA8",
     title: "Stellar Ambassador Journey",
   },
+  {
+    id: "Se5xXgulP3E",
+    title: "Journey Highlight",
+  },
 ];
 
 export const FeaturedVideo = () => {
