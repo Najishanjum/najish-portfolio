@@ -44,6 +44,7 @@ const Index = () => {
         <Experience />
         <TechStack />
         <Expertise />
+        <FeaturedVideo />
         <Gallery />
         <Testimonials />
         <VisitingCard />
