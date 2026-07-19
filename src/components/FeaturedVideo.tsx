@@ -27,7 +27,7 @@ export const FeaturedVideo = () => {
           className="mx-auto max-w-sm aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl shadow-primary/30 border-2 border-primary/30 bg-black"
         >
           <iframe
-            src="https://www.youtube.com/embed/u6eRMGO0oA8?autoplay=1&mute=1&loop=1&playlist=u6eRMGO0oA8&controls=1&playsinline=1"
+            src="https://www.youtube.com/embed/z0LZUorkQeU?autoplay=1&mute=1&loop=1&playlist=z0LZUorkQeU&controls=1&playsinline=1"
             title="Featured Video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
