@@ -150,7 +150,7 @@ const experiences = [
     logo: stellarAmbassador.url,
     link: "",
     images: [stellarAmbassador.url],
-    videos: ["https://youtube.com/shorts/u6eRMGO0oA8?si=nmrIaDSolKCz3qhD"],
+    
   },
   {
     title: "Mentor | Campus Representative | Open-Source Contributor",
