@@ -59,24 +59,13 @@ export const Hero = () => {
       async (pos) => {
         try {
           const { latitude, longitude } = pos.coords;
-          const { data, error } = await supabase.functions.invoke("weather", {
-            method: "GET",
-            headers: {},
-            body: undefined as never,
-          } as never).catch(() => ({ data: null, error: true } as never)) as { data: any; error: any };
-          // Fallback: use direct fetch to the function URL with query params
-          const url = `https://fodqjynqnlynyuzvkikm.supabase.co/functions/v1/weather?lat=${latitude}&lon=${longitude}`;
-          const res = await fetch(url, {
-            headers: {
-              apikey: (supabase as any).supabaseKey ?? "",
-              Authorization: `Bearer ${(supabase as any).supabaseKey ?? ""}`,
-            },
-          });
-          const w = await res.json();
-          if (w && typeof w.temp === "number") {
-            setWeather({ temp: w.temp, condition: w.condition, icon: w.icon });
-            setLocationName(w.name);
-          }
+          const { data, error } = await supabase.functions.invoke(
+            `weather?lat=${latitude}&lon=${longitude}`,
+            { method: "GET" }
+          );
+          if (error || !data || typeof data.temp !== "number") return;
+          setWeather({ temp: data.temp, condition: data.condition, icon: data.icon });
+          setLocationName(data.name);
         } catch { /* silent */ }
       },
       () => { /* denied */ }
