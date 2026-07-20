@@ -59,10 +59,9 @@ export const Hero = () => {
       async (pos) => {
         try {
           const { latitude, longitude } = pos.coords;
-          const { data, error } = await supabase.functions.invoke(
-            `weather?lat=${latitude}&lon=${longitude}`,
-            { method: "GET" }
-          );
+          const { data, error } = await supabase.functions.invoke("weather", {
+            body: { lat: latitude, lon: longitude },
+          });
           if (error || !data || typeof data.temp !== "number") return;
           setWeather({ temp: data.temp, condition: data.condition, icon: data.icon });
           setLocationName(data.name);
