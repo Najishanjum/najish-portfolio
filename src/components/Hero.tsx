@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Download, Terminal, Clock, CalendarDays, Timer, CloudSun, RefreshCw, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const roles = [
   "AI/ML Developer",
@@ -58,15 +59,12 @@ export const Hero = () => {
       async (pos) => {
         try {
           const { latitude, longitude } = pos.coords;
-          const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=c2a723daff9648e8b47172042260504`
+          const { data, error } = await supabase.functions.invoke(
+            `weather?lat=${latitude}&lon=${longitude}`,
+            { method: "GET" }
           );
-          const data = await res.json();
-          setWeather({
-            temp: Math.round(data.main.temp),
-            condition: data.weather[0].main,
-            icon: data.weather[0].icon,
-          });
+          if (error || !data || typeof data.temp !== "number") return;
+          setWeather({ temp: data.temp, condition: data.condition, icon: data.icon });
           setLocationName(data.name);
         } catch { /* silent */ }
       },
