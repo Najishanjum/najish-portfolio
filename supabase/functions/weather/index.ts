@@ -11,11 +11,24 @@ serve(async (req) => {
   }
 
   try {
-    const url = new URL(req.url);
-    const lat = url.searchParams.get("lat");
-    const lon = url.searchParams.get("lon");
+    let lat: string | number | null = null;
+    let lon: string | number | null = null;
 
-    if (!lat || !lon || isNaN(Number(lat)) || isNaN(Number(lon))) {
+    const url = new URL(req.url);
+    lat = url.searchParams.get("lat");
+    lon = url.searchParams.get("lon");
+
+    if ((!lat || !lon) && req.method !== "GET") {
+      try {
+        const body = await req.json();
+        lat = body?.lat ?? lat;
+        lon = body?.lon ?? lon;
+      } catch { /* ignore */ }
+    }
+
+    const latNum = Number(lat);
+    const lonNum = Number(lon);
+    if (!lat || !lon || isNaN(latNum) || isNaN(lonNum)) {
       return new Response(JSON.stringify({ error: "Invalid coordinates" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -31,11 +44,13 @@ serve(async (req) => {
     }
 
     const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&units=metric&appid=${apiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latNum}&lon=${lonNum}&units=metric&appid=${apiKey}`
     );
 
     if (!res.ok) {
-      return new Response(JSON.stringify({ error: "Weather fetch failed" }), {
+      const text = await res.text();
+      console.error("OpenWeather error:", res.status, text);
+      return new Response(JSON.stringify({ error: "Weather fetch failed", status: res.status }), {
         status: 502,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
