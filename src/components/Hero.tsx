@@ -59,16 +59,24 @@ export const Hero = () => {
       async (pos) => {
         try {
           const { latitude, longitude } = pos.coords;
-          const res = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=c2a723daff9648e8b47172042260504`
-          );
-          const data = await res.json();
-          setWeather({
-            temp: Math.round(data.main.temp),
-            condition: data.weather[0].main,
-            icon: data.weather[0].icon,
+          const { data, error } = await supabase.functions.invoke("weather", {
+            method: "GET",
+            headers: {},
+            body: undefined as never,
+          } as never).catch(() => ({ data: null, error: true } as never)) as { data: any; error: any };
+          // Fallback: use direct fetch to the function URL with query params
+          const url = `https://fodqjynqnlynyuzvkikm.supabase.co/functions/v1/weather?lat=${latitude}&lon=${longitude}`;
+          const res = await fetch(url, {
+            headers: {
+              apikey: (supabase as any).supabaseKey ?? "",
+              Authorization: `Bearer ${(supabase as any).supabaseKey ?? ""}`,
+            },
           });
-          setLocationName(data.name);
+          const w = await res.json();
+          if (w && typeof w.temp === "number") {
+            setWeather({ temp: w.temp, condition: w.condition, icon: w.icon });
+            setLocationName(w.name);
+          }
         } catch { /* silent */ }
       },
       () => { /* denied */ }
