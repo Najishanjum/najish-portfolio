@@ -5,7 +5,22 @@ import { motion } from "framer-motion";
 export const Footer = () => {
   return (
     <footer className="border-t border-border/50 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto space-y-10">
+        {/* Banner Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="w-full rounded-2xl overflow-hidden border border-border/50 shadow-2xl"
+        >
+          <img
+            src={bannerAsset.url}
+            alt="Md Najish Anjum - A Builder at Heart and a Leader by Choice"
+            className="w-full h-auto object-cover"
+          />
+        </motion.div>
+
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo & Copyright */}
           <div className="flex flex-col items-center md:items-start gap-2">
