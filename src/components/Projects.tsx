@@ -48,6 +48,12 @@ const projects = [
     tags: ["Innovation", "AI Systems", "Public Services", "National Impact"],
     demoUrl: "https://allinoneilm.netlify.app/",
   },
+  {
+    title: "Bitezy",
+    description: "A Solana-based restaurant booking ecosystem powered by blockchain — enabling decentralized table reservations, loyalty rewards, and transparent restaurant operations.",
+    tags: ["Solana", "Blockchain", "Web3", "Restaurant Tech"],
+    githubUrl: "https://github.com/Najishanjum/Dinerchain-main",
+  },
 ];
 
 const BrowserCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
