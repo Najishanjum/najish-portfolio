@@ -1,4 +1,6 @@
 import { Github, Linkedin, Twitter, Code2 } from "lucide-react";
+import bannerAsset from "@/assets/linkedin-banner.png.asset.json";
+import { motion } from "framer-motion";
 
 export const Footer = () => {
   return (
