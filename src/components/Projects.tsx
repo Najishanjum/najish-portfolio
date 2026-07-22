@@ -48,6 +48,12 @@ const projects = [
     tags: ["Innovation", "AI Systems", "Public Services", "National Impact"],
     demoUrl: "https://allinoneilm.netlify.app/",
   },
+  {
+    title: "Bitezy",
+    description: "A Solana-based restaurant booking ecosystem powered by blockchain — enabling decentralized table reservations, loyalty rewards, and transparent restaurant operations.",
+    tags: ["Solana", "Blockchain", "Web3", "Restaurant Tech"],
+    githubUrl: "https://github.com/Najishanjum/Dinerchain-main",
+  },
 ];
 
 const BrowserCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
@@ -141,10 +147,21 @@ const BrowserCard = ({ project, index }: { project: typeof projects[0]; index: n
           <div className="flex gap-3 pt-1">
             <Button
               size="sm"
+              asChild={!!project.githubUrl}
+              disabled={!project.githubUrl}
               className="bg-[hsl(220,25%,6%)] text-[hsl(50,100%,60%)] border-2 border-[hsl(50,100%,60%)] hover:bg-[hsl(50,100%,60%)] hover:text-[hsl(220,25%,6%)] font-mono font-bold text-xs transition-all duration-200 active:scale-95"
             >
-              <Github className="mr-1.5 h-3.5 w-3.5" />
-              Code
+              {project.githubUrl ? (
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                  <Github className="mr-1.5 h-3.5 w-3.5" />
+                  Code
+                </a>
+              ) : (
+                <>
+                  <Github className="mr-1.5 h-3.5 w-3.5" />
+                  Code
+                </>
+              )}
             </Button>
             <Button
               size="sm"
