@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Code2, Sparkles } from "lucide-react";
-import profileImage from "@/assets/profile.jpg";
+import profileAsset from "@/assets/najish-profile.jpeg.asset.json";
 
 export const About = () => {
   return (
@@ -45,7 +45,7 @@ export const About = () => {
                   className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-2xl blur-xl opacity-50"
                 />
                 <motion.img
-                  src={profileImage}
+                  src={profileAsset.url}
                   alt="Najish Anjum"
                   className="relative w-full h-full object-cover rounded-2xl border-2 border-primary/50 shadow-2xl"
                   whileHover={{ 
