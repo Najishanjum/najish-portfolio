@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Code2, Sparkles } from "lucide-react";
-import profileAsset from "@/assets/najish-profile.jpeg.asset.json";
+
 
 export const About = () => {
   return (
