@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Sparkles, MapPin, Mail, User, MessageSquare, Rocket, Download, Image } from "lucide-react";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import profileAsset from "@/assets/najish-profile.jpeg.asset.json";
+
 
 export const VisitingCard = () => {
   const [formData, setFormData] = useState({
