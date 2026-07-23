@@ -148,7 +148,7 @@ const experiences = [
     description: "Officially a @IND_stellar Ambassador! Grateful to be selected to represent Stellar in India. Thank you to @Sahitya Roy07 & @thebhupii for the support, and @riseinweb3 for the opportunity. Let's build & grow Stellar in India. #Web3 #Riseln #StellarAmbassador",
     skills: ["Web3", "Blockchain", "Community"],
     logo: stellarAmbassador,
-    ...
+    
     images: [stellarAmbassador],
     
   },
