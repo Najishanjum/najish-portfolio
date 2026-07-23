@@ -1,5 +1,5 @@
 import { Github, Linkedin, Twitter, Code2 } from "lucide-react";
-import bannerAsset from "@/assets/linkedin-banner.png.asset.json";
+
 import { motion } from "framer-motion";
 
 export const Footer = () => {
@@ -15,7 +15,7 @@ export const Footer = () => {
           className="w-full rounded-2xl overflow-hidden border border-border/50 shadow-2xl"
         >
           <img
-            src={bannerAsset.url}
+            src="/images/linkedin-banner.png"
             alt="Md Najish Anjum - A Builder at Heart and a Leader by Choice"
             className="w-full h-auto object-cover"
           />

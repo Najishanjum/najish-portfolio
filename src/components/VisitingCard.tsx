@@ -88,7 +88,7 @@ export const VisitingCard = () => {
               viewport={{ once: true }}
               className="mx-auto w-20 h-20 rounded-full border-2 border-primary/40 overflow-hidden shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
             >
-             <img src={profileAsset.url} alt="Najish Anjum" className="w-full h-full object-cover" />
+             <img src="/images/najish-profile.jpeg" alt="Najish Anjum" className="w-full h-full object-cover" />
             </motion.div>
 
             <motion.div

@@ -19,7 +19,7 @@ import hacktoberfestBadges2 from "@/assets/hacktoberfest-badges2.png";
 import hacktoberfestSwag from "@/assets/hacktoberfest-swag.jpg";
 import hacktoberfestSelfie from "@/assets/hacktoberfest-selfie.jpg";
 import hacktoberfestProfile from "@/assets/hacktoberfest-profile.jpg";
-import stellarAmbassador from "@/assets/stellar-ambassador.jpeg.asset.json";
+const stellarAmbassador = "/images/stellar-ambassador.jpeg";
 import ecwocLogo from "@/assets/ecwoc-logo.png";
 import ecwocBadges from "@/assets/ecwoc-badges.jpg";
 import ecwocWork from "@/assets/ecwoc-work.jpg";
@@ -147,9 +147,9 @@ const experiences = [
     location: "India",
     description: "Officially a @IND_stellar Ambassador! Grateful to be selected to represent Stellar in India. Thank you to @Sahitya Roy07 & @thebhupii for the support, and @riseinweb3 for the opportunity. Let's build & grow Stellar in India. #Web3 #Riseln #StellarAmbassador",
     skills: ["Web3", "Blockchain", "Community"],
-    logo: stellarAmbassador.url,
-    link: "",
-    images: [stellarAmbassador.url],
+    logo: stellarAmbassador,
+    ...
+    images: [stellarAmbassador],
     
   },
   {
