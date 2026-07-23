@@ -45,7 +45,7 @@ export const About = () => {
                   className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-2xl blur-xl opacity-50"
                 />
                 <motion.img
-                  src={profileAsset.url}
+                  src="/images/najish-profile.jpeg"
                   alt="Najish Anjum"
                   className="relative w-full h-full object-cover rounded-2xl border-2 border-primary/50 shadow-2xl"
                   whileHover={{ 
