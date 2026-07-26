@@ -128,9 +128,9 @@ export const Hero = () => {
   const timeSpentText = mins > 0 ? `${mins} min ${secs} sec` : `${secs} sec`;
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 py-16 sm:py-24 relative overflow-hidden">
-      {/* Background Intro Video (Landing / Home Page Only) */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+    <section className="min-h-screen min-h-[100dvh] w-full flex items-center justify-center px-4 sm:px-8 md:px-12 py-16 sm:py-24 relative overflow-hidden bg-background">
+      {/* Background Intro Video (Landing / Home Page Only - Full 16:9 Widescreen & Mobile Desktop Site Safe) */}
+      <div className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden pointer-events-none z-0 bg-black/90">
         <video
           ref={videoRef}
           autoPlay
@@ -138,7 +138,8 @@ export const Hero = () => {
           playsInline
           preload="auto"
           aria-hidden="true"
-          className="w-full h-full object-cover opacity-95 filter brightness-110 contrast-105 saturate-105 transition-all duration-700"
+          className="w-full h-full object-cover min-w-full min-h-full opacity-95 filter brightness-110 contrast-105 saturate-105 transition-all duration-700"
+          style={{ minWidth: "100%", minHeight: "100%" }}
         >
           <source src="/videos/intro2.mp4" type="video/mp4" />
           <source src="/videos/into.mp4" type="video/mp4" />
@@ -147,7 +148,7 @@ export const Hero = () => {
           <source src="/videos/into.webm" type="video/webm" />
           <source src="/videos/intro.webm" type="video/webm" />
         </video>
-        {/* Responsive, clear overlay ensuring video remains ultra bright while keeping text readable on iOS/Android/Laptops */}
+        {/* Responsive, clear overlay ensuring video remains ultra bright while keeping text readable on Chrome Mobile Desktop Site & Laptops */}
         <div className="absolute inset-0 bg-black/25" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background/90" />
       </div>
