@@ -138,8 +138,8 @@ export const Hero = () => {
           playsInline
           preload="auto"
           aria-hidden="true"
-          className="w-full h-full object-cover min-w-full min-h-full opacity-95 filter brightness-110 contrast-105 saturate-105 transition-all duration-700"
-          style={{ minWidth: "100%", minHeight: "100%" }}
+          className="w-full h-full object-cover [object-position:70%_50%] md:[object-position:70%_50%] lg:[object-position:center] min-w-full min-h-full opacity-95 filter brightness-110 contrast-105 saturate-105 transition-all duration-700"
+          style={{ minWidth: "100%", minHeight: "100%", objectPosition: "70% 50%" }}
         >
           <source src="/videos/intro2.mp4" type="video/mp4" />
           <source src="/videos/into.mp4" type="video/mp4" />
