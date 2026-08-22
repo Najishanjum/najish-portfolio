@@ -1,9 +1,4 @@
-# Welcome to your Lovable project
-
-## Project info
-
-**URL**: https://lovable.dev/projects/3bb1c0a1-ee04-4f45-bce2-f02509ce2bef
-
+RepoSync
 ## How can I edit this code?
 
 There are several ways of editing your application.
