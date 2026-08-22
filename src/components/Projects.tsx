@@ -5,8 +5,16 @@ import shopGenieBg from "@/assets/shopgenie-bg.webp";
 import routinexBg from "@/assets/routinex-bg.jpg";
 import nastackBg from "@/assets/nastack-bg.jpg";
 import spacehabitatxBg from "@/assets/spacehabitatx-bg.jpg";
+import reposyncBg from "@/assets/reposync-bg.jpg";
 
 const projects = [
+  {
+    title: "RepoSync",
+    description: "A developer-blueprint dashboard for analyzing public GitHub repositories — featuring AI-powered project overviews, health scores, blueprint generation, file exploration, dependency analysis, and security scanning.",
+    tags: ["React", "AI-Powered", "GitHub API", "Developer Tools"],
+    bgImage: reposyncBg,
+    demoUrl: "https://reposync-beryl.vercel.app",
+  },
   {
     title: "Space HabitatX",
     description: "Concept-based futuristic project focused on space living and sustainable habitats with innovation and advanced technology.",
