@@ -59,6 +59,10 @@ import gallery58 from "@/assets/gallery-58.jpg";
 import galleryMonad1 from "@/assets/gallery-monad-blitz-1.jpg";
 import galleryMonad2 from "@/assets/gallery-monad-blitz-2.jpg";
 import galleryMonad3 from "@/assets/gallery-monad-blitz-3.jpg";
+import galleryMonad4 from "@/assets/gallery-monad-blitz-4.jpg";
+import galleryMonad5 from "@/assets/gallery-monad-blitz-5.jpg";
+import galleryMonad6 from "@/assets/gallery-monad-blitz-6.jpg";
+import galleryMonad7 from "@/assets/gallery-monad-blitz-7.jpg";
 import galleryNew1 from "@/assets/gallery-new-1.jpg";
 import galleryNew2 from "@/assets/gallery-new-2.jpg";
 import galleryNew3 from "@/assets/gallery-new-3.jpg";
@@ -81,6 +85,10 @@ import galleryMm8 from "@/assets/gallery-mm-8.png";
 type Img = { src: string; label: string };
 
 const allImages: Img[] = [
+  { src: galleryMonad4, label: "Monad Blitz Hackathon Hall" },
+  { src: galleryMonad5, label: "Monad Blitz Hands Raised" },
+  { src: galleryMonad6, label: "Monad Blitz Registration" },
+  { src: galleryMonad7, label: "Monad Blitz Speaker Session" },
   { src: galleryMm8, label: "Monad Blitz Duo Stage" },
   { src: galleryMm6, label: "Monad Hackathon Focus" },
   { src: galleryMm3, label: "Frontier Hackathon Hall" },
