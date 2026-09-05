@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { Menu, X, Github, Linkedin } from "lucide-react";
+import { Menu, X, Github, Linkedin, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -158,7 +158,11 @@ const MagneticSocialIcon = ({
   );
 };
 
-export const Navigation = () => {
+interface NavigationProps {
+  onReplayIntro?: () => void;
+}
+
+export const Navigation = ({ onReplayIntro }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -249,8 +253,20 @@ export const Navigation = () => {
                 </MagneticNavItem>
               ))}
               
-              {/* Social Links */}
-              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-border/30">
+              {/* Play Intro Button & Social Links */}
+              <div className="flex items-center gap-3 ml-4 pl-4 border-l border-border/30">
+                {onReplayIntro && (
+                  <Button
+                    onClick={onReplayIntro}
+                    variant="ghost"
+                    size="sm"
+                    className="font-mono text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-primary/40 bg-primary/10 hover:bg-primary/20 text-neon-cyan transition-all shadow-[0_0_10px_rgba(0,255,255,0.15)]"
+                    title="Play Intro Video"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>Intro</span>
+                  </Button>
+                )}
                 {socialLinks.map((social) => (
                   <MagneticSocialIcon
                     key={social.label}

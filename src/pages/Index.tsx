@@ -6,7 +6,7 @@ import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { Experience } from "@/components/Experience";
 import { TechStack } from "@/components/TechStack";
-import { Expertise } from "@/components/Expertise";
+import { GitHubActivity } from "@/components/GitHubActivity";
 import { FeaturedVideo } from "@/components/FeaturedVideo";
 import { Gallery } from "@/components/Gallery";
 import { Testimonials } from "@/components/Testimonials";
@@ -19,7 +19,22 @@ import { NAChatBot } from "@/components/NAChatBot";
 import { VoiceIntro } from "@/components/VoiceIntro";
 
 const Index = () => {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !sessionStorage.getItem("na_intro_played");
+    }
+    return true;
+  });
+
+  const handleCompleteIntro = () => {
+    setShowIntro(false);
+    sessionStorage.setItem("na_intro_played", "true");
+  };
+
+  const handleReplayIntro = () => {
+    setShowIntro(true);
+  };
+
   const location = useLocation();
 
   // Handle hash navigation from other pages
@@ -36,15 +51,15 @@ const Index = () => {
 
   return (
     <>
-      {showIntro && <IntroAnimation onComplete={() => setShowIntro(false)} />}
+      {showIntro && <IntroAnimation onComplete={handleCompleteIntro} />}
       <div className={`min-h-screen ${showIntro ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
-        <Navigation />
-        <Hero />
+        <Navigation onReplayIntro={handleReplayIntro} />
+        <Hero onReplayIntro={handleReplayIntro} />
         <About />
         <Projects />
         <Experience />
         <TechStack />
-        <Expertise />
+        <GitHubActivity />
         <FeaturedVideo />
         <Gallery />
         <Testimonials />

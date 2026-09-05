@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, Terminal, Clock, CalendarDays, Timer, CloudSun, RefreshCw, Send, Volume2, VolumeX } from "lucide-react";
+import { Download, Terminal, Clock, CalendarDays, Timer, CloudSun, RefreshCw, Send, Volume2, VolumeX, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,7 +13,6 @@ const roles = [
 ];
 
 const PORTFOLIO_LAST_UPDATED = "2026-04-05";
-
 
 function getLastUpdatedText() {
   const updated = new Date(PORTFOLIO_LAST_UPDATED);
@@ -33,7 +32,11 @@ function formatDate(date: Date) {
   return date.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 }
 
-export const Hero = () => {
+interface HeroProps {
+  onReplayIntro?: () => void;
+}
+
+export const Hero = ({ onReplayIntro }: HeroProps) => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -44,6 +47,13 @@ export const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(false);
 
+  const [hasPlayedOnce, setHasPlayedOnce] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !!sessionStorage.getItem("na_hero_video_played");
+    }
+    return false;
+  });
+
   const toggleMute = () => {
     if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted;
@@ -51,10 +61,45 @@ export const Hero = () => {
     }
   };
 
+  const handleVideoEnded = () => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("na_hero_video_played", "true");
+    }
+    setHasPlayedOnce(true);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  const handlePlayIntroVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.muted = false;
+      setIsMuted(false);
+      videoRef.current.play().catch(() => {
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play();
+        }
+      });
+    }
+    if (onReplayIntro) {
+      onReplayIntro();
+    }
+  };
+
+  // If already played in this browser session, pause on initial load
+  useEffect(() => {
+    if (hasPlayedOnce && videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [hasPlayedOnce]);
+
   // Automatically attempt audio playback on first interaction if autoplay policy triggers
   useEffect(() => {
     const enableSoundOnInteraction = () => {
-      if (videoRef.current && !isMuted) {
+      if (videoRef.current && !isMuted && !hasPlayedOnce) {
         videoRef.current.muted = false;
         videoRef.current.play().catch(() => {
           if (videoRef.current) {
@@ -67,7 +112,7 @@ export const Hero = () => {
     };
     window.addEventListener("click", enableSoundOnInteraction, { once: true });
     return () => window.removeEventListener("click", enableSoundOnInteraction);
-  }, [isMuted]);
+  }, [isMuted, hasPlayedOnce]);
 
   // Real-time clock + time spent
   useEffect(() => {
@@ -133,8 +178,8 @@ export const Hero = () => {
       <div className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden pointer-events-none z-0 bg-black/90">
         <video
           ref={videoRef}
-          autoPlay
-          loop
+          autoPlay={!hasPlayedOnce}
+          onEnded={handleVideoEnded}
           playsInline
           preload="auto"
           aria-hidden="true"
@@ -284,6 +329,16 @@ export const Hero = () => {
               transition={{ delay: 1.2 }}
               className="flex flex-row flex-wrap items-center justify-center sm:justify-start gap-4 pt-2"
             >
+              {onReplayIntro && (
+                <Button
+                  onClick={handlePlayIntroVideo}
+                  size="lg"
+                  className="border-glow bg-primary/20 hover:bg-primary/30 text-neon-cyan font-mono group px-6 py-2.5 w-auto min-w-[160px] shadow-lg backdrop-blur-md"
+                >
+                  <Play className="mr-2 h-4 w-4 fill-current group-hover:scale-110" />
+                  Play Intro
+                </Button>
+              )}
               <a href="/resume/Najish_Anjum_Resume.pdf" target="_blank" rel="noopener noreferrer" download className="w-auto">
                 <Button size="lg" className="border-glow bg-primary/20 hover:bg-primary/30 text-primary font-mono group px-6 py-2.5 w-auto min-w-[160px] shadow-lg backdrop-blur-md">
                   <Download className="mr-2 h-4 w-4 group-hover:animate-bounce" />

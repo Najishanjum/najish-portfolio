@@ -13,6 +13,22 @@ const videos = [
     id: "Se5xXgulP3E",
     title: "Journey Highlight",
   },
+  {
+    id: "EcJa-VfsOe4",
+    title: "Short Highlight 1",
+  },
+  {
+    id: "2F-ILgNP-kE",
+    title: "Short Highlight 2",
+  },
+  {
+    id: "kx1gchhQ-Fs",
+    title: "Short Highlight 3",
+  },
+  {
+    id: "6Xvdv1AN1gk",
+    title: "Short Highlight 4",
+  },
 ];
 
 export const FeaturedVideo = () => {
