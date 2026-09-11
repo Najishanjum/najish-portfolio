@@ -3,16 +3,15 @@ import { ExternalLink, Github, Rocket, Minus, Square, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import shopGenieBg from "@/assets/shopgenie-bg.webp";
 import routinexBg from "@/assets/routinex-bg.jpg";
-import nastackBg from "@/assets/nastack-bg.jpg";
 import spacehabitatxBg from "@/assets/spacehabitatx-bg.jpg";
-import reposyncBg from "@/assets/reposync-bg.jpg";
+
 
 const projects = [
   {
     title: "RepoSync",
     description: "A developer-blueprint dashboard for analyzing public GitHub repositories — featuring AI-powered project overviews, health scores, blueprint generation, file exploration, dependency analysis, and security scanning.",
     tags: ["React", "AI-Powered", "GitHub API", "Developer Tools"],
-    bgImage: reposyncBg,
+    videoUrl: "/Reposync.mp4",
     demoUrl: "https://reposync-beryl.vercel.app",
   },
   {
@@ -32,7 +31,8 @@ const projects = [
     title: "NAStack",
     description: "Tech-focused stack/project related to development and systems, representing developer mindset and technical foundation.",
     tags: ["Development", "DSA", "Algorithms", "Tech Stack"],
-    bgImage: nastackBg,
+    videoUrl: "/Nastackdemo.mp4",
+    demoUrl: "https://nastackmain.vercel.app/",
   },
   {
     title: "CareCall24on",
@@ -109,8 +109,22 @@ const BrowserCard = ({ project, index }: { project: typeof projects[0]; index: n
 
         {/* Card body */}
         <div className="p-5 space-y-4">
+          {/* Project preview video */}
+          {project.videoUrl && (
+            <div className="w-full h-36 rounded-lg overflow-hidden border-2 border-[hsl(220,15%,20%)]">
+              <video
+                src={project.videoUrl}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+          )}
+
           {/* Project preview image */}
-          {project.bgImage && (
+          {!project.videoUrl && project.bgImage && (
             <div className="w-full h-36 rounded-lg overflow-hidden border-2 border-[hsl(220,15%,20%)]">
               <img
                 src={project.bgImage}
@@ -120,8 +134,8 @@ const BrowserCard = ({ project, index }: { project: typeof projects[0]; index: n
             </div>
           )}
 
-          {/* No image placeholder */}
-          {!project.bgImage && (
+          {/* No image/video placeholder */}
+          {!project.videoUrl && !project.bgImage && (
             <div className="w-full h-36 rounded-lg overflow-hidden border-2 border-[hsl(220,15%,20%)] bg-gradient-to-br from-[hsl(320,100%,65%/0.15)] to-[hsl(50,100%,60%/0.1)] flex items-center justify-center">
               <span className="text-4xl font-mono font-bold text-[hsl(50,100%,60%/0.4)]">
                 {"</>"}
