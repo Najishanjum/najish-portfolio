@@ -81,10 +81,40 @@ import galleryMm5 from "@/assets/gallery-mm-5.jpg";
 import galleryMm6 from "@/assets/gallery-mm-6.jpg";
 import galleryMm7 from "@/assets/gallery-mm-7.jpg";
 import galleryMm8 from "@/assets/gallery-mm-8.png";
+import galleryHeygen1 from "@/assets/gallery-heygen-1.jpg";
+import galleryHeygen2 from "@/assets/gallery-heygen-2.jpg";
+import galleryHeygen3 from "@/assets/gallery-heygen-3.jpg";
+import galleryHeygen4 from "@/assets/gallery-heygen-4.jpg";
+import galleryHeygen5 from "@/assets/gallery-heygen-5.jpg";
+import galleryMeetup1 from "@/assets/gallery-meetup-1.jpg";
+import galleryMeetup2 from "@/assets/gallery-meetup-2.jpg";
+import galleryMeetup3 from "@/assets/gallery-meetup-3.jpg";
+import galleryMeetup4 from "@/assets/gallery-meetup-4.jpg";
+import galleryMeetup5 from "@/assets/gallery-meetup-5.jpg";
+import galleryDevcon1 from "@/assets/gallery-devcon-1.jpg";
+import galleryDevcon2 from "@/assets/gallery-devcon-2.jpg";
+import galleryDevcon3 from "@/assets/gallery-devcon-3.jpg";
+import galleryDevcon4 from "@/assets/gallery-devcon-4.jpg";
+import galleryDevcon5 from "@/assets/gallery-devcon-5.png";
 
 type Img = { src: string; label: string };
 
 const allImages: Img[] = [
+  { src: galleryDevcon1, label: "Devcon Volunteer Roadmap — Q&A" },
+  { src: galleryDevcon2, label: "Devcon Volunteer Call — Live Chat" },
+  { src: galleryDevcon3, label: "Devcon Volunteer Roadmap Phases" },
+  { src: galleryDevcon4, label: "Devcon 8 Mumbai — Announcement" },
+  { src: galleryDevcon5, label: "Hackathon Workshop — Laptops Out" },
+  { src: galleryMeetup1, label: "Portfolio Live on MSI Setup" },
+  { src: galleryMeetup2, label: "Miro x New3 India — Group Photo" },
+  { src: galleryMeetup3, label: "Super1 Commune — Networking" },
+  { src: galleryMeetup4, label: "Mainnet Jabalpur v2 — Squad" },
+  { src: galleryMeetup5, label: "The Grid — Attentive Session" },
+  { src: galleryHeygen1, label: "HeyGen User Meetup — Group Photo" },
+  { src: galleryHeygen2, label: "HeyGen Meetup — Session at The Grid" },
+  { src: galleryHeygen3, label: "HeyGen Meetup — Community Selfie" },
+  { src: galleryHeygen4, label: "HeyGen Meetup — Speaker Session" },
+  { src: galleryHeygen5, label: "HeyGen Meetup — The Grid Conference" },
   { src: galleryMonad4, label: "Monad Blitz Hackathon Hall" },
   { src: galleryMonad5, label: "Monad Blitz Hands Raised" },
   { src: galleryMonad6, label: "Monad Blitz Registration" },

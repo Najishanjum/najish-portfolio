@@ -59,6 +59,11 @@ import passOpenSourceDay from "@/assets/pass-open-source-day.jpg";
 import passMonadBlitz from "@/assets/pass-monad-blitz.jpg";
 import passDev3pack from "@/assets/pass-dev3pack.png";
 import passFrontierSuperteam from "@/assets/pass-frontier-superteam.png";
+import passHhGoaBanner from "@/assets/pass-hh-goa-banner.jpg";
+import passHhGoaBuilder from "@/assets/pass-hh-goa-builder.jpg";
+import passSyndicateHackathon from "@/assets/pass-syndicate-hackathon.png";
+import passCryptoWorldsFair from "@/assets/pass-crypto-worlds-fair.jpg";
+import passDevconIndia from "@/assets/pass-devcon-india.png";
 
 interface Certificate {
   id: number;
@@ -388,6 +393,46 @@ const passes: Pass[] = [
     description:
       "Signed up for the Colosseum Frontier Hackathon (Apr 6 – May 11) under Superteam India — competing in the global Solana builders arena.",
     image: passFrontierSuperteam,
+  },
+  {
+    id: 14,
+    title: "Hacker House Goa — Builder Badge",
+    issuer: "2:47 PM Studio",
+    description:
+      "Official builder badge for Hacker House Goa (Oct 28–31, 2026) — an exclusive residential hacker event bringing together top builders in India.",
+    image: passHhGoaBanner,
+  },
+  {
+    id: 15,
+    title: "Hacker House Goa — Builder Pass",
+    issuer: "2:47 PM Studio",
+    description:
+      "Personal builder pass for HH Goa 2026 — selected as a Full-Stack builder under the alias 'Feral Deploy Goblin'.",
+    image: passHhGoaBuilder,
+  },
+  {
+    id: 16,
+    title: "AO Syndicate Hackathon — Participant Pass",
+    issuer: "Maximor",
+    description:
+      "Admit-one participant pass for the AO Syndicate Hackathon by Maximor (Sep 5–7, Online), sponsored by Dodo Payments, Neatlogs, Tensormux & AI Grants India.",
+    image: passSyndicateHackathon,
+  },
+  {
+    id: 17,
+    title: "Crypto World's Fair — Exhibitor Pass",
+    issuer: "Colosseum",
+    description:
+      "Exhibitor pass for the Crypto World's Fair online hackathon (Sep 14 – Oct 12, 2026) by Colosseum — a global Solana builder competition.",
+    image: passCryptoWorldsFair,
+  },
+  {
+    id: 18,
+    title: "Devcon India — Attendee Pass",
+    issuer: "Devcon VIII",
+    description:
+      "Confirmed attendee pass for Devcon India (Devcon VIII) — the premier Ethereum developer conference.",
+    image: passDevconIndia,
   },
 ];
 const CertificateCard = ({
