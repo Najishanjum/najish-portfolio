@@ -1,4 +1,4 @@
-RepoSync
+This is my portfolio plase explore this and give me a genuine feedback
 ## How can I edit this code?
 
 There are several ways of editing your application.
