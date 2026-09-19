@@ -42,6 +42,9 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+
+and also some code and bug fixesssss by us
+
 ## How can I deploy this project??
 
 Yes, you can!
