@@ -11,7 +11,7 @@ export const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    const duration = 2000; // 2 seconds for 2x speed
+    const duration = 2000;
     const interval = 20;
     const increment = (100 / duration) * interval;
 
@@ -32,7 +32,7 @@ export const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     if (progress >= 100) {
       setTimeout(() => {
         setIsComplete(true);
-        setTimeout(onComplete, 800);
+        setTimeout(onComplete, 600);
       }, 300);
     }
   }, [progress, onComplete]);
@@ -41,178 +41,110 @@ export const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     <AnimatePresence>
       {!isComplete && (
         <motion.div
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center"
+          style={{ background: "#FAF8F3" }}
           initial={{ opacity: 1 }}
-          exit={{ 
-            opacity: 0,
-            scale: 1.1,
-            filter: "blur(10px)"
-          }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          {/* Background glow effects */}
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
-              style={{
-                background: "radial-gradient(circle, hsl(var(--neon-blue) / 0.15) 0%, transparent 70%)",
-              }}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            <motion.div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
-              style={{
-                background: "radial-gradient(circle, hsl(var(--neon-purple) / 0.2) 0%, transparent 70%)",
-              }}
-              animate={{
-                scale: [1.2, 1, 1.2],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </div>
+          {/* Accent shapes */}
+          <div
+            className="absolute top-16 left-16 w-20 h-20 rounded-full"
+            style={{ background: "#FFD21C", border: "3px solid #090909" }}
+          />
+          <div
+            className="absolute bottom-16 right-16 w-14 h-28 rounded-2xl"
+            style={{ background: "#FF3D83", border: "3px solid #090909" }}
+          />
+          <div
+            className="absolute top-1/3 right-24 w-10 h-10 rounded-full"
+            style={{ background: "#7557F7", border: "2px solid #090909" }}
+          />
 
-          {/* Logo in circular border */}
+          {/* Logo */}
           <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative mb-12"
+            initial={{ scale: 0.5, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="relative mb-10"
           >
-            {/* Outer glow ring */}
-            <motion.div
-              className="absolute inset-[-8px] rounded-full"
-              style={{
-                background: "linear-gradient(135deg, hsl(var(--neon-cyan)), hsl(var(--neon-blue)), hsl(var(--neon-purple)))",
-                filter: "blur(12px)",
-              }}
-              animate={{
-                opacity: progress >= 100 ? [0.8, 1, 0.8] : [0.4, 0.7, 0.4],
-                scale: progress >= 100 ? [1, 1.1, 1] : 1,
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            
-            {/* Circular border */}
+            {/* Offset shadow */}
             <div
-              className="relative w-32 h-32 md:w-40 md:h-40 rounded-full p-1"
+              className="absolute inset-[-6px] rounded-full"
               style={{
-                background: "linear-gradient(135deg, hsl(var(--neon-cyan)), hsl(var(--neon-blue)), hsl(var(--neon-purple)))",
+                background: "#FFD21C",
+                transform: "translate(6px, 6px)",
+                border: "3px solid #090909",
+                zIndex: 0,
               }}
+            />
+            {/* Logo circle */}
+            <div
+              className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-[4px] border-[#090909]"
+              style={{ zIndex: 1 }}
             >
-              <div className="w-full h-full rounded-full bg-background flex items-center justify-center overflow-hidden">
-                <img
-                  src={logoNA}
-                  alt="NA Logo"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-            </div>
-
-            {/* Expanding glow on complete */}
-            {progress >= 100 && (
-              <motion.div
-                className="absolute inset-[-20px] rounded-full"
-                style={{
-                  background: "linear-gradient(135deg, hsl(var(--neon-cyan) / 0.5), hsl(var(--neon-blue) / 0.5), hsl(var(--neon-purple) / 0.5))",
-                  filter: "blur(30px)",
-                }}
-                initial={{ scale: 1, opacity: 0 }}
-                animate={{ scale: 2, opacity: [0, 0.8, 0] }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+              <img
+                src={logoNA}
+                alt="NA Logo"
+                className="w-full h-full object-cover"
               />
-            )}
+            </div>
           </motion.div>
 
-          {/* Loading bar container */}
+          {/* Name */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="relative w-64 md:w-80"
+            transition={{ delay: 0.25, duration: 0.4 }}
+            className="text-center mb-8"
           >
-            {/* Loading bar background */}
-            <div className="h-1.5 bg-muted/30 rounded-full overflow-hidden backdrop-blur-sm">
-              {/* Animated progress bar */}
-              <motion.div
-                className="h-full rounded-full relative"
-                style={{
-                  background: "linear-gradient(90deg, hsl(var(--neon-cyan)), hsl(var(--neon-blue)), hsl(var(--neon-purple)), hsl(var(--neon-cyan)))",
-                  backgroundSize: "300% 100%",
-                  width: `${progress}%`,
-                }}
-                animate={{
-                  backgroundPosition: ["0% 0%", "100% 0%"],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                {/* Glow effect on progress bar */}
-                <div
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    boxShadow: "0 0 20px hsl(var(--neon-blue) / 0.8), 0 0 40px hsl(var(--neon-purple) / 0.5)",
-                  }}
-                />
-              </motion.div>
-            </div>
-
-            {/* Progress percentage */}
-            <motion.p
-              className="text-center mt-4 font-mono text-sm text-muted-foreground"
+            <h1
+              className="font-black"
               style={{
-                textShadow: "0 0 10px hsl(var(--neon-blue) / 0.5)",
+                fontSize: "clamp(2rem, 8vw, 4rem)",
+                letterSpacing: "-0.03em",
+                color: "#090909",
+                lineHeight: 1,
               }}
             >
-              <span className="text-primary">{Math.round(progress)}%</span>
-              <span className="ml-2 opacity-60">loading...</span>
-            </motion.p>
+              Najish <span style={{ color: "#7557F7" }}>Anjum</span>
+            </h1>
+            <p className="mt-2 text-sm font-semibold" style={{ color: "#5B5B5B" }}>
+              AI/ML Developer · Full Stack Enthusiast
+            </p>
           </motion.div>
 
-          {/* Motion blur lines */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            {[...Array(5)].map((_, i) => (
+          {/* Progress bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.4 }}
+            className="w-64 md:w-80 space-y-2"
+          >
+            {/* Bar container */}
+            <div
+              className="h-2 rounded-full border-[2px] border-[#090909] overflow-hidden"
+              style={{ background: "#F3F0E8" }}
+            >
               <motion.div
-                key={i}
-                className="absolute h-px"
+                className="h-full rounded-full"
                 style={{
-                  background: `linear-gradient(90deg, transparent, hsl(var(--neon-${i % 2 === 0 ? 'blue' : 'cyan'}) / 0.3), transparent)`,
-                  top: `${20 + i * 15}%`,
-                  left: 0,
-                  right: 0,
-                }}
-                animate={{
-                  x: ["-100%", "100%"],
-                  opacity: [0, 0.5, 0],
-                }}
-                transition={{
-                  duration: 2 + i * 0.3,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                  ease: "linear",
+                  width: `${progress}%`,
+                  background: "linear-gradient(90deg, #FFD21C, #FF3D83, #7557F7)",
+                  transition: "width 0.05s linear",
                 }}
               />
-            ))}
-          </div>
+            </div>
+            {/* Percentage */}
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold" style={{ color: "#090909" }}>
+                {Math.round(progress)}%
+              </span>
+              <span className="text-xs font-medium" style={{ color: "#5B5B5B" }}>
+                Loading portfolio...
+              </span>
+            </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

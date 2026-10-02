@@ -1,25 +1,19 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Send, Mail, Linkedin, Github, Globe, Download, Twitter } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const socialLinks = [
-  { icon: Linkedin, href: "https://linkedin.com/in/najishanjum", label: "LinkedIn" },
-  { icon: Github, href: "https://github.com/najishanjum", label: "GitHub" },
-  { icon: Twitter, href: "https://x.com/najishanjum", label: "X" },
-  { icon: Globe, href: "#", label: "Portfolio" },
+  { icon: Linkedin, href: "https://linkedin.com/in/najishanjum", label: "LinkedIn", bg: "#0A66C2" },
+  { icon: Github, href: "https://github.com/najishanjum", label: "GitHub", bg: "#090909" },
+  { icon: Twitter, href: "https://x.com/najishanjum", label: "X", bg: "#090909" },
+  { icon: Globe, href: "#", label: "Portfolio", bg: "#7557F7" },
 ];
 
 export const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [focused, setFocused] = useState<string | null>(null);
-
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,190 +35,194 @@ export const Contact = () => {
     }
   };
 
+  const inputClass = (field: string) =>
+    `w-full px-4 py-3 rounded-xl border-[3px] font-medium text-sm outline-none transition-all duration-200 resize-none ${
+      focused === field
+        ? "border-[#7557F7] shadow-[3px_3px_0_#7557F7]"
+        : "border-[#090909] shadow-[3px_3px_0_#090909]"
+    }`;
+
   return (
     <section
       id="contact"
-      className="py-20 px-4 relative overflow-hidden"
-      style={{
-        backgroundImage:
-          "linear-gradient(hsl(320 100% 40% / 0.08) 1px, transparent 1px), linear-gradient(90deg, hsl(320 100% 40% / 0.08) 1px, transparent 1px)",
-        backgroundSize: "40px 40px",
-      }}
+      className="py-24 px-4 sm:px-8"
+      style={{ background: "#F3F0E8" }}
     >
-      {/* Floating decorations */}
-      <motion.div
-        animate={{ y: [0, -12, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-16 right-12 text-3xl opacity-25 pointer-events-none select-none hidden md:block"
-      >
-        🥷
-      </motion.div>
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-24 left-10 text-2xl opacity-20 pointer-events-none select-none hidden md:block"
-      >
-        📧
-      </motion.div>
-
       <div className="max-w-5xl mx-auto">
-        {/* Yellow container card */}
+        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="mb-14"
+        >
+          <p className="nsha-section-eyebrow">Get in touch</p>
+          <h2 className="nsha-section-title">
+            Let's Build{" "}
+            <span style={{ color: "#FF3D83" }}>Something.</span>
+          </h2>
+          <div
+            className="mt-4 h-1.5 w-20 rounded-full border-[2px] border-[#090909]"
+            style={{ background: "#FF3D83" }}
+          />
+        </motion.div>
+
+        {/* Main contact card */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="relative"
         >
-          {/* Shadow layer */}
-          <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl bg-[hsl(320,100%,40%)] border-[3px] border-[hsl(220,25%,6%)]" />
+          {/* Yellow shadow card */}
+          <div
+            className="absolute inset-0 translate-x-[8px] translate-y-[8px] rounded-3xl border-[3px] border-[#090909]"
+            style={{ background: "#FFD21C" }}
+          />
 
           {/* Main card */}
-          <div className="relative rounded-3xl border-[3px] border-[hsl(220,25%,6%)] bg-[hsl(50,100%,62%)] overflow-hidden shadow-xl">
-            {/* Header */}
-            <div className="px-8 pt-8 pb-4 flex items-center gap-3">
-              <span className="text-3xl">🥷</span>
-              <motion.h2
-                animate={{ y: [0, -4, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="text-3xl md:text-4xl font-bold font-mono text-[hsl(220,25%,6%)]"
-                style={{
-                  textShadow: "0 0 15px hsl(320 100% 65% / 0.3)",
-                }}
+          <div
+            className="relative rounded-3xl border-[3px] border-[#090909] overflow-hidden"
+            style={{ background: "#FAF8F3" }}
+          >
+            {/* Top accent bar */}
+            <div
+              className="px-8 pt-8 pb-5 border-b-[3px] border-[#090909]"
+              style={{ background: "#090909" }}
+            >
+              <h3
+                className="font-black text-2xl md:text-3xl"
+                style={{ color: "#FFD21C", letterSpacing: "-0.02em" }}
               >
-                CONTACT<span className="text-[hsl(320,100%,45%)]">.EXE</span>
-              </motion.h2>
+                CONTACT<span style={{ color: "#FF3D83" }}>.EXE</span>
+              </h3>
+              <p className="text-sm font-medium mt-1" style={{ color: "#FAF8F3" }}>
+                Open for collaborations, projects, and opportunities
+              </p>
             </div>
 
-            {/* Two column layout */}
-            <div className="grid md:grid-cols-5 gap-6 px-8 pb-8">
-              {/* LEFT SIDE - 2 cols */}
-              <div className="md:col-span-2 flex flex-col justify-between space-y-6">
-                {/* Click to email */}
-                <div className="space-y-4">
-                  <a
-                    href="mailto:najishanjum058@gmail.com"
-                    className="group flex items-center gap-3 hover:opacity-80 transition-opacity"
+            {/* Two column body */}
+            <div className="grid md:grid-cols-5 gap-8 p-8">
+              {/* Left: info */}
+              <div className="md:col-span-2 space-y-6">
+                {/* Email */}
+                <a
+                  href="mailto:najishanjum058@gmail.com"
+                  className="group flex items-center gap-4 p-4 rounded-2xl border-[2px] border-[#090909] shadow-[3px_3px_0_#090909] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                  style={{ background: "#FAF8F3" }}
+                >
+                  <div
+                    className="w-12 h-12 rounded-xl border-[2px] border-[#090909] flex items-center justify-center flex-shrink-0"
+                    style={{ background: "#FFD21C" }}
                   >
-                    <div className="w-12 h-12 rounded-full bg-[hsl(220,25%,6%)] flex items-center justify-center group-hover:shadow-[0_0_15px_hsl(320,100%,65%/0.5)] transition-shadow">
-                      <Mail className="w-5 h-5 text-[hsl(50,100%,60%)]" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-mono text-[hsl(220,25%,6%/0.6)] uppercase tracking-wider">
-                        Click to Email
-                      </p>
-                      <p className="text-sm font-mono font-bold text-[hsl(220,25%,6%)]">
-                        najishanjum058@gmail.com
-                      </p>
-                    </div>
-                  </a>
+                    <Mail className="w-5 h-5 text-[#090909]" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#5B5B5B]">Click to Email</p>
+                    <p className="text-sm font-bold text-[#090909]">najishanjum058@gmail.com</p>
+                  </div>
+                </a>
 
-                  {/* Dotted arrow decoration */}
-                  <div className="flex items-center gap-1 pl-6">
-                    {[...Array(8)].map((_, i) => (
-                      <span
-                        key={i}
-                        className="w-1.5 h-1.5 rounded-full bg-[hsl(220,25%,6%/0.3)]"
-                      />
+                {/* Social links */}
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#5B5B5B] mb-3">Find me on</p>
+                  <div className="flex flex-wrap gap-3">
+                    {socialLinks.map((social) => (
+                      <a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={social.label}
+                        className="w-11 h-11 rounded-xl border-[2px] border-[#090909] flex items-center justify-center shadow-[2px_2px_0_#090909] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all"
+                        style={{ background: social.bg }}
+                      >
+                        <social.icon className="w-4 h-4 text-white" />
+                      </a>
                     ))}
-                    <span className="text-[hsl(220,25%,6%/0.4)]">→</span>
                   </div>
                 </div>
 
-                {/* Social icons */}
-                <div className="flex gap-3">
-                  {socialLinks.map((social) => (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-11 h-11 rounded-full border-2 border-[hsl(320,100%,50%)] bg-[hsl(220,25%,6%)] flex items-center justify-center hover:shadow-[0_0_15px_hsl(320,100%,65%/0.5)] transition-shadow"
-                    >
-                      <social.icon className="w-4 h-4 text-[hsl(320,100%,70%)]" />
-                    </motion.a>
-                  ))}
-                </div>
-
                 {/* Download CV */}
-                <motion.a
+                <a
                   href="/resume/Najish_Anjum_Resume.pdf"
                   download
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[hsl(220,25%,6%)] text-[hsl(50,100%,60%)] font-mono font-bold text-sm border-2 border-[hsl(220,25%,6%)] hover:shadow-[0_0_20px_hsl(50,100%,60%/0.4)] transition-shadow w-fit"
+                  className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm border-[3px] border-[#090909] shadow-[4px_4px_0_#090909] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#090909] transition-all w-fit"
+                  style={{ background: "#090909", color: "#FFD21C" }}
                 >
                   <Download className="w-4 h-4" />
-                  Download CV
-                </motion.a>
+                  Download Resume
+                </a>
               </div>
 
-              {/* RIGHT SIDE - 3 cols - Contact Form */}
+              {/* Right: form */}
               <div className="md:col-span-3">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#5B5B5B] mb-1.5" htmlFor="contact-name">
+                      Your Name
+                    </label>
                     <input
+                      id="contact-name"
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       onFocus={() => setFocused("name")}
                       onBlur={() => setFocused(null)}
                       required
-                      placeholder="Your Name"
-                      className={`w-full px-4 py-3 rounded-xl bg-[hsl(0,0%,95%)] border-[3px] text-[hsl(220,25%,6%)] placeholder:text-[hsl(220,25%,6%/0.4)] font-mono text-sm outline-none transition-all ${
-                        focused === "name"
-                          ? "border-[hsl(320,100%,50%)] shadow-[inset_0_2px_6px_hsl(320,100%,65%/0.15)]"
-                          : "border-[hsl(220,25%,6%)] shadow-[inset_0_2px_4px_hsl(0,0%,0%/0.08)]"
-                      }`}
+                      placeholder="Najish Anjum"
+                      className={inputClass("name")}
+                      style={{ background: "#FAF8F3", color: "#090909" }}
                     />
                   </div>
 
                   <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#5B5B5B] mb-1.5" htmlFor="contact-email">
+                      Your Email
+                    </label>
                     <input
+                      id="contact-email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       onFocus={() => setFocused("email")}
                       onBlur={() => setFocused(null)}
                       required
-                      placeholder="Your Email"
-                      className={`w-full px-4 py-3 rounded-xl bg-[hsl(0,0%,95%)] border-[3px] text-[hsl(220,25%,6%)] placeholder:text-[hsl(220,25%,6%/0.4)] font-mono text-sm outline-none transition-all ${
-                        focused === "email"
-                          ? "border-[hsl(320,100%,50%)] shadow-[inset_0_2px_6px_hsl(320,100%,65%/0.15)]"
-                          : "border-[hsl(220,25%,6%)] shadow-[inset_0_2px_4px_hsl(0,0%,0%/0.08)]"
-                      }`}
+                      placeholder="hello@example.com"
+                      className={inputClass("email")}
+                      style={{ background: "#FAF8F3", color: "#090909" }}
                     />
                   </div>
 
                   <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#5B5B5B] mb-1.5" htmlFor="contact-message">
+                      Your Message
+                    </label>
                     <textarea
+                      id="contact-message"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       onFocus={() => setFocused("message")}
                       onBlur={() => setFocused(null)}
                       required
-                      placeholder="Your Message"
+                      placeholder="Let's build something amazing together..."
                       rows={5}
-                      className={`w-full px-4 py-3 rounded-xl bg-[hsl(0,0%,95%)] border-[3px] text-[hsl(220,25%,6%)] placeholder:text-[hsl(220,25%,6%/0.4)] font-mono text-sm outline-none resize-none transition-all ${
-                        focused === "message"
-                          ? "border-[hsl(320,100%,50%)] shadow-[inset_0_2px_6px_hsl(320,100%,65%/0.15)]"
-                          : "border-[hsl(220,25%,6%)] shadow-[inset_0_2px_4px_hsl(0,0%,0%/0.08)]"
-                      }`}
+                      className={inputClass("message")}
+                      style={{ background: "#FAF8F3", color: "#090909" }}
                     />
                   </div>
 
-                  <div className="flex justify-center">
-                    <Button
-                      type="submit"
-                      disabled={submitting}
-                      className="px-8 py-3 rounded-full bg-gradient-to-r from-[hsl(320,100%,50%)] to-[hsl(320,80%,60%)] text-white font-mono font-bold text-sm border-[3px] border-[hsl(220,25%,6%)] hover:shadow-[0_0_25px_hsl(320,100%,65%/0.5)] transition-all active:scale-95 disabled:opacity-60"
-                    >
-                      <Send className="mr-2 h-4 w-4" />
-                      {submitting ? "Sending..." : "Send Message"}
-                    </Button>
-                  </div>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full flex items-center justify-center gap-2 px-8 py-4 font-black text-sm rounded-xl border-[3px] border-[#090909] shadow-[5px_5px_0_#090909] transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#090909] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none disabled:opacity-60 disabled:pointer-events-none"
+                    style={{ background: "#FF3D83", color: "#fff" }}
+                  >
+                    <Send className="w-4 h-4" />
+                    {submitting ? "Sending..." : "Send Message"}
+                  </button>
                 </form>
               </div>
             </div>

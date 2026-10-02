@@ -1,79 +1,85 @@
 import { motion } from "framer-motion";
 
 const videos = [
-  {
-    id: "z0LZUorkQeU",
-    title: "Featured Video",
-  },
-  {
-    id: "u6eRMGO0oA8",
-    title: "Stellar Ambassador Journey",
-  },
-  {
-    id: "Se5xXgulP3E",
-    title: "Journey Highlight",
-  },
-  {
-    id: "EcJa-VfsOe4",
-    title: "Short Highlight 1",
-  },
-  {
-    id: "2F-ILgNP-kE",
-    title: "Short Highlight 2",
-  },
-  {
-    id: "kx1gchhQ-Fs",
-    title: "Short Highlight 3",
-  },
-  {
-    id: "6Xvdv1AN1gk",
-    title: "Short Highlight 4",
-  },
+  { id: "z0LZUorkQeU", title: "Featured Video" },
+  { id: "u6eRMGO0oA8", title: "Stellar Ambassador Journey" },
+  { id: "Se5xXgulP3E", title: "Journey Highlight" },
+  { id: "EcJa-VfsOe4", title: "Short Highlight 1" },
+  { id: "2F-ILgNP-kE", title: "Short Highlight 2" },
+  { id: "kx1gchhQ-Fs", title: "Short Highlight 3" },
+  { id: "6Xvdv1AN1gk", title: "Short Highlight 4" },
 ];
+
+const accentColors = ["#FFD21C", "#FF3D83", "#7557F7", "#35D04F", "#B7E83B", "#FFD21C", "#FF3D83"];
 
 export const FeaturedVideo = () => {
   return (
-    <section className="py-20 relative">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-24 px-4 sm:px-8" style={{ background: "#FAF8F3" }}>
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          className="mb-14"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-primary">&lt;</span>
-            <span className="text-gradient">Featured Videos</span>
-            <span className="text-primary">/&gt;</span>
+          <p className="nsha-section-eyebrow">My journey on screen</p>
+          <h2 className="nsha-section-title">
+            Featured{" "}
+            <span style={{ color: "#FF3D83" }}>Videos</span>
           </h2>
-          <p className="text-muted-foreground font-mono">A glimpse into my journey</p>
+          <div
+            className="mt-4 h-1.5 w-20 rounded-full border-[2px] border-[#090909]"
+            style={{ background: "#FF3D83" }}
+          />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start justify-center">
-          {videos.map((video, index) => (
-            <motion.div
-              key={video.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.6,
-                type: "spring",
-                stiffness: 100,
-                delay: index * 0.15,
-              }}
-              viewport={{ once: true }}
-              className="mx-auto w-full max-w-sm aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl shadow-primary/30 border-2 border-primary/30 bg-black hover:shadow-primary/50 transition-shadow duration-300"
-            >
-              <iframe
-                src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&loop=1&playlist=${video.id}&controls=1&playsinline=1`}
-                title={video.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              />
-            </motion.div>
-          ))}
+        {/* Video Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
+          {videos.map((video, index) => {
+            const accent = accentColors[index % accentColors.length];
+            return (
+              <motion.div
+                key={video.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className="group relative"
+              >
+                {/* Shadow */}
+                <div
+                  className="absolute inset-0 translate-x-[5px] translate-y-[5px] rounded-2xl border-[3px] border-[#090909]"
+                  style={{ background: accent }}
+                />
+                {/* Card */}
+                <div
+                  className="relative rounded-2xl border-[3px] border-[#090909] overflow-hidden transition-transform duration-200 group-hover:translate-x-[-2px] group-hover:translate-y-[-2px]"
+                  style={{ background: "#090909" }}
+                >
+                  {/* Title bar */}
+                  <div
+                    className="px-4 py-2.5 border-b-[3px] border-[#090909] flex items-center justify-between"
+                    style={{ background: accent }}
+                  >
+                    <span className="text-xs font-bold text-[#090909] truncate">{video.title}</span>
+                    <span className="text-xs font-bold text-[#090909]/60 ml-2 flex-shrink-0">YT</span>
+                  </div>
+                  {/* Iframe */}
+                  <div className="aspect-[9/16]">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&loop=1&playlist=${video.id}&controls=1&playsinline=1`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

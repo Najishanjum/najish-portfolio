@@ -197,7 +197,6 @@ const allImages: Img[] = [
   { src: gallery49, label: "Builder Night Duo" },
 ];
 
-// Split into 3 rows
 const splitRows = (arr: Img[], rows: number): Img[][] => {
   const out: Img[][] = Array.from({ length: rows }, () => []);
   arr.forEach((it, i) => out[i % rows].push(it));
@@ -216,9 +215,9 @@ interface MarqueeRowProps {
 const MarqueeRow = ({ images, duration, reverse, height }: MarqueeRowProps) => {
   const doubled = [...images, ...images];
   return (
-    <div className="group relative overflow-hidden py-3">
+    <div className="group relative overflow-hidden py-2">
       <div
-        className="flex w-max gap-5"
+        className="flex w-max gap-4"
         style={{
           animation: `${reverse ? "marqueeReverse" : "marqueeX"} ${duration}s linear infinite`,
           willChange: "transform",
@@ -227,7 +226,7 @@ const MarqueeRow = ({ images, duration, reverse, height }: MarqueeRowProps) => {
         {doubled.map((img, i) => (
           <div
             key={i}
-            className={`relative ${height} flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-all duration-500 hover:scale-[1.06] hover:border-primary/60 hover:shadow-[0_0_40px_hsl(var(--neon-cyan)/0.5)] hover:z-10`}
+            className={`relative ${height} flex-shrink-0 overflow-hidden rounded-2xl border-[2px] border-[#090909] shadow-[3px_3px_0_#090909] transition-all duration-300 hover:scale-[1.04] hover:shadow-[5px_5px_0_#FFD21C] hover:z-10`}
           >
             <img
               src={img.src}
@@ -236,8 +235,8 @@ const MarqueeRow = ({ images, duration, reverse, height }: MarqueeRowProps) => {
               className="h-full w-auto object-cover"
               draggable={false}
             />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-background/95 via-background/60 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
-              <p className="truncate text-xs font-medium text-foreground">{img.label}</p>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-[#090909]/90 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
+              <p className="truncate text-xs font-bold text-[#FFD21C]">{img.label}</p>
             </div>
           </div>
         ))}
@@ -259,57 +258,42 @@ const MarqueeRow = ({ images, duration, reverse, height }: MarqueeRowProps) => {
 
 export const Gallery = () => {
   return (
-    <section
-      className="relative overflow-hidden py-20"
-      id="gallery"
-    >
-      {/* Futuristic background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-[hsl(220_25%_4%)] to-background" />
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          background:
-            "radial-gradient(circle at 20% 30%, hsl(var(--neon-cyan) / 0.15), transparent 50%), radial-gradient(circle at 80% 70%, hsl(var(--neon-purple) / 0.15), transparent 50%)",
-        }}
-      />
-
+    <section className="relative overflow-hidden py-24" id="gallery" style={{ background: "#F3F0E8" }}>
       {/* Header */}
-      <div className="relative z-10 container mx-auto px-4 mb-12">
+      <div className="container mx-auto px-4 sm:px-8 mb-14">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-primary via-neon-cyan to-primary bg-clip-text text-transparent">
-              Moments & Memories
-            </span>
+          <p className="nsha-section-eyebrow">Life beyond the screen</p>
+          <h2 className="nsha-section-title">
+            Moments &{" "}
+            <span style={{ color: "#FF3D83" }}>Memories</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="mt-3 text-base font-medium" style={{ color: "#5B5B5B" }}>
             A visual journey through conferences, hackathons, and community events
           </p>
+          <div
+            className="mt-4 h-1.5 w-20 rounded-full border-[2px] border-[#090909]"
+            style={{ background: "#FF3D83" }}
+          />
         </motion.div>
       </div>
 
-      {/* Marquee rows with edge fade mask */}
+      {/* Marquee rows with edge fade */}
       <div
-        className="relative z-10"
+        className="relative"
         style={{
-          maskImage:
-            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          maskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
         }}
       >
         <MarqueeRow images={rows[0]} duration={70} height="h-44 md:h-52" />
         <MarqueeRow images={rows[1]} duration={90} reverse height="h-36 md:h-44" />
         <MarqueeRow images={rows[2]} duration={80} height="h-44 md:h-52" />
       </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
 };
