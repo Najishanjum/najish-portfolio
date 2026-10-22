@@ -53,12 +53,8 @@ const experiences: ExperienceItem[] = [
     period: "Sep 2025 — Present",
     category: "AI / ML • FULL STACK • WEB3",
     location: "Jabalpur, Madhya Pradesh, India",
-    description: "Leading Team ILM Tech, a developer collective focused on engineering production AI/ML prototypes, full-stack systems, and decentralized applications.",
-    responsibilities: [
-      "Orchestrate project architectures and sprint roadmaps for competitive hackathons.",
-      "Lead cross-functional teams across machine learning, frontend engineering, and smart contract integration.",
-      "Manage repository standards, code reviews, and automated deployment pipelines.",
-    ],
+    description: "Leading Team ILM Tech, a developer collective engineering production AI/ML prototypes, full-stack systems, and Web3 architectures.",
+    responsibilities: [],
     skills: ["Team Leadership", "AI/ML Systems", "Full-Stack Web", "Web3 Architecture"],
     logo: ilmTechLogo,
     link: "https://www.linkedin.com/company/team-ilm-tech/",
@@ -72,11 +68,8 @@ const experiences: ExperienceItem[] = [
     period: "Sep 2025 — Present",
     category: "AI • WEB3 • COMMUNITY",
     location: "India",
-    description: "Co-founding Ajinava Edge, an emerging ecosystem uniting developers, student researchers, and Web3 builders to collaborate on real-world technology.",
-    responsibilities: [
-      "Host technical workshops and developer onboarding sessions into AI and decentralized protocols.",
-      "Cultivate collaborative hackathon squads and mentor junior student builders.",
-    ],
+    description: "Co-founding an emerging ecosystem uniting developers and student researchers to build practical AI & Web3 products.",
+    responsibilities: [],
     skills: ["Community Building", "Developer Relations", "AI", "Web3"],
     logo: ajinavaEdgeLogo,
     link: "https://www.instagram.com/ajinava.edge",
@@ -90,11 +83,8 @@ const experiences: ExperienceItem[] = [
     period: "2025 — Present",
     category: "WEB3 • BLOCKCHAIN • ECOSYSTEM",
     location: "India · Regional",
-    description: "Officially selected as a Stellar India Ambassador. Representing the Stellar blockchain ecosystem in India to drive adoption of Soroban smart contracts and decentralized payment rails.",
-    responsibilities: [
-      "Educate developers on the Stellar network and Soroban Rust-based smart contract environment.",
-      "Organize community engagements and guide student builders into Web3 hackathon opportunities.",
-    ],
+    description: "Officially selected Stellar India Ambassador driving Soroban smart contract adoption and Web3 developer education.",
+    responsibilities: [],
     skills: ["Web3", "Blockchain", "Stellar Network", "Soroban", "Ecosystem Growth"],
     logo: stellarAmbassador,
     images: [stellarAmbassador],
@@ -107,11 +97,8 @@ const experiences: ExperienceItem[] = [
     period: "Dec 11–14, 2025",
     category: "ENTREPRENEURSHIP • INNOVATION",
     location: "IIT Bombay, Mumbai, India",
-    description: "Participated in Asia's premier entrepreneurship conference, engaging with founders, venture capitalists, and technology pioneers discussing the next wave of AI and deeptech startups.",
-    responsibilities: [
-      "Engaged in technical keynotes and venture discussions on scaling digital products.",
-      "Networked with national innovators and startup operators across collegiate incubators.",
-    ],
+    description: "Engaged with founders, venture capitalists, and technology pioneers discussing the next wave of AI and deeptech startups.",
+    responsibilities: [],
     skills: ["Entrepreneurship", "Tech Innovation", "Networking"],
     logo: techfestLogo,
     images: [esummitImg1, esummitImg2, esummitImg3, esummitImg4],
@@ -124,11 +111,8 @@ const experiences: ExperienceItem[] = [
     period: "Jan 2026 — Mar 2026",
     category: "OPEN SOURCE • MENTORSHIP",
     location: "India · Remote",
-    description: "Serving in a multi-faceted leadership role: mentoring student contributors, representing the program on campus, and submitting direct open-source pull requests.",
-    responsibilities: [
-      "Guide junior contributors through Git, PR etiquette, and codebase navigation.",
-      "Review issues and support students resolving their first open-source features.",
-    ],
+    description: "Mentoring student contributors through Git workflows, PR etiquette, and submitting direct open-source pull requests.",
+    responsibilities: [],
     skills: ["Open Source", "Mentoring", "Git & GitHub", "Code Reviews"],
     logo: ecwocLogo,
     images: [ecwocBadges, ecwocWork],
@@ -141,11 +125,8 @@ const experiences: ExperienceItem[] = [
     period: "2025",
     category: "CLOUD INFRASTRUCTURE • GCP",
     location: "Remote",
-    description: "Selected participant and facilitator in the Google Cloud Arcade Program. Achieved Milestone 3, completed Arcade Trooper Tier (Campaign 2025), and completed hands-on cloud labs.",
-    responsibilities: [
-      "Completed hands-on GCP compute, IAM, storage, and networking labs.",
-      "Earned official Google Cloud skill badges and guided peers through cloud deployments.",
-    ],
+    description: "Facilitator in Google Cloud Arcade Program. Achieved Milestone 3 and completed Arcade Trooper Tier cloud labs.",
+    responsibilities: [],
     skills: ["Google Cloud Platform", "Cloud Architecture", "IAM & Security"],
     logo: googleCloudLogo,
     images: [googleCloudImg1, googleCloudImg2],
@@ -158,10 +139,8 @@ const experiences: ExperienceItem[] = [
     period: "Oct 2025",
     category: "GLOBAL OPEN SOURCE",
     location: "Global · Remote",
-    description: "Active contributor to global open-source repositories throughout Hacktoberfest 2025, submitting quality pull requests and collaborating with international maintainers.",
-    responsibilities: [
-      "Resolved bugs, improved test coverage, and refined documentation across multiple open-source codebases.",
-    ],
+    description: "Contributed pull requests to global open-source codebases, squashing bugs and collaborating with international maintainers.",
+    responsibilities: [],
     skills: ["Open Source", "Git", "GitHub Workflow", "Collaboration"],
     logo: hacktoberfestLogo,
     images: [hacktoberfestProfile, hacktoberfestBadges1, hacktoberfestBadges2, hacktoberfestSwag, hacktoberfestSelfie],
@@ -174,10 +153,8 @@ const experiences: ExperienceItem[] = [
     period: "Jul 2025 — Sep 2025",
     category: "OPEN SOURCE PROGRAM",
     location: "Remote, India",
-    description: "Collaborated in one of India's largest student open-source programs, resolving live repository issues under mentorship.",
-    responsibilities: [
-      "Implemented features and squashed frontend bugs across community-maintained projects.",
-    ],
+    description: "Resolved live repository issues, built responsive components, and completed milestones under open-source mentorship.",
+    responsibilities: [],
     skills: ["Open Source", "TypeScript", "React", "Git"],
     logo: gssocLogo,
     images: [],
@@ -190,10 +167,8 @@ const experiences: ExperienceItem[] = [
     period: "Jul 2025 — Present",
     category: "COMMUNITY & OPEN SOURCE",
     location: "Jabalpur, India · Remote",
-    description: "Progressed from open-source contributor in 2025 to Core Team Member and Campus Lead for 2026, driving student technical engagement.",
-    responsibilities: [
-      "Lead campus developer chapters and promote open-source collaboration among peers.",
-    ],
+    description: "Progressed to Core Team Member and Campus Lead for 2026, driving student developer engagement.",
+    responsibilities: [],
     skills: ["Leadership", "Community Growth", "Open Source"],
     logo: osciLogo,
     images: [],
@@ -206,10 +181,8 @@ const experiences: ExperienceItem[] = [
     period: "Sep 2025 — Present",
     category: "LEADERSHIP & EVENTS",
     location: "India",
-    description: "Promoted national hackathon participation, driving registrations and coordinating student teams for ParanoX 2.0.",
-    responsibilities: [
-      "Coordinated campus builder teams for hackathon submissions.",
-    ],
+    description: "Promoted national hackathon participation, driving registrations and coordinating student builder teams for ParanoX 2.0.",
+    responsibilities: [],
     skills: ["Leadership", "Community Engagement"],
     logo: paranoxLogo,
     images: [],
@@ -223,9 +196,7 @@ const experiences: ExperienceItem[] = [
     category: "TECH EVENTS & OUTREACH",
     location: "Remote · Jabalpur",
     description: "Represented Asia's largest science and technology festival at campus level, inspiring student participation in competitions.",
-    responsibilities: [
-      "Drove student awareness for robotics, AI, and coding challenges.",
-    ],
+    responsibilities: [],
     skills: ["Event Outreach", "Leadership"],
     logo: techfestLogo,
     images: [],
@@ -237,12 +208,12 @@ export const Experience = () => {
 
   return (
     <section id="experience" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#0B0D10] text-white border-t border-[#252830] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Marker */}
         <div className="flex items-center justify-between pb-6 border-b border-[#252830] mb-12 sm:mb-16">
           <span className="editorial-eyebrow">[ 03 // TRACK RECORD ]</span>
           <span className="font-mono text-xs text-[#9A9CA3] uppercase tracking-widest hidden sm:inline-block">
-            LEADERSHIP, AMBASSADORSHIPS &amp; CONTRIBUTIONS
+            STACKING EXPERIENCE CARDS
           </span>
         </div>
 
@@ -252,7 +223,7 @@ export const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-16 sm:mb-24"
+          className="mb-14 sm:mb-20"
         >
           <h2 className="editorial-section-title text-white">
             <span>BUILDING.</span>
@@ -266,29 +237,28 @@ export const Experience = () => {
           </p>
         </motion.div>
 
-        {/* Editorial Timeline / Cards */}
-        <div className="relative border-l border-[#252830] ml-3 sm:ml-6 pl-6 sm:pl-10 space-y-12">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={exp.id}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              viewport={{ once: true, margin: "-80px" }}
-              className="relative group"
-            >
-              {/* Electric Blue Timeline Indicator Node */}
-              <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-3.5 h-3.5 rounded-full bg-[#050505] border-2 border-[#246BFD] group-hover:scale-125 group-hover:bg-[#246BFD] transition-all" />
+        {/* Stacking Overlapping Cards Container */}
+        <div className="relative pb-24 space-y-8 sm:space-y-12">
+          {experiences.map((exp, index) => {
+            // Progressive top offset for stacking overlap on scroll
+            const topOffset = `calc(5rem + ${index * 16}px)`;
 
-              {/* Panel Container */}
-              <div className="rounded-[24px] bg-[#12151B] border border-[#252830] p-6 sm:p-8 hover:border-[#246BFD]/50 transition-all duration-300">
+            return (
+              <div
+                key={exp.id}
+                style={{
+                  top: topOffset,
+                  zIndex: index + 1,
+                }}
+                className="sticky rounded-[26px] sm:rounded-[32px] bg-[#12151B] border border-[#252830] p-6 sm:p-8 hover:border-[#246BFD]/60 transition-all duration-300 shadow-[0_-16px_36px_rgba(0,0,0,0.85)] group backdrop-blur-md"
+              >
                 {/* Top Metadata Strip */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#252830]">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#252830]">
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-xs font-bold text-[#246BFD]">
                       {exp.num} //
                     </span>
-                    <span className="font-mono text-xs text-[#9A9CA3] uppercase tracking-wider">
+                    <span className="font-mono text-[11px] sm:text-xs text-[#9A9CA3] uppercase tracking-wider">
                       {exp.category}
                     </span>
                   </div>
@@ -299,8 +269,8 @@ export const Experience = () => {
                   </div>
                 </div>
 
-                {/* Role & Organization */}
-                <div className="pt-5 pb-3">
+                {/* Role, Visit Link & Organization */}
+                <div className="pt-4 pb-2">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <h3 className="font-display text-2xl sm:text-3xl text-white uppercase tracking-tight group-hover:text-[#4D8DFF] transition-colors">
                       {exp.role}
@@ -311,68 +281,62 @@ export const Experience = () => {
                         href={exp.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-mono text-xs text-[#9A9CA3] hover:text-[#246BFD] transition-colors"
+                        className="inline-flex items-center gap-1 font-mono text-xs text-[#9A9CA3] hover:text-[#246BFD] transition-colors border border-[#252830] px-3 py-1 rounded-full bg-[#0B0D10]"
                       >
                         <span>VISIT</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <ArrowUpRight className="w-3 h-3 text-[#246BFD]" />
                       </a>
                     )}
                   </div>
 
-                  <p className="font-sans font-semibold text-base sm:text-lg text-[#F7F7F7] mt-1">
+                  <p className="font-sans font-semibold text-sm sm:text-base text-[#F7F7F7] mt-1">
                     {exp.organization}
-                    <span className="text-[#9A9CA3] font-normal text-sm font-mono ml-3">
+                    <span className="text-[#9A9CA3] font-normal text-xs sm:text-sm font-mono ml-3">
                       &middot; {exp.location}
                     </span>
                   </p>
                 </div>
 
-                {/* Description */}
-                <p className="text-sm sm:text-base text-[#9A9CA3] font-sans leading-relaxed my-3">
+                {/* Shortened Description */}
+                <p className="text-xs sm:text-sm text-[#9A9CA3] font-sans leading-relaxed my-2">
                   {exp.description}
                 </p>
 
-                {/* Responsibilities list if present */}
-                {exp.responsibilities && exp.responsibilities.length > 0 && (
-                  <ul className="space-y-1.5 my-4">
-                    {exp.responsibilities.map((resp, i) => (
-                      <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-[#F7F7F7]/80">
-                        <ChevronRight className="w-3.5 h-3.5 text-[#246BFD] flex-shrink-0 mt-0.5" />
-                        <span>{resp}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
                 {/* Skills Chips */}
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="flex flex-wrap gap-1.5 pt-1">
                   {exp.skills.map((skill) => (
-                    <span key={skill} className="editorial-tag">
+                    <span key={skill} className="editorial-tag text-[10px]">
                       {skill}
                     </span>
                   ))}
                 </div>
 
-                {/* Attached Media / Photos Preview */}
+                {/* Large Shape Verified Attachments */}
                 {exp.images && exp.images.length > 0 && (
-                  <div className="pt-6 border-t border-[#252830] mt-5">
-                    <p className="font-mono text-[11px] text-[#9A9CA3] uppercase tracking-wider mb-3">
-                      VERIFIED ATTACHMENTS &middot; {exp.images.length} {exp.images.length === 1 ? "FILE" : "FILES"}
+                  <div className="pt-4 border-t border-[#252830]/80 mt-4">
+                    <p className="font-mono text-[10px] sm:text-[11px] text-[#246BFD] uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#246BFD]" />
+                      <span>VERIFIED ATTACHMENTS &middot; {exp.images.length} {exp.images.length === 1 ? "FILE" : "FILES"}</span>
                     </p>
-                    <div className="flex flex-wrap gap-3">
+                    {/* Large Photo Gallery Preview */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                       {exp.images.map((img, i) => (
                         <button
                           key={i}
+                          type="button"
                           onClick={() => setSelectedImage(img)}
-                          className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-[#252830] hover:border-[#246BFD] transition-all group/thumb"
+                          className="relative h-40 sm:h-48 rounded-xl overflow-hidden border border-[#252830] bg-[#050505] hover:border-[#246BFD] transition-all group/thumb text-left"
                         >
                           <img
                             src={img}
-                            alt={`${exp.organization} preview ${i + 1}`}
-                            className="w-full h-full object-cover filter grayscale contrast-125 group-hover/thumb:grayscale-0 transition-all"
+                            alt={`${exp.organization} document ${i + 1}`}
+                            className="w-full h-full object-cover filter contrast-110 group-hover/thumb:scale-105 transition-all duration-500"
                           />
-                          <div className="absolute inset-0 bg-[#050505]/40 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity">
-                            <Maximize2 className="w-4 h-4 text-white" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/80 via-transparent to-transparent flex items-end p-2.5">
+                            <span className="font-mono text-[10px] text-white flex items-center gap-1.5 bg-[#050505]/80 px-2 py-0.5 rounded-md border border-[#252830]">
+                              <Maximize2 className="w-3 h-3 text-[#246BFD]" />
+                              <span>VIEW ATTACHMENT</span>
+                            </span>
                           </div>
                         </button>
                       ))}
@@ -380,8 +344,8 @@ export const Experience = () => {
                   </div>
                 )}
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

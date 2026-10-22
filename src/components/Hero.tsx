@@ -72,28 +72,64 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
     }
   };
 
+  const [hasPlayedVideo, setHasPlayedVideo] = useState(() => {
+    return typeof window !== "undefined" && sessionStorage.getItem("na_hero_video_played") === "true";
+  });
+
+  useEffect(() => {
+    if (hasPlayedVideo && videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [hasPlayedVideo]);
+
+  const handleVideoEnded = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    try {
+      sessionStorage.setItem("na_hero_video_played", "true");
+    } catch {
+      // ignore storage errors
+    }
+    setHasPlayedVideo(true);
+  };
+
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   const timeSpentText = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
 
+  // Animation variants for headline kinetic reveal on opening
+  const headlineWords = [
+    { text: "I", highlight: false },
+    { text: "BUILD", highlight: false },
+    { text: "THE", highlight: false },
+    { text: "FUTURE", highlight: true },
+    { text: "WITH", highlight: false },
+    { text: "AI", highlight: true },
+    { text: "&", highlight: false },
+    { text: "CODE.", highlight: false },
+  ];
+
   return (
     <section className="relative min-h-screen w-full bg-[#050505] text-white overflow-hidden flex flex-col justify-between pt-28 pb-12 sm:pt-32 sm:pb-16">
-      {/* Background Subtle Video + Monochrome Texture */}
+      {/* Background Subtle Video + Monochrome Texture - Plays once only */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted={isMuted}
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-          className="w-full h-full object-cover opacity-[0.14] scale-105 filter grayscale contrast-125"
-        >
-          <source src="/videos/intro2.mp4" type="video/mp4" />
-          <source src="/videos/into.mp4" type="video/mp4" />
-          <source src="/videos/intro.mp4" type="video/mp4" />
-        </video>
+        {!hasPlayedVideo && (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted={isMuted}
+            playsInline
+            preload="auto"
+            onEnded={handleVideoEnded}
+            aria-hidden="true"
+            className="w-full h-full object-cover opacity-[0.14] scale-105 filter grayscale contrast-125"
+          >
+            <source src="/videos/intro2.mp4" type="video/mp4" />
+            <source src="/videos/into.mp4" type="video/mp4" />
+            <source src="/videos/intro.mp4" type="video/mp4" />
+          </video>
+        )}
         {/* Radial Dark Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505]" />
@@ -110,24 +146,26 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
       </div>
 
       {/* Audio Ambient Control */}
-      <button
-        onClick={toggleMute}
-        type="button"
-        className="absolute top-24 right-4 sm:top-28 sm:right-8 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0B0D10]/80 border border-[#252830] font-mono text-xs text-[#9A9CA3] hover:text-white hover:border-[#246BFD] backdrop-blur-md transition-colors"
-        title={isMuted ? "Unmute Ambient Intro" : "Mute Intro"}
-      >
-        {isMuted ? (
-          <>
-            <VolumeX className="w-3.5 h-3.5 text-[#9A9CA3]" />
-            <span className="hidden sm:inline">SOUND OFF</span>
-          </>
-        ) : (
-          <>
-            <Volume2 className="w-3.5 h-3.5 text-[#246BFD]" />
-            <span className="text-[#246BFD] font-bold">SOUND ON</span>
-          </>
-        )}
-      </button>
+      {!hasPlayedVideo && (
+        <button
+          onClick={toggleMute}
+          type="button"
+          className="absolute top-24 right-4 sm:top-28 sm:right-8 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0B0D10]/80 border border-[#252830] font-mono text-xs text-[#9A9CA3] hover:text-white hover:border-[#246BFD] backdrop-blur-md transition-colors"
+          title={isMuted ? "Unmute Ambient Intro" : "Mute Intro"}
+        >
+          {isMuted ? (
+            <>
+              <VolumeX className="w-3.5 h-3.5 text-[#9A9CA3]" />
+              <span className="hidden sm:inline">SOUND OFF</span>
+            </>
+          ) : (
+            <>
+              <Volume2 className="w-3.5 h-3.5 text-[#246BFD]" />
+              <span className="text-[#246BFD] font-bold">SOUND ON</span>
+            </>
+          )}
+        </button>
+      )}
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
@@ -140,48 +178,42 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
         >
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#246BFD]/30 bg-[#246BFD]/10 font-mono text-xs font-semibold tracking-wider text-[#4D8DFF] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-[#246BFD] animate-ping" />
-            AI/ML · FULL-STACK · WEB3 BUILDER
-          </span>
-          <span className="hidden sm:inline-block font-mono text-xs text-[#9A9CA3]">
             [ NAJISH ANJUM — PORTFOLIO '26 ]
           </span>
         </motion.div>
 
-        {/* Oversized Ultra-Bold Condensed Headline */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="w-full"
-        >
-          <h1 className="editorial-hero-title text-white tracking-[-0.03em] select-none">
-            <span className="block">I BUILD THE</span>
-            <span className="block">
-              <span className="text-[#246BFD]">FUTURE</span> WITH
-            </span>
-            <span className="block flex flex-wrap items-baseline gap-x-4 sm:gap-x-8">
-              <span><span className="text-[#246BFD]">AI</span> &amp; CODE.</span>
-              <span className="hidden md:inline-block font-mono text-xs font-normal tracking-normal text-[#9A9CA3] max-w-xs normal-case border-l border-[#252830] pl-4 self-center leading-relaxed">
-                Transforming complex algorithms and decentralized protocols into intuitive, resilient digital products.
-              </span>
-            </span>
+        {/* Oversized Ultra-Bold Condensed Headline with Kinetic Opening Reveal Animation */}
+        <div className="w-full">
+          <h1 className="editorial-hero-title text-white tracking-[-0.03em] select-none flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-1 sm:gap-y-2">
+            {headlineWords.map((item, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.1 + i * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className={`inline-block ${item.highlight ? "text-[#246BFD]" : "text-white"}`}
+              >
+                {item.text}
+              </motion.span>
+            ))}
           </h1>
-        </motion.div>
+        </div>
 
         {/* Narrative & Profile Overview Spread */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
           className="mt-8 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end"
         >
           {/* Supporting Statement & Bio */}
           <div className="lg:col-span-7 space-y-6">
             <p className="text-base sm:text-xl text-[#F7F7F7] font-sans font-normal leading-relaxed max-w-2xl">
               Hello, I'm <strong className="text-white font-bold">Najish Anjum</strong> — a B.Tech Computer Science student specializing in Artificial Intelligence &amp; Machine Learning, Team Lead at <span className="text-[#4D8DFF] font-medium">Team ILM Tech</span>, and <span className="text-[#4D8DFF] font-medium">Stellar India Ambassador</span>.
-            </p>
-            <p className="text-sm sm:text-base text-[#9A9CA3] font-sans leading-relaxed max-w-xl">
-              I operate at the intersection of production AI engineering, full-stack web applications, and Web3 infrastructure. From building repository intelligence tools to hackathon-winning prototypes, I turn ambitious ideas into shipped software.
             </p>
 
             {/* CTAs */}

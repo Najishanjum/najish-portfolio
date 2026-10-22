@@ -98,9 +98,6 @@ export const Navigation = ({ onReplayIntro }: NavigationProps) => {
                 <span>&lt;NA</span>
                 <span className="text-[#246BFD] ml-0.5">/&gt;</span>
               </div>
-              <span className="hidden sm:inline-block font-mono text-[10px] uppercase tracking-widest text-[#9A9CA3] border-l border-[#252830] pl-2.5 ml-1">
-                AI · DEV · WEB3
-              </span>
             </a>
 
             {/* Desktop Navigation Links */}

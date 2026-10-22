@@ -5,38 +5,27 @@ const pillars = [
   {
     icon: Cpu,
     title: "AI & Machine Learning",
-    description: "Developing intelligent algorithms, NLP models, and computer vision systems. Leveraging PyTorch, TensorFlow, and agentic workflows to build practical AI tools.",
+    description: "PyTorch, NLP, computer vision & agentic workflows.",
     tag: "INTELLIGENCE",
   },
   {
     icon: Globe,
     title: "Full-Stack Engineering",
-    description: "Building responsive, resilient web applications using React, TypeScript, Node.js, and Django with clean architecture, robust state management, and fast API integration.",
+    description: "React, TypeScript, Node.js & high-throughput APIs.",
     tag: "APPLICATIONS",
   },
   {
     icon: Blocks,
     title: "Web3 & Blockchain",
-    description: "Active builder in decentralized ecosystems. Officially selected as Stellar India Ambassador, contributing to decentralized applications, Solana smart protocols, and payments.",
+    description: "Stellar Ambassador, Solana protocols & smart contracts.",
     tag: "DECENTRALIZED",
   },
   {
     icon: Users,
     title: "Community & Open Source",
-    description: "Team Lead of Team ILM Tech and Co-Founder at Ajinava Edge. Active contributor to Hacktoberfest, GSSOC, and university builder networks across India.",
+    description: "Lead at Team ILM Tech & active open-source contributor.",
     tag: "LEADERSHIP",
   },
-];
-
-const focusAreas = [
-  "Artificial Intelligence",
-  "Machine Learning",
-  "Full-Stack Web Dev",
-  "Solana & Stellar Web3",
-  "Agentic AI Systems",
-  "Open Source",
-  "Developer Communities",
-  "Hackathon Building",
 ];
 
 export const About = () => {
@@ -133,43 +122,26 @@ export const About = () => {
               </p>
             </div>
 
-            {/* Focus Area Tags */}
-            <div className="pt-2">
-              <p className="font-mono text-xs text-[#9A9CA3] uppercase tracking-wider mb-3">
-                AREAS OF ACTIVE EXPLORATION
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {focusAreas.map((area) => (
-                  <span
-                    key={area}
-                    className="editorial-tag hover:border-[#246BFD] hover:text-white transition-colors cursor-default"
-                  >
-                    {area}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* 4 Pillars Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-              {pillars.map((pillar, idx) => (
+            {/* 4 Pillars Grid - Compact Editorial Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              {pillars.map((pillar) => (
                 <div
                   key={pillar.title}
-                  className="p-5 rounded-2xl bg-[#12151B] border border-[#252830] hover:border-[#246BFD]/50 transition-all duration-300 group"
+                  className="p-3.5 sm:p-4 rounded-xl bg-[#12151B] border border-[#252830] hover:border-[#246BFD]/50 transition-all duration-300 group"
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#246BFD]/10 border border-[#246BFD]/20 flex items-center justify-center text-[#4D8DFF] group-hover:bg-[#246BFD] group-hover:text-white transition-colors">
-                      <pillar.icon className="w-5 h-5" />
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-[#246BFD]/10 border border-[#246BFD]/20 flex items-center justify-center text-[#4D8DFF] group-hover:bg-[#246BFD] group-hover:text-white transition-colors">
+                      <pillar.icon className="w-4 h-4" />
                     </div>
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-[#9A9CA3]">
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-[#246BFD]">
                       {pillar.tag}
                     </span>
                   </div>
 
-                  <h3 className="font-sans font-bold text-base text-white mb-2 group-hover:text-[#4D8DFF] transition-colors">
+                  <h3 className="font-sans font-semibold text-sm text-white mb-1 group-hover:text-[#4D8DFF] transition-colors">
                     {pillar.title}
                   </h3>
-                  <p className="text-xs text-[#9A9CA3] leading-relaxed">
+                  <p className="text-xs text-[#9A9CA3] leading-snug">
                     {pillar.description}
                   </p>
                 </div>
