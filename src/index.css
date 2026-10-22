@@ -1,69 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Anton&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ============================================================
-   NSHA DESIGN SYSTEM — NAJISH ANJUM PORTFOLIO
+   EDITORIAL DESIGN SYSTEM — NAJISH ANJUM PORTFOLIO
+   Bold Typography × Premium Black, White & Electric Blue
    ============================================================ */
 
 @layer base {
   :root {
-    /* NSHA Core Colors */
-    --nsha-bg: #FAF8F3;
-    --nsha-surface: #F3F0E8;
-    --nsha-black: #090909;
-    --nsha-yellow: #FFD21C;
-    --nsha-pink: #FF3D83;
-    --nsha-purple: #7557F7;
-    --nsha-green: #35D04F;
-    --nsha-lime: #B7E83B;
-    --nsha-muted: #5B5B5B;
+    --bg-primary: #050505;
+    --bg-secondary: #0B0D10;
+    --bg-panel: #12151B;
+    --bg-light: #FFFFFF;
+    
+    --text-primary: #F7F7F7;
+    --text-muted: #9A9CA3;
+    --text-dark: #08090B;
+    
+    --blue-accent: #246BFD;
+    --blue-bright: #4D8DFF;
+    --blue-glow: rgba(36, 107, 253, 0.2);
+    
+    --border-color: #252830;
+    --border-light: #E2E4E9;
 
-    /* Shadcn/Radix token mapping → NSHA palette */
-    --background: 45 40% 96%;       /* #FAF8F3 warm paper */
-    --foreground: 0 0% 4%;           /* #090909 */
+    /* Shadcn/Radix mapping */
+    --background: 0 0% 2%;          /* #050505 */
+    --foreground: 0 0% 97%;         /* #F7F7F7 */
 
-    --card: 42 35% 94%;              /* #F3F0E8 */
-    --card-foreground: 0 0% 4%;
+    --card: 220 18% 5%;             /* #0B0D10 */
+    --card-foreground: 0 0% 97%;
 
-    --popover: 42 35% 94%;
-    --popover-foreground: 0 0% 4%;
+    --popover: 220 18% 5%;
+    --popover-foreground: 0 0% 97%;
 
-    --primary: 47 100% 56%;          /* #FFD21C yellow */
-    --primary-foreground: 0 0% 4%;
+    --primary: 221 98% 57%;         /* #246BFD */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 42 35% 94%;
-    --secondary-foreground: 0 0% 4%;
+    --secondary: 220 18% 5%;
+    --secondary-foreground: 0 0% 97%;
 
-    --muted: 42 20% 90%;
-    --muted-foreground: 0 0% 36%;    /* #5B5B5B */
+    --muted: 222 20% 9%;            /* #12151B */
+    --muted-foreground: 228 5% 62%; /* #9A9CA3 */
 
-    --accent: 330 100% 62%;          /* #FF3D83 pink */
+    --accent: 221 98% 57%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 4%;               /* black borders */
-    --input: 42 35% 94%;
-    --ring: 47 100% 56%;
+    --border: 225 13% 17%;          /* #252830 */
+    --input: 225 13% 17%;
+    --ring: 221 98% 57%;
 
     --radius: 1.25rem;
 
-    /* NSHA shadow system */
-    --shadow-sm: 4px 4px 0 #090909;
-    --shadow-md: 7px 7px 0 #090909;
-    --shadow-lg: 10px 10px 0 #090909;
-
-    /* NSHA border */
-    --border-thick: 3px solid #090909;
-    --border-thin: 2px solid #090909;
-
-    /* Typography */
-    --font-display: 'Space Grotesk', sans-serif;
+    --font-display: 'Anton', sans-serif;
     --font-body: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
   }
 }
 
@@ -74,261 +71,214 @@
 
   html {
     scroll-behavior: smooth;
+    background-color: var(--bg-primary);
   }
 
   body {
-    background-color: var(--nsha-bg);
-    color: var(--nsha-black);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  /* Scrollbar styling */
+  /* Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 7px;
+    height: 7px;
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--nsha-bg);
+    background: #050505;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--nsha-black);
-    border-radius: 4px;
+    background: #252830;
+    border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--nsha-yellow);
+    background: #246BFD;
   }
 
+  /* Headings default */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 0.98;
+    text-transform: uppercase;
   }
 }
 
 /* ============================================================
-   NSHA UTILITY CLASSES
+   EDITORIAL UTILITY CLASSES
    ============================================================ */
 
 @layer utilities {
-  /* NSHA Card */
-  .nsha-card {
-    background: var(--nsha-bg);
-    border: 3px solid var(--nsha-black);
-    border-radius: 20px;
-    box-shadow: var(--shadow-md);
-    transition: transform 200ms ease, box-shadow 200ms ease;
+  /* Editorial Panels */
+  .editorial-panel {
+    background: #0B0D10;
+    border: 1px solid #252830;
+    border-radius: 28px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
   }
 
-  .nsha-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 9px 9px 0 var(--nsha-black);
+  .editorial-panel:hover {
+    border-color: rgba(36, 107, 253, 0.4);
+    box-shadow: 0 10px 40px -10px rgba(36, 107, 253, 0.12);
   }
 
-  .nsha-card-surface {
-    background: var(--nsha-surface);
-    border: 3px solid var(--nsha-black);
-    border-radius: 20px;
-    box-shadow: var(--shadow-md);
-    transition: transform 200ms ease, box-shadow 200ms ease;
+  .editorial-panel-light {
+    background: #FFFFFF;
+    color: #08090B;
+    border: 1px solid #E2E4E9;
+    border-radius: 28px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
-  .nsha-card-surface:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 9px 9px 0 var(--nsha-black);
+  .editorial-panel-light:hover {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
   }
 
-  /* NSHA Buttons */
-  .nsha-btn-primary {
-    background: var(--nsha-yellow);
-    color: var(--nsha-black);
-    border: 3px solid var(--nsha-black);
-    border-radius: 12px;
-    box-shadow: 5px 5px 0 var(--nsha-black);
-    font-weight: 700;
+  /* Eyebrows */
+  .editorial-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #246BFD;
+  }
+
+  /* Headline scale */
+  .editorial-hero-title {
     font-family: var(--font-display);
-    transition: transform 150ms ease, box-shadow 150ms ease;
-    cursor: pointer;
+    font-size: clamp(3.2rem, 11vw, 8.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
   }
 
-  .nsha-btn-primary:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 3px 3px 0 var(--nsha-black);
-  }
-
-  .nsha-btn-primary:active {
-    transform: translate(5px, 5px);
-    box-shadow: 0 0 0 var(--nsha-black);
-  }
-
-  .nsha-btn-secondary {
-    background: var(--nsha-bg);
-    color: var(--nsha-black);
-    border: 3px solid var(--nsha-black);
-    border-radius: 12px;
-    box-shadow: 5px 5px 0 var(--nsha-black);
-    font-weight: 700;
+  .editorial-section-title {
     font-family: var(--font-display);
-    transition: transform 150ms ease, box-shadow 150ms ease;
-    cursor: pointer;
+    font-size: clamp(2.4rem, 6.5vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
   }
 
-  .nsha-btn-secondary:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 3px 3px 0 var(--nsha-black);
-  }
-
-  .nsha-btn-secondary:active {
-    transform: translate(5px, 5px);
-    box-shadow: 0 0 0 var(--nsha-black);
-  }
-
-  .nsha-btn-pink {
-    background: var(--nsha-pink);
-    color: #fff;
-    border: 3px solid var(--nsha-black);
-    border-radius: 12px;
-    box-shadow: 5px 5px 0 var(--nsha-black);
+  /* Buttons */
+  .editorial-btn-primary {
+    background: #246BFD;
+    color: #FFFFFF;
+    font-family: var(--font-body);
     font-weight: 700;
-    font-family: var(--font-display);
-    transition: transform 150ms ease, box-shadow 150ms ease;
-    cursor: pointer;
-  }
-
-  .nsha-btn-pink:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 3px 3px 0 var(--nsha-black);
-  }
-
-  .nsha-btn-pink:active {
-    transform: translate(5px, 5px);
-    box-shadow: 0 0 0 var(--nsha-black);
-  }
-
-  /* NSHA Badge */
-  .nsha-badge {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-radius: 14px;
+    padding: 14px 28px;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: var(--nsha-bg);
-    border: 2px solid var(--nsha-black);
-    border-radius: 8px;
-    box-shadow: 3px 3px 0 var(--nsha-black);
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    padding: 4px 10px;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px -2px rgba(36, 107, 253, 0.35);
   }
 
-  .nsha-badge-yellow {
-    background: var(--nsha-yellow);
-    border: 2px solid var(--nsha-black);
-    border-radius: 8px;
-    box-shadow: 3px 3px 0 var(--nsha-black);
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    padding: 4px 10px;
+  .editorial-btn-primary:hover {
+    background: #4D8DFF;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px 0 rgba(36, 107, 253, 0.45);
   }
 
-  .nsha-badge-pink {
-    background: var(--nsha-pink);
-    color: #fff;
-    border: 2px solid var(--nsha-black);
-    border-radius: 8px;
-    box-shadow: 3px 3px 0 var(--nsha-black);
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    padding: 4px 10px;
+  .editorial-btn-primary:active {
+    transform: translateY(0);
   }
 
-  .nsha-badge-purple {
-    background: var(--nsha-purple);
-    color: #fff;
-    border: 2px solid var(--nsha-black);
-    border-radius: 8px;
-    box-shadow: 3px 3px 0 var(--nsha-black);
+  .editorial-btn-secondary {
+    background: #0B0D10;
+    color: #F7F7F7;
+    font-family: var(--font-body);
     font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    padding: 4px 10px;
-  }
-
-  .nsha-badge-green {
-    background: var(--nsha-green);
-    color: var(--nsha-black);
-    border: 2px solid var(--nsha-black);
-    border-radius: 8px;
-    box-shadow: 3px 3px 0 var(--nsha-black);
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    padding: 4px 10px;
-  }
-
-  /* Section header */
-  .nsha-section-eyebrow {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--nsha-muted);
-    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+    border: 1px solid #252830;
+    border-radius: 14px;
+    padding: 14px 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
   }
 
-  .nsha-section-title {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    letter-spacing: -0.03em;
-    line-height: 1;
-    color: var(--nsha-black);
+  .editorial-btn-secondary:hover {
+    border-color: #246BFD;
+    color: #FFFFFF;
+    background: #12151B;
+    transform: translateY(-2px);
   }
 
-  /* Accent shapes */
-  .nsha-accent-circle {
-    border-radius: 50%;
-    background: var(--nsha-yellow);
+  /* Tags / Chips */
+  .editorial-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #12151B;
+    border: 1px solid #252830;
+    color: #9A9CA3;
   }
 
-  .nsha-accent-rect {
-    border-radius: 8px;
+  .editorial-tag-blue {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(36, 107, 253, 0.1);
+    border: 1px solid rgba(36, 107, 253, 0.35);
+    color: #4D8DFF;
   }
 
-  /* Physical shadow variants */
-  .shadow-nsha-sm {
-    box-shadow: 4px 4px 0 #090909;
-  }
-
-  .shadow-nsha-md {
-    box-shadow: 7px 7px 0 #090909;
-  }
-
-  .shadow-nsha-lg {
-    box-shadow: 10px 10px 0 #090909;
-  }
-
-  /* text selection color */
+  /* Selection */
   ::selection {
-    background: var(--nsha-yellow);
-    color: var(--nsha-black);
+    background: #246BFD;
+    color: #FFFFFF;
   }
 
-  /* Focus states */
   :focus-visible {
-    outline: 3px solid var(--nsha-yellow);
-    outline-offset: 2px;
+    outline: 2px solid #246BFD;
+    outline-offset: 3px;
+  }
+
+  /* Grid pattern background */
+  .bg-grid-editorial {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(37, 40, 48, 0.3) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(37, 40, 48, 0.3) 1px, transparent 1px);
+  }
+
+  .bg-dots-editorial {
+    background-size: 24px 24px;
+    background-image: radial-gradient(rgba(37, 40, 48, 0.6) 1px, transparent 1px);
+  }
+
+  /* Subtle blue glow behind key elements */
+  .glow-blue {
+    box-shadow: 0 0 50px -10px rgba(36, 107, 253, 0.25);
   }
 }
 
 /* ============================================================
-   MARQUEE ANIMATIONS
+   ANIMATIONS & TRANSITIONS
    ============================================================ */
 
 @keyframes marquee {
@@ -342,60 +292,28 @@
 }
 
 .animate-marquee {
-  animation: marquee 10s linear infinite;
+  animation: marquee 22s linear infinite;
 }
 
 .animate-marquee-reverse {
-  animation: marquee-reverse 27s linear infinite;
+  animation: marquee-reverse 22s linear infinite;
 }
 
 .animate-marquee-slow {
-  animation: marquee 60s linear infinite;
+  animation: marquee 50s linear infinite;
   width: max-content;
 }
 
 .animate-marquee-reverse-slow {
-  animation: marquee-reverse 75s linear infinite;
+  animation: marquee-reverse 50s linear infinite;
   width: max-content;
 }
 
-/* ============================================================
-   NSHA ENTRANCE ANIMATIONS
-   ============================================================ */
-
-@keyframes nsha-fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
 }
 
-@keyframes nsha-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes nsha-scale-in {
-  from { opacity: 0; transform: scale(0.92); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes typing-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.typing-cursor {
-  animation: typing-blink 1s step-end infinite;
-}
-
-/* ============================================================
-   GALLERY KEYFRAMES
-   ============================================================ */
-@keyframes marqueeX {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes marqueeReverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+.animate-pulse-subtle {
+  animation: pulse-subtle 4s ease-in-out infinite;
 }

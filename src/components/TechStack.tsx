@@ -1,171 +1,214 @@
 import { motion } from "framer-motion";
-import { SiHtml5, SiCss3, SiTailwindcss, SiJavascript, SiReact, SiNodedotjs, SiExpress, SiDjango, SiMongodb, SiPostgresql, SiMysql, SiAmazon, SiCplusplus, SiPython, SiTypescript, SiGit, SiGithub, SiGitlab } from "react-icons/si";
+import {
+  SiHtml5,
+  SiCss3,
+  SiTailwindcss,
+  SiJavascript,
+  SiReact,
+  SiNodedotjs,
+  SiExpress,
+  SiDjango,
+  SiMongodb,
+  SiPostgresql,
+  SiMysql,
+  SiAmazon,
+  SiCplusplus,
+  SiPython,
+  SiTypescript,
+  SiGit,
+  SiGithub,
+  SiGitlab,
+  SiSolana,
+  SiTensorflow,
+  SiPytorch,
+  SiLinux,
+  SiDocker,
+  SiPostman,
+} from "react-icons/si";
 
-const techStack = [
+interface TechItem {
+  name: string;
+  icon?: any;
+  emoji?: string;
+  role?: string;
+}
+
+interface TechCategory {
+  title: string;
+  eyebrow: string;
+  description: string;
+  techs: TechItem[];
+}
+
+const techCategories: TechCategory[] = [
   {
-    category: "Frontend",
-    accent: "#FFD21C",
+    title: "AI & MACHINE LEARNING",
+    eyebrow: "01 // INTELLIGENCE",
+    description: "Neural network architectures, computer vision, natural language processing, and generative AI agents.",
     techs: [
-      { name: "HTML5", icon: SiHtml5, color: "#E34F26" },
-      { name: "CSS3", icon: SiCss3, color: "#1572B6" },
-      { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Python", icon: SiPython, role: "Core Language" },
+      { name: "TensorFlow", icon: SiTensorflow, role: "Deep Learning" },
+      { name: "PyTorch", icon: SiPytorch, role: "Models & Training" },
+      { name: "HuggingFace", emoji: "🤗", role: "Transformers" },
+      { name: "LangChain", emoji: "🦜", role: "LLM Orchestration" },
+      { name: "LangGraph", emoji: "📊", role: "Agentic Workflows" },
     ],
   },
   {
-    category: "Backend",
-    accent: "#FF3D83",
+    title: "LANGUAGES & RUNTIMES",
+    eyebrow: "02 // SYNTAX",
+    description: "Multi-paradigm programming languages for low-level performance, scripting, and typed application logic.",
     techs: [
-      { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
-      { name: "Express", icon: SiExpress, color: "#090909" },
-      { name: "Django", icon: SiDjango, color: "#092E20" },
+      { name: "TypeScript", icon: SiTypescript, role: "Typed JavaScript" },
+      { name: "Python", icon: SiPython, role: "AI & Backend" },
+      { name: "C++", icon: SiCplusplus, role: "DSA & Systems" },
+      { name: "JavaScript", icon: SiJavascript, role: "Web Engine" },
     ],
   },
   {
-    category: "Databases",
-    accent: "#7557F7",
+    title: "FRONTEND ENGINEERING",
+    eyebrow: "03 // CLIENT INTERFACES",
+    description: "Component-driven user interfaces, responsive design systems, animations, and state architectures.",
     techs: [
-      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-      { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
-      { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+      { name: "React", icon: SiReact, role: "UI Framework" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, role: "Design Tokens" },
+      { name: "HTML5", icon: SiHtml5, role: "Semantic Markup" },
+      { name: "CSS3", icon: SiCss3, role: "Styling & Motion" },
     ],
   },
   {
-    category: "Languages",
-    accent: "#35D04F",
+    title: "BACKEND ARCHITECTURE",
+    eyebrow: "04 // SERVICES & APIS",
+    description: "RESTful microservices, asynchronous request pipelines, server-side frameworks, and middleware.",
     techs: [
-      { name: "C++", icon: SiCplusplus, color: "#00599C" },
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-      { name: "Python", icon: SiPython, color: "#3776AB" },
-      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+      { name: "Node.js", icon: SiNodedotjs, role: "JS Runtime" },
+      { name: "Express", icon: SiExpress, role: "API Framework" },
+      { name: "Django", icon: SiDjango, role: "Python Web Framework" },
     ],
   },
   {
-    category: "DevOps",
-    accent: "#B7E83B",
+    title: "WEB3 & BLOCKCHAIN",
+    eyebrow: "05 // DECENTRALIZED",
+    description: "Smart contract deployment, blockchain wallets, on-chain transactions, and decentralized apps.",
     techs: [
-      { name: "AWS", icon: SiAmazon, color: "#FF9900" },
+      { name: "Stellar", emoji: "🚀", role: "Payment Network" },
+      { name: "Soroban", emoji: "✨", role: "Smart Contracts" },
+      { name: "Solana", icon: SiSolana, role: "High-Throughput Chain" },
     ],
   },
   {
-    category: "Version Control",
-    accent: "#FFD21C",
+    title: "DATA & PERSISTENCE",
+    eyebrow: "06 // STORAGE",
+    description: "Relational modeling, document data stores, vector search, and transactional integrity.",
     techs: [
-      { name: "Git", icon: SiGit, color: "#F05032" },
-      { name: "GitHub", icon: SiGithub, color: "#090909" },
-      { name: "GitLab", icon: SiGitlab, color: "#FC6D26" },
+      { name: "PostgreSQL", icon: SiPostgresql, role: "Relational SQL" },
+      { name: "MongoDB", icon: SiMongodb, role: "NoSQL Documents" },
+      { name: "MySQL", icon: SiMysql, role: "Relational DB" },
     ],
   },
   {
-    category: "Gen AI",
-    accent: "#FF3D83",
+    title: "DEVOPS, CLOUD & TOOLS",
+    eyebrow: "07 // WORKFLOW",
+    description: "Version control systems, cloud hosting, containerization, and API development toolchains.",
     techs: [
-      { name: "HuggingFace", icon: null, emoji: "🤗", color: "#FF9D00" },
-      { name: "LangChain", icon: null, emoji: "🦜", color: "#1C3C3C" },
-      { name: "LangGraph", icon: null, emoji: "📊", color: "#090909" },
+      { name: "Git", icon: SiGit, role: "Version Control" },
+      { name: "GitHub", icon: SiGithub, role: "Collaboration & CI" },
+      { name: "GitLab", icon: SiGitlab, role: "CI/CD" },
+      { name: "AWS", icon: SiAmazon, role: "Cloud Services" },
+      { name: "Linux", icon: SiLinux, role: "CLI & Servers" },
+      { name: "Docker", icon: SiDocker, role: "Containers" },
+      { name: "Postman", icon: SiPostman, role: "API Testing" },
     ],
   },
 ];
 
-const TechTile = ({
-  name,
-  icon: Icon,
-  emoji,
-  color,
-  delay,
-  accent,
-}: {
-  name: string;
-  icon: any;
-  emoji?: string;
-  color: string;
-  delay: number;
-  accent: string;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.3, delay }}
-    viewport={{ once: true }}
-    className="group flex flex-col items-center gap-2 p-3 rounded-xl border-[2px] border-[#090909] shadow-[3px_3px_0_#090909] transition-all duration-200 hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_#090909] cursor-default"
-    style={{ background: "#FAF8F3" }}
-  >
-    <div
-      className="w-10 h-10 rounded-lg flex items-center justify-center border-[2px] border-[#090909]"
-      style={{ background: accent + "22" }}
-    >
-      {emoji ? (
-        <span className="text-xl">{emoji}</span>
-      ) : (
-        <Icon className="w-6 h-6" style={{ color }} />
-      )}
-    </div>
-    <span className="text-[10px] font-bold uppercase tracking-wide text-[#5B5B5B] group-hover:text-[#090909] transition-colors text-center">
-      {name}
-    </span>
-  </motion.div>
-);
-
 export const TechStack = () => {
   return (
-    <section id="tech-stack" className="py-24 px-4 sm:px-8" style={{ background: "#F3F0E8" }}>
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
+    <section id="tech-stack" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#050505] text-white border-t border-[#252830] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Marker */}
+        <div className="flex items-center justify-between pb-6 border-b border-[#252830] mb-12 sm:mb-16">
+          <span className="editorial-eyebrow">[ 04 // TECHNICAL SYSTEM ]</span>
+          <span className="font-mono text-xs text-[#9A9CA3] uppercase tracking-widest hidden sm:inline-block">
+            LANGUAGES, FRAMEWORKS &amp; INFRASTRUCTURE
+          </span>
+        </div>
+
+        {/* Section Headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-16 sm:mb-24"
         >
-          <p className="nsha-section-eyebrow">What I work with</p>
-          <h2 className="nsha-section-title">
-            Tech <span style={{ color: "#35D04F" }}>Stack</span>
+          <h2 className="editorial-section-title text-white">
+            <span>TOOLS I USE TO</span>
+            <br />
+            <span className="text-[#246BFD]">BUILD THE FUTURE.</span>
           </h2>
-          <div
-            className="mt-4 h-1.5 w-20 rounded-full border-[2px] border-[#090909]"
-            style={{ background: "#35D04F" }}
-          />
+          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-xl font-sans">
+            A structured breakdown of technologies verified through shipped products, hackathon victories, and production repositories.
+          </p>
         </motion.div>
 
-        {/* Category Cards Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {techStack.map((category, catIndex) => (
+        {/* Structured Category Panels */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
+          {techCategories.map((cat, index) => (
             <motion.div
-              key={category.category}
-              initial={{ opacity: 0, y: 20 }}
+              key={cat.title}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: catIndex * 0.08 }}
-              viewport={{ once: true }}
-              className="rounded-2xl border-[3px] border-[#090909] overflow-hidden"
-              style={{ boxShadow: `5px 5px 0 ${category.accent}` }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
+              viewport={{ once: true, margin: "-60px" }}
+              className="rounded-[24px] bg-[#0B0D10] border border-[#252830] p-6 hover:border-[#246BFD]/50 transition-all duration-300 group flex flex-col justify-between"
             >
-              {/* Category header */}
-              <div
-                className="px-5 py-3 border-b-[3px] border-[#090909] flex items-center gap-2"
-                style={{ background: category.accent }}
-              >
-                <h3 className="font-bold text-sm uppercase tracking-wider text-[#090909]">
-                  {category.category}
+              <div>
+                {/* Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-[#252830]">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#246BFD]">
+                    {cat.eyebrow}
+                  </span>
+                  <span className="font-mono text-xs text-[#9A9CA3] px-2 py-0.5 rounded bg-[#12151B] border border-[#252830]">
+                    {cat.techs.length}
+                  </span>
+                </div>
+
+                <h3 className="font-display text-xl sm:text-2xl text-white uppercase tracking-tight mt-4 mb-2 group-hover:text-[#4D8DFF] transition-colors">
+                  {cat.title}
                 </h3>
-                <span className="ml-auto text-xs font-bold px-2 py-0.5 rounded-full border-[2px] border-[#090909] bg-[#FAF8F3] text-[#090909]">
-                  {category.techs.length}
-                </span>
+                <p className="text-xs text-[#9A9CA3] font-sans leading-relaxed mb-6">
+                  {cat.description}
+                </p>
               </div>
 
-              {/* Tech tiles */}
-              <div className="p-4" style={{ background: "#FAF8F3" }}>
-                <div className="grid grid-cols-4 gap-2">
-                  {category.techs.map((tech, techIndex) => (
-                    <TechTile
-                      key={tech.name + category.category}
-                      {...(tech as any)}
-                      delay={catIndex * 0.06 + techIndex * 0.04}
-                      accent={category.accent}
-                    />
-                  ))}
-                </div>
+              {/* Technologies List */}
+              <div className="space-y-2 pt-2 border-t border-[#252830]/80">
+                {cat.techs.map((tech) => (
+                  <div
+                    key={tech.name}
+                    className="flex items-center justify-between p-2.5 rounded-xl bg-[#12151B] border border-[#252830] hover:border-[#246BFD] hover:bg-[#12151B]/80 transition-all"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-7 h-7 rounded-lg bg-[#0B0D10] border border-[#252830] flex items-center justify-center text-[#F7F7F7] group-hover:text-[#4D8DFF] transition-colors">
+                        {tech.emoji ? (
+                          <span className="text-sm">{tech.emoji}</span>
+                        ) : tech.icon ? (
+                          <tech.icon className="w-3.5 h-3.5" />
+                        ) : null}
+                      </div>
+                      <span className="font-sans font-bold text-xs sm:text-sm text-white">
+                        {tech.name}
+                      </span>
+                    </div>
+
+                    {tech.role && (
+                      <span className="font-mono text-[10px] text-[#9A9CA3] uppercase tracking-wider">
+                        {tech.role}
+                      </span>
+                    )}
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}

@@ -1,8 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import notFoundIllustration from "@/assets/404-illustration.png";
 import logoNA from "@/assets/logo-na.png";
+import { ArrowLeft } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,54 +13,51 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <motion.div 
-        className="text-center max-w-2xl w-full"
+    <div className="flex min-h-screen items-center justify-center bg-[#050505] text-white px-4">
+      <motion.div
+        className="text-center max-w-xl w-full space-y-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Main Illustration Container */}
-        <div className="relative mb-8 inline-block">
+        <div className="relative mb-4 inline-block">
           <motion.img
             src={notFoundIllustration}
             alt="404 Not Found"
-            className="w-full max-w-md mx-auto rounded-2xl shadow-lg"
-            initial={{ scale: 0.8 }}
+            className="w-full max-w-sm mx-auto rounded-[24px] border border-[#252830] filter grayscale contrast-125"
+            initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.4 }}
           />
-          
-          {/* Personal Logo Overlay - Bottom Right */}
           <motion.img
             src={logoNA}
             alt="NA Logo"
-            className="absolute bottom-4 right-4 w-16 h-16 rounded-full shadow-md"
+            className="absolute bottom-3 right-3 w-12 h-12 rounded-full border border-[#246BFD]"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.6 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
           />
         </div>
 
-        {/* Text Content */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <h1 className="mb-2 text-6xl font-bold bg-gradient-to-r from-primary via-neon-cyan to-neon-purple bg-clip-text text-transparent">
-            404
+        <div>
+          <span className="editorial-eyebrow">[ ERROR // 404 ]</span>
+          <h1 className="font-display text-5xl sm:text-6xl uppercase tracking-tight text-white mt-1">
+            PAGE NOT <span className="text-[#246BFD]">FOUND</span>
           </h1>
-          <p className="mb-6 text-xl text-muted-foreground">
-            Oops! This page doesn't exist
+          <p className="font-sans text-sm sm:text-base text-[#9A9CA3] mt-2 max-w-md mx-auto">
+            The requested protocol address doesn't exist on this node.
           </p>
-          <a 
-            href="/" 
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 font-medium"
+        </div>
+
+        <div>
+          <Link
+            to="/"
+            className="editorial-btn-primary"
           >
-            Return to Home
-          </a>
-        </motion.div>
+            <ArrowLeft className="w-4 h-4 mr-1" />
+            <span>RETURN TO HOME</span>
+          </Link>
+        </div>
       </motion.div>
     </div>
   );

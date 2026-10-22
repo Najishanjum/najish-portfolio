@@ -226,17 +226,17 @@ const MarqueeRow = ({ images, duration, reverse, height }: MarqueeRowProps) => {
         {doubled.map((img, i) => (
           <div
             key={i}
-            className={`relative ${height} flex-shrink-0 overflow-hidden rounded-2xl border-[2px] border-[#090909] shadow-[3px_3px_0_#090909] transition-all duration-300 hover:scale-[1.04] hover:shadow-[5px_5px_0_#FFD21C] hover:z-10`}
+            className={`relative ${height} flex-shrink-0 overflow-hidden rounded-2xl border border-[#252830] bg-[#12151B] transition-all duration-300 hover:scale-[1.03] hover:border-[#246BFD] hover:z-10`}
           >
             <img
               src={img.src}
               alt={img.label}
               loading="lazy"
-              className="h-full w-auto object-cover"
+              className="h-full w-auto object-cover filter grayscale contrast-115 hover:grayscale-0 transition-all duration-500"
               draggable={false}
             />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-[#090909]/90 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
-              <p className="truncate text-xs font-bold text-[#FFD21C]">{img.label}</p>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-[#050505]/95 via-[#050505]/70 to-transparent p-3 transition-transform duration-300 group-hover:translate-y-0">
+              <p className="truncate font-mono text-xs text-[#246BFD]">{img.label}</p>
             </div>
           </div>
         ))}
@@ -258,27 +258,30 @@ const MarqueeRow = ({ images, duration, reverse, height }: MarqueeRowProps) => {
 
 export const Gallery = () => {
   return (
-    <section className="relative overflow-hidden py-24" id="gallery" style={{ background: "#F3F0E8" }}>
+    <section className="relative overflow-hidden py-24 sm:py-32 bg-[#050505] text-white border-t border-[#252830]" id="gallery">
       {/* Header */}
-      <div className="container mx-auto px-4 sm:px-8 mb-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
+        <div className="flex items-center justify-between pb-6 border-b border-[#252830] mb-8">
+          <span className="editorial-eyebrow">[ 08 // FIELD RECORD ]</span>
+          <span className="font-mono text-xs text-[#9A9CA3] uppercase tracking-widest hidden sm:inline-block">
+            CONFERENCES, MEETS &amp; SPRINT MEMORIES
+          </span>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="nsha-section-eyebrow">Life beyond the screen</p>
-          <h2 className="nsha-section-title">
-            Moments &{" "}
-            <span style={{ color: "#FF3D83" }}>Memories</span>
+          <h2 className="editorial-section-title text-white">
+            <span>MOMENTS &amp;</span>
+            <br />
+            <span className="text-[#246BFD]">MEMORIES.</span>
           </h2>
-          <p className="mt-3 text-base font-medium" style={{ color: "#5B5B5B" }}>
-            A visual journey through conferences, hackathons, and community events
+          <p className="mt-3 text-base text-[#9A9CA3] font-sans max-w-xl">
+            A visual chronicle across Devcon Mumbai, Monad Blitz, HeyGen developer summits, and hackathon war rooms.
           </p>
-          <div
-            className="mt-4 h-1.5 w-20 rounded-full border-[2px] border-[#090909]"
-            style={{ background: "#FF3D83" }}
-          />
         </motion.div>
       </div>
 
@@ -286,8 +289,8 @@ export const Gallery = () => {
       <div
         className="relative"
         style={{
-          maskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
         }}
       >
         <MarqueeRow images={rows[0]} duration={70} height="h-44 md:h-52" />

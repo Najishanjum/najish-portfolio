@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
 import { useState, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Sparkles, MapPin, Mail, User, MessageSquare, Rocket, Download, Image } from "lucide-react";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-
 
 export const VisitingCard = () => {
   const [formData, setFormData] = useState({
@@ -22,7 +18,7 @@ export const VisitingCard = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    toast.success(`Thanks ${formData.name}, great to connect with someone from ${formData.city || "around the world"}. I'll reach out soon! 🚀`);
+    toast.success(`Thanks ${formData.name}, great to connect with someone from ${formData.city || "around the world"}. I'll reach out soon!`);
   };
 
   const captureCard = async () => {
@@ -31,7 +27,7 @@ export const VisitingCard = () => {
       scale: 2,
       useCORS: true,
       logging: false,
-      backgroundColor: "#0a0a0f",
+      backgroundColor: "#050505",
     });
   };
 
@@ -59,183 +55,141 @@ export const VisitingCard = () => {
   };
 
   return (
-    <section className="py-20 px-4 relative overflow-hidden">
-      {/* Ambient glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full bg-secondary/5 blur-[100px]" />
-      </div>
-
+    <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-[#050505] text-white border-t border-[#252830]">
       <div className="max-w-2xl mx-auto relative z-10">
+        <div className="flex items-center justify-between pb-6 border-b border-[#252830] mb-12">
+          <span className="editorial-eyebrow">[ DIGITAL CREDENTIAL CARD ]</span>
+          <span className="font-mono text-xs text-[#9A9CA3] uppercase tracking-widest hidden sm:inline-block">
+            DIRECT PROTOCOL
+          </span>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
           ref={cardRef}
-          className="relative rounded-2xl border border-primary/20 bg-card/20 backdrop-blur-xl p-8 md:p-10 shadow-[0_0_40px_hsl(var(--primary)/0.08),inset_0_1px_0_hsl(var(--primary)/0.1)]"
+          className="relative rounded-[28px] border border-[#252830] bg-[#0B0D10] p-8 md:p-10 shadow-2xl space-y-8"
         >
-          {/* Glowing border effect */}
-          <div className="absolute inset-0 rounded-2xl border border-primary/10 pointer-events-none" />
-          <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-primary/10 via-transparent to-secondary/10 pointer-events-none opacity-50" />
-
           {/* Header */}
-          <div className="relative text-center space-y-4 mb-8">
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ type: "spring", delay: 0.2 }}
-              viewport={{ once: true }}
-              className="mx-auto w-20 h-20 rounded-full border-2 border-primary/40 overflow-hidden shadow-[0_0_20px_hsl(var(--primary)/0.3)]"
-            >
-             <img src="/images/najish-profile.jpeg" alt="Najish Anjum" className="w-full h-full object-cover" />
-            </motion.div>
+          <div className="relative text-center space-y-4">
+            <div className="mx-auto w-20 h-20 rounded-full border-2 border-[#246BFD] overflow-hidden">
+              <img src="/images/najish-profile.jpeg" alt="Najish Anjum" className="w-full h-full object-cover" />
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-xs font-mono uppercase tracking-widest text-primary">Digital Visiting Card</span>
-                <Sparkles className="w-4 h-4 text-primary" />
+            <div>
+              <div className="flex items-center justify-center gap-2 mb-2 font-mono text-xs uppercase tracking-widest text-[#246BFD]">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>NAJISH ANJUM &middot; &lt;NA /&gt;</span>
+                <Sparkles className="w-3.5 h-3.5" />
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                Glad to see you here
+              <h2 className="font-display text-3xl md:text-4xl uppercase tracking-tight text-white">
+                GLAD TO SEE YOU HERE
               </h2>
-              <p className="text-muted-foreground mt-2 text-sm md:text-base leading-relaxed max-w-md mx-auto">
-                Exploring the future of AI, Web3, and intelligent systems — welcome to my space.
+              <p className="text-[#9A9CA3] mt-2 text-sm leading-relaxed max-w-md mx-auto font-sans">
+                Exploring the frontier of AI, full-stack systems, and Web3 — leave your mark below.
               </p>
-            </motion.div>
+            </div>
           </div>
 
           {/* Form or Thank You */}
           {!submitted ? (
-            <motion.form
-              onSubmit={handleSubmit}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9A9CA3]" />
+                  <input
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
                     placeholder="Your Name"
-                    className="pl-10 bg-background/40 border-border/40 focus:border-primary/60 backdrop-blur-sm"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#12151B] border border-[#252830] focus:border-[#246BFD] text-sm text-white placeholder-[#9A9CA3]/50 outline-none"
                   />
                 </div>
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
+                  <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9A9CA3]" />
+                  <input
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     required
-                    placeholder="Your City"
-                    className="pl-10 bg-background/40 border-border/40 focus:border-primary/60 backdrop-blur-sm"
+                    placeholder="Your City / Country"
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#12151B] border border-[#252830] focus:border-[#246BFD] text-sm text-white placeholder-[#9A9CA3]/50 outline-none"
                   />
                 </div>
               </div>
 
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9A9CA3]" />
+                <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="Email (optional)"
-                  className="pl-10 bg-background/40 border-border/40 focus:border-primary/60 backdrop-blur-sm"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#12151B] border border-[#252830] focus:border-[#246BFD] text-sm text-white placeholder-[#9A9CA3]/50 outline-none"
                 />
               </div>
 
               <div className="relative">
-                <MessageSquare className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-                <Textarea
+                <MessageSquare className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9A9CA3]" />
+                <textarea
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Why did you visit? Tell me about you!"
+                  placeholder="Why did you visit? Let me know!"
                   rows={3}
-                  className="pl-10 bg-background/40 border-border/40 focus:border-primary/60 backdrop-blur-sm resize-none"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#12151B] border border-[#252830] focus:border-[#246BFD] text-sm text-white placeholder-[#9A9CA3]/50 outline-none resize-none"
                 />
               </div>
 
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full relative overflow-hidden bg-gradient-to-r from-primary/80 via-primary to-secondary/80 text-primary-foreground font-semibold text-base shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-shadow"
-                >
-                  <Rocket className="mr-2 h-5 w-5" />
-                  Let's Connect
-                </Button>
-              </motion.div>
-            </motion.form>
+              <button
+                type="submit"
+                className="editorial-btn-primary w-full py-3.5 text-xs font-mono tracking-widest"
+              >
+                <Rocket className="mr-2 h-4 w-4" />
+                <span>CONNECT WITH NAJISH</span>
+              </button>
+            </form>
           ) : (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-8 space-y-4"
+              className="text-center py-6 space-y-3"
             >
-              <div className="text-4xl">🎉</div>
-              <h3 className="text-xl font-bold text-foreground">
-                Thanks {formData.name}!
+              <h3 className="font-display text-2xl text-white uppercase tracking-tight">
+                THANKS {formData.name.toUpperCase()}!
               </h3>
-              <p className="text-muted-foreground text-sm">
-                Great to connect with someone from <span className="text-primary font-medium">{formData.city || "around the world"}</span>. I'll reach out soon!
+              <p className="text-[#9A9CA3] text-sm font-sans">
+                Great to connect with someone from <span className="text-[#246BFD] font-bold">{formData.city || "around the world"}</span>. I'll reach out soon.
               </p>
             </motion.div>
           )}
 
-          {/* Short intro */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            viewport={{ once: true }}
-            className="mt-8 pt-6 border-t border-border/30 text-center"
-          >
-            <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-              I appreciate your visit more than you know.
-            </p>
-            <p className="text-primary font-semibold mt-1 text-sm md:text-base">Let's get connected!</p>
-            <p className="mt-3 text-muted-foreground/60 font-mono text-xs italic">— Najish</p>
-          </motion.div>
+          {/* Footer note */}
+          <div className="pt-6 border-t border-[#252830] text-center font-mono text-xs text-[#9A9CA3]">
+            <span>&lt;NA /&gt; DIGITAL VISITING NODE &middot; NAJISH ANJUM</span>
+          </div>
         </motion.div>
 
         {submitted && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
             className="mt-6 flex items-center justify-center gap-3 flex-wrap"
           >
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button
-                onClick={handleDownloadPDF}
-                variant="outline"
-                className="border-primary/30 text-primary hover:bg-primary/10"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download PDF
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button
-                onClick={handleDownloadImage}
-                variant="outline"
-                className="border-primary/30 text-primary hover:bg-primary/10"
-              >
-                <Image className="mr-2 h-4 w-4" />
-                Download Image
-              </Button>
-            </motion.div>
+            <button
+              onClick={handleDownloadPDF}
+              className="editorial-btn-secondary text-xs font-mono py-2.5 px-4"
+            >
+              <Download className="mr-2 h-4 w-4 text-[#246BFD]" />
+              DOWNLOAD PDF
+            </button>
+            <button
+              onClick={handleDownloadImage}
+              className="editorial-btn-secondary text-xs font-mono py-2.5 px-4"
+            >
+              <Image className="mr-2 h-4 w-4 text-[#246BFD]" />
+              DOWNLOAD PNG
+            </button>
           </motion.div>
         )}
       </div>

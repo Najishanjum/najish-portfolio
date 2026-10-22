@@ -52,7 +52,7 @@ const Index = () => {
   return (
     <>
       {showIntro && <IntroAnimation onComplete={handleCompleteIntro} />}
-      <div className={`min-h-screen ${showIntro ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
+      <div className={`min-h-screen bg-[#050505] text-white ${showIntro ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
         <Navigation onReplayIntro={handleReplayIntro} />
         <Hero onReplayIntro={handleReplayIntro} />
         <About />

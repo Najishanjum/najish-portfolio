@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Award, Calendar, Building, Ticket, Handshake, Heart, Star } from "lucide-react";
+import { X, ExternalLink, Award, Calendar, Building, Handshake, Heart, Star, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import collaborateCard from "@/assets/collaborate-card.jpg";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -294,147 +295,130 @@ const passes: Pass[] = [
     id: 1,
     title: "NASA Artemis II Boarding Pass",
     issuer: "NASA",
-    description:
-      "Exclusive participation badge representing involvement in the NASA Artemis II initiative — humanity's return to the Moon.",
+    description: "Exclusive participation badge representing involvement in the NASA Artemis II initiative — humanity's return to the Moon.",
     image: passArtemis,
   },
   {
     id: 2,
     title: "Great Asia AI Summit 2026",
     issuer: "Salesforce",
-    description:
-      "Attendee pass for one of Asia's leading AI innovation summits, bringing together founders, researchers and engineers.",
+    description: "Attendee pass for one of Asia's leading AI innovation summits, bringing together founders, researchers and engineers.",
     image: passAiSummit,
   },
   {
     id: 3,
     title: "Solana Rust Security Bootcamp",
     issuer: "Rektoff - Cohort 3",
-    description:
-      "Completed advanced Web3 security training focused on Solana programs, Rust auditing and on-chain attack vectors.",
+    description: "Completed advanced Web3 security training focused on Solana programs, Rust auditing and on-chain attack vectors.",
     image: passRektoff,
   },
   {
     id: 4,
     title: "Apertre 3.0 Mentee",
     issuer: "Resourcio Community",
-    description:
-      "Selected mentee in a competitive growth and innovation program guiding builders through real-world open-source projects.",
+    description: "Selected mentee in a competitive growth and innovation program guiding builders through real-world open-source projects.",
     image: passApertre,
   },
   {
     id: 5,
     title: "Stellar Journey to Mastery",
     issuer: "Stellar / Rise In",
-    description:
-      "Successfully completed the structured learning journey in blockchain development on the Stellar ecosystem.",
+    description: "Successfully completed the structured learning journey in blockchain development on the Stellar ecosystem.",
     image: passStellarMastery,
   },
   {
     id: 6,
     title: "Apertre 3.0 Mentor",
     issuer: "Resourcio Community",
-    description:
-      "Recognized as a mentor in Apertre 3.0 — guiding upcoming developers through open-source contributions and product thinking.",
+    description: "Recognized as a mentor in Apertre 3.0 — guiding upcoming developers through open-source contributions and product thinking.",
     image: passApertreMentor,
   },
   {
     id: 7,
     title: "Ace Hack 5.0 - Hacker Pass",
     issuer: "UEM Jaipur",
-    description:
-      "Official hacker pass for Ace Hack 5.0, a flagship national-level hackathon for student innovators and builders.",
+    description: "Official hacker pass for Ace Hack 5.0, a flagship national-level hackathon for student innovators and builders.",
     image: passAcehack,
   },
   {
     id: 8,
     title: "GWY PreConf - Virtual Attendee",
     issuer: "DoraDAO / Bevy",
-    description:
-      "Virtual attendee credential for the GWY PreConf — a global Web3 gathering of builders, designers and protocol teams.",
+    description: "Virtual attendee credential for the GWY PreConf — a global Web3 gathering of builders, designers and protocol teams.",
     image: passGwyPreconf,
   },
   {
     id: 9,
     title: "Elite Hack 1.0 - Participant",
     issuer: "Elite Coders / Team ILM Tech",
-    description:
-      "Participant badge for Elite Hack 1.0, building production-ready solutions under tight deadlines as Team ILM Tech.",
+    description: "Participant badge for Elite Hack 1.0, building production-ready solutions under tight deadlines as Team ILM Tech.",
     image: passEliteHack,
   },
   {
     id: 10,
     title: "Open Source Day 2026 - Community Leader",
     issuer: "Open Source Day",
-    description:
-      "Recognized as a Community Leader at Open Source Day 2026 — a flagship gathering of open-source contributors and maintainers in Gandhinagar.",
+    description: "Recognized as a Community Leader at Open Source Day 2026 — a flagship gathering of open-source contributors and maintainers in Gandhinagar.",
     image: passOpenSourceDay,
   },
   {
     id: 11,
     title: "Monad Blitz - Builder Pass",
     issuer: "Monad",
-    description:
-      "Official builder pass for Monad Blitz — an exclusive on-site hacker event exploring the Monad high-performance EVM.",
+    description: "Official builder pass for Monad Blitz — an exclusive on-site hacker event exploring the Monad high-performance EVM.",
     image: passMonadBlitz,
   },
   {
     id: 12,
     title: "Dev3Pack Hackathon - Hacker",
     issuer: "Solana × v0 × ElevenLabs",
-    description:
-      "Selected hacker for the Dev3Pack Hackathon (8–10 May), building Web3 + AI products powered by Solana, v0 and ElevenLabs.",
+    description: "Selected hacker for the Dev3Pack Hackathon (8–10 May), building Web3 + AI products powered by Solana, v0 and ElevenLabs.",
     image: passDev3pack,
   },
   {
     id: 13,
     title: "Colosseum Frontier - Just Signed Up",
     issuer: "Superteam India",
-    description:
-      "Signed up for the Colosseum Frontier Hackathon (Apr 6 – May 11) under Superteam India — competing in the global Solana builders arena.",
+    description: "Signed up for the Colosseum Frontier Hackathon (Apr 6 – May 11) under Superteam India — competing in the global Solana builders arena.",
     image: passFrontierSuperteam,
   },
   {
     id: 14,
     title: "Hacker House Goa — Builder Badge",
     issuer: "2:47 PM Studio",
-    description:
-      "Official builder badge for Hacker House Goa (Oct 28–31, 2026) — an exclusive residential hacker event bringing together top builders in India.",
+    description: "Official builder badge for Hacker House Goa (Oct 28–31, 2026) — an exclusive residential hacker event bringing together top builders in India.",
     image: passHhGoaBanner,
   },
   {
     id: 15,
     title: "Hacker House Goa — Builder Pass",
     issuer: "2:47 PM Studio",
-    description:
-      "Personal builder pass for HH Goa 2026 — selected as a Full-Stack builder under the alias 'Feral Deploy Goblin'.",
+    description: "Personal builder pass for HH Goa 2026 — selected as a Full-Stack builder under the alias 'Feral Deploy Goblin'.",
     image: passHhGoaBuilder,
   },
   {
     id: 16,
     title: "AO Syndicate Hackathon — Participant Pass",
     issuer: "Maximor",
-    description:
-      "Admit-one participant pass for the AO Syndicate Hackathon by Maximor (Sep 5–7, Online), sponsored by Dodo Payments, Neatlogs, Tensormux & AI Grants India.",
+    description: "Admit-one participant pass for the AO Syndicate Hackathon by Maximor (Sep 5–7, Online), sponsored by Dodo Payments, Neatlogs, Tensormux & AI Grants India.",
     image: passSyndicateHackathon,
   },
   {
     id: 17,
     title: "Crypto World's Fair — Exhibitor Pass",
     issuer: "Colosseum",
-    description:
-      "Exhibitor pass for the Crypto World's Fair online hackathon (Sep 14 – Oct 12, 2026) by Colosseum — a global Solana builder competition.",
+    description: "Exhibitor pass for the Crypto World's Fair online hackathon (Sep 14 – Oct 12, 2026) by Colosseum — a global Solana builder competition.",
     image: passCryptoWorldsFair,
   },
   {
     id: 18,
     title: "Devcon India — Attendee Pass",
     issuer: "Devcon VIII",
-    description:
-      "Confirmed attendee pass for Devcon India (Devcon VIII) — the premier Ethereum developer conference.",
+    description: "Confirmed attendee pass for Devcon India (Devcon VIII) — the premier Ethereum developer conference.",
     image: passDevconIndia,
   },
 ];
+
 const CertificateCard = ({
   certificate,
   onClick,
@@ -451,64 +435,62 @@ const CertificateCard = ({
   onLike: () => void;
 }) => {
   const avg = stats && stats.rating_count > 0 ? stats.rating_sum / stats.rating_count : 0;
+
   return (
     <motion.div
       className="flex-shrink-0 w-[300px] md:w-[350px] mx-4 cursor-pointer group"
-      whileHover={{ scale: 1.05, y: -10 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      whileHover={{ scale: 1.03, y: -6 }}
+      transition={{ duration: 0.2 }}
       onClick={onClick}
     >
-      <div className="relative overflow-hidden rounded-2xl bg-background/40 backdrop-blur-xl border border-border/30 shadow-lg hover:shadow-primary/20 transition-all duration-300">
-        {/* Like button */}
+      <div className="relative overflow-hidden rounded-[24px] bg-[#0B0D10] border border-[#252830] hover:border-[#246BFD]/60 transition-all duration-300">
+        {/* Like Button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             if (!liked) onLike();
           }}
-          className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full bg-background/80 backdrop-blur-md border border-border/40 hover:bg-background transition-colors"
+          className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#050505]/80 backdrop-blur-md border border-[#252830] hover:border-[#246BFD] transition-colors"
           aria-label="Like certificate"
         >
           <Heart
-            className={`w-4 h-4 transition-colors ${liked ? "fill-red-500 text-red-500" : "text-foreground"}`}
+            className={`w-3.5 h-3.5 transition-colors ${liked ? "fill-[#246BFD] text-[#246BFD]" : "text-white"}`}
           />
-          <span className="text-xs font-medium text-foreground">{stats?.likes ?? 0}</span>
+          <span className="text-xs font-mono font-medium text-white">{stats?.likes ?? 0}</span>
         </button>
 
         {/* Certificate Image */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#12151B]">
           <img
             src={certificate.image}
             alt={certificate.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 filter grayscale contrast-110 group-hover:grayscale-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D10] via-transparent to-transparent" />
 
-          {/* Hover overlay */}
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center bg-primary/20 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-          >
-            <span className="px-4 py-2 bg-primary text-primary-foreground rounded-full font-medium text-sm">
-              View Certificate
+          {/* Hover View Overlay */}
+          <div className="absolute inset-0 flex items-center justify-center bg-[#050505]/40 opacity-0 group-hover:opacity-100 transition-opacity">
+            <span className="px-4 py-2 bg-[#246BFD] text-white rounded-full font-mono text-xs font-bold uppercase tracking-wider">
+              VIEW DOCUMENT
             </span>
-          </motion.div>
+          </div>
         </div>
 
         {/* Card Content */}
-        <div className="p-4">
-          <h3 className="font-semibold text-foreground text-sm md:text-base line-clamp-2 mb-2">
+        <div className="p-5 space-y-2">
+          <h3 className="font-sans font-bold text-white text-sm md:text-base line-clamp-2 group-hover:text-[#4D8DFF] transition-colors">
             {certificate.title}
           </h3>
-          <div className="flex items-center justify-between gap-2 text-muted-foreground text-xs">
-            <div className="flex items-center gap-2 min-w-0">
-              <Building className="w-3 h-3 shrink-0" />
+
+          <div className="flex items-center justify-between gap-2 font-mono text-xs text-[#9A9CA3] pt-1 border-t border-[#252830]">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <Building className="w-3.5 h-3.5 text-[#246BFD] shrink-0" />
               <span className="truncate">{certificate.issuer}</span>
             </div>
             <div className="flex items-center gap-1 shrink-0">
-              <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-              <span className="text-foreground font-medium">{avg ? avg.toFixed(1) : "—"}</span>
-              <span className="text-muted-foreground/70">({stats?.rating_count ?? 0})</span>
+              <Star className="w-3.5 h-3.5 fill-[#246BFD] text-[#246BFD]" />
+              <span className="text-white font-medium">{avg ? avg.toFixed(1) : "—"}</span>
+              <span className="text-[#9A9CA3]">({stats?.rating_count ?? 0})</span>
             </div>
           </div>
         </div>
@@ -536,76 +518,72 @@ const CertificateModal = ({
 }) => {
   const [hover, setHover] = useState(0);
   const avg = stats && stats.rating_count > 0 ? stats.rating_sum / stats.rating_count : 0;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
       onClick={onClose}
     >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-background/90 backdrop-blur-xl" />
-      
-      {/* Modal Content */}
+      <div className="absolute inset-0 bg-[#050505]/95 backdrop-blur-xl" />
+
       <motion.div
-        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        initial={{ scale: 0.95, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="relative max-w-4xl w-full max-h-[90vh] overflow-auto bg-background/60 backdrop-blur-2xl rounded-3xl border border-border/30 shadow-2xl"
+        exit={{ scale: 0.95, opacity: 0, y: 20 }}
+        transition={{ duration: 0.25 }}
+        className="relative max-w-4xl w-full max-h-[90vh] overflow-auto bg-[#0B0D10] rounded-[28px] border border-[#252830] shadow-2xl p-6 sm:p-8 text-white space-y-6"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/80 hover:bg-background border border-border/30 transition-colors"
+          className="absolute top-6 right-6 p-2 rounded-full border border-[#252830] hover:border-[#246BFD] text-white transition-colors"
         >
-          <X className="w-5 h-5 text-foreground" />
+          <X className="w-5 h-5" />
         </button>
 
-        {/* Certificate Image */}
-        <div className="p-4 md:p-6">
-          <div className="rounded-2xl overflow-hidden shadow-lg">
-            <img
-              src={certificate.image}
-              alt={certificate.title}
-              className="w-full h-auto"
-            />
-          </div>
+        {/* Certificate Image Frame */}
+        <div className="rounded-2xl overflow-hidden border border-[#252830] bg-[#050505]">
+          <img
+            src={certificate.image}
+            alt={certificate.title}
+            className="w-full h-auto max-h-[60vh] object-contain mx-auto"
+          />
         </div>
 
         {/* Certificate Details */}
-        <div className="p-6 pt-0 space-y-4">
-          <h2 className="text-xl md:text-2xl font-bold text-foreground">
+        <div className="space-y-4">
+          <h2 className="font-display text-2xl sm:text-3xl uppercase tracking-tight text-white">
             {certificate.title}
           </h2>
-          
-          <div className="flex flex-wrap gap-4">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Building className="w-4 h-4 text-primary" />
+
+          <div className="flex flex-wrap gap-4 text-xs font-mono text-[#9A9CA3]">
+            <div className="flex items-center gap-1.5">
+              <Building className="w-4 h-4 text-[#246BFD]" />
               <span>{certificate.issuer}</span>
             </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Calendar className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-1.5">
+              <Calendar className="w-4 h-4 text-[#246BFD]" />
               <span>{certificate.date}</span>
             </div>
           </div>
 
-          {/* Likes & Rating */}
-          <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-border/30">
+          {/* Likes & Rating Interaction */}
+          <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-[#252830]">
             <button
               onClick={onLike}
               disabled={liked}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-background/60 border border-border/40 hover:bg-background disabled:opacity-70 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#12151B] border border-[#252830] hover:border-[#246BFD] transition-colors disabled:opacity-60"
             >
-              <Heart className={`w-4 h-4 ${liked ? "fill-red-500 text-red-500" : ""}`} />
-              <span className="text-sm font-medium">{stats?.likes ?? 0}</span>
-              <span className="text-xs text-muted-foreground">{liked ? "Liked" : "Like"}</span>
+              <Heart className={`w-4 h-4 ${liked ? "fill-[#246BFD] text-[#246BFD]" : "text-white"}`} />
+              <span className="font-mono text-xs font-semibold text-white">{stats?.likes ?? 0}</span>
+              <span className="font-mono text-xs text-[#9A9CA3]">{liked ? "LIKED" : "LIKE"}</span>
             </button>
 
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-0.5" onMouseLeave={() => setHover(0)}>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1" onMouseLeave={() => setHover(0)}>
                 {[1, 2, 3, 4, 5].map((n) => {
                   const active = (hover || userRating || Math.round(avg)) >= n;
                   return (
@@ -614,36 +592,36 @@ const CertificateModal = ({
                       onMouseEnter={() => !userRating && setHover(n)}
                       onClick={() => !userRating && onRate(n)}
                       disabled={!!userRating}
-                      className="p-0.5 disabled:cursor-not-allowed"
+                      className="p-1 disabled:cursor-not-allowed"
                       aria-label={`Rate ${n} stars`}
                     >
                       <Star
-                        className={`w-5 h-5 transition-colors ${
-                          active ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"
+                        className={`w-4 h-4 transition-colors ${
+                          active ? "fill-[#246BFD] text-[#246BFD]" : "text-[#9A9CA3]/40"
                         }`}
                       />
                     </button>
                   );
                 })}
               </div>
-              <span className="text-xs text-muted-foreground">
-                {avg ? `${avg.toFixed(1)} (${stats?.rating_count})` : "No ratings yet"}
-                {userRating ? ` • You: ${userRating}★` : ""}
+              <span className="font-mono text-xs text-[#9A9CA3]">
+                {avg ? `${avg.toFixed(1)}/5 (${stats?.rating_count} ratings)` : "No ratings"}
+                {userRating ? ` · Your rating: ${userRating}★` : ""}
               </span>
             </div>
-          </div>
 
-          {certificate.verificationLink && (
-            <a
-              href={certificate.verificationLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              <ExternalLink className="w-4 h-4" />
-              Verify Certificate
-            </a>
-          )}
+            {certificate.verificationLink && (
+              <a
+                href={certificate.verificationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="editorial-btn-primary py-2 px-4 text-xs font-mono ml-auto"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>VERIFY CREDENTIAL</span>
+              </a>
+            )}
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -660,12 +638,16 @@ const Certificates = () => {
   const [likedIds, setLikedIds] = useState<Set<number>>(() => {
     try {
       return new Set<number>(JSON.parse(localStorage.getItem("cert_liked") || "[]"));
-    } catch { return new Set(); }
+    } catch {
+      return new Set();
+    }
   });
   const [ratedMap, setRatedMap] = useState<Record<number, number>>(() => {
     try {
       return JSON.parse(localStorage.getItem("cert_rated") || "{}");
-    } catch { return {}; }
+    } catch {
+      return {};
+    }
   });
 
   useEffect(() => {
@@ -696,14 +678,19 @@ const Certificates = () => {
         rating_count: s[certId]?.rating_count ?? 0,
       },
     }));
-    const { data: res, error } = await supabase.functions.invoke("certificate-action", { body: { action: "like", certId } });
+    const { data: res, error } = await supabase.functions.invoke("certificate-action", {
+      body: { action: "like", certId },
+    });
     const data = res?.data;
     if (error) {
       toast({ title: "Couldn't like", description: error.message, variant: "destructive" });
       return;
     }
     if (data) {
-      setStats((s) => ({ ...s, [certId]: { likes: data.likes, rating_sum: data.rating_sum, rating_count: data.rating_count } }));
+      setStats((s) => ({
+        ...s,
+        [certId]: { likes: data.likes, rating_sum: data.rating_sum, rating_count: data.rating_count },
+      }));
     }
   };
 
@@ -712,19 +699,24 @@ const Certificates = () => {
     const nextRated = { ...ratedMap, [certId]: rating };
     setRatedMap(nextRated);
     localStorage.setItem("cert_rated", JSON.stringify(nextRated));
-    const { data: res, error } = await supabase.functions.invoke("certificate-action", { body: { action: "rate", certId, rating } });
+    const { data: res, error } = await supabase.functions.invoke("certificate-action", {
+      body: { action: "rate", certId, rating },
+    });
     const data = res?.data;
     if (error) {
       toast({ title: "Couldn't rate", description: error.message, variant: "destructive" });
       return;
     }
     if (data) {
-      setStats((s) => ({ ...s, [certId]: { likes: data.likes, rating_sum: data.rating_sum, rating_count: data.rating_count } }));
+      setStats((s) => ({
+        ...s,
+        [certId]: { likes: data.likes, rating_sum: data.rating_sum, rating_count: data.rating_count },
+      }));
       toast({ title: "Thanks for rating!", description: `You rated ${rating}★` });
     }
   };
 
-  // Auto-scroll animation
+  // Auto-scroll animation for infinite carousel
   useEffect(() => {
     if (isPaused || selectedCertificate) return;
 
@@ -736,68 +728,76 @@ const Certificates = () => {
     let currentPosition = scrollPosition;
 
     const animate = () => {
-      currentPosition += 2.5; // Speed: 2.5px per frame (~150px/sec at 60fps) - faster scroll
-      
+      currentPosition += 2.0;
       if (currentPosition >= scrollWidth) {
         currentPosition = 0;
       }
-      
       scrollContainer.scrollLeft = currentPosition;
       setScrollPosition(currentPosition);
       animationFrameId = requestAnimationFrame(animate);
     };
 
     animationFrameId = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
+    return () => cancelAnimationFrame(animationFrameId);
   }, [isPaused, selectedCertificate, scrollPosition]);
 
-  // Double the certificates for infinite scroll effect
   const duplicatedCertificates = [...certificates, ...certificates];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#050505] text-white">
       <Navigation />
-      
-      <main className="pt-32 pb-20">
-        {/* Header */}
+
+      <main className="pt-28 sm:pt-36 pb-24">
+        {/* Back Link */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 px-4 py-2 font-mono text-xs uppercase tracking-wider text-[#9A9CA3] border border-[#252830] rounded-full bg-[#0B0D10] hover:text-white hover:border-[#246BFD] transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>BACK TO HOME</span>
+          </Link>
+        </div>
+
+        {/* Section Headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center px-4 mb-16"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Award className="w-8 h-8 text-primary" />
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-              Certificates
-            </h1>
+          <div className="flex items-center justify-between pb-6 border-b border-[#252830] mb-8">
+            <span className="editorial-eyebrow">[ CERTIFICATIONS &amp; CREDENTIALS ]</span>
+            <span className="font-mono text-xs text-[#9A9CA3] uppercase tracking-widest hidden sm:inline-block">
+              VERIFIED MILESTONES
+            </span>
           </div>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            A showcase of my achievements, certifications, and recognitions from various hackathons, workshops, and programs.
-          </p>
-          <p className="text-sm text-muted-foreground/60 mt-4">
-            Hover to pause • Click to view details
+
+          <h1 className="editorial-section-title text-white">
+            <span>LEARNING.</span>
+            <br />
+            <span>BUILDING.</span>
+            <br />
+            <span className="text-[#246BFD]">LEVELING UP.</span>
+          </h1>
+          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-2xl font-sans">
+            A comprehensive catalog of academic achievements, program certifications, and competitive recognitions spanning AI/ML, cloud, and systems.
           </p>
         </motion.div>
 
-        {/* Certificate Carousel */}
-        <div 
-          className="relative overflow-hidden"
+        {/* Infinite Certificate Scrolling Strip */}
+        <div
+          className="relative overflow-hidden py-4 border-y border-[#252830] bg-[#0B0D10]"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-          
-          {/* Scrolling Container */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#0B0D10] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#0B0D10] to-transparent z-10 pointer-events-none" />
+
           <div
             ref={scrollRef}
-            className="flex py-8 overflow-x-hidden"
-            style={{ scrollBehavior: isPaused ? 'smooth' : 'auto' }}
+            className="flex py-4 overflow-x-hidden"
+            style={{ scrollBehavior: isPaused ? "smooth" : "auto" }}
           >
             {duplicatedCertificates.map((cert, index) => (
               <CertificateCard
@@ -813,13 +813,21 @@ const Certificates = () => {
           </div>
         </div>
 
-        {/* Badges & Passes Section - Premium 3D Carousel */}
+        {/* 3D Badges & Passes Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 mb-20"
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-24 sm:mt-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         >
+          <div className="pb-6 border-b border-[#252830] mb-12">
+            <span className="editorial-eyebrow">[ HACKER PASSES &amp; BADGES ]</span>
+            <h2 className="font-display text-3xl sm:text-4xl text-white uppercase tracking-tight mt-2">
+              BUILDER <span className="text-[#246BFD]">PASSES &amp; CREDENTIALS</span>
+            </h2>
+          </div>
+
           <BadgesCarousel3D
             passes={passes}
             onCardClick={(pass) => setSelectedPass(pass)}
@@ -829,58 +837,63 @@ const Certificates = () => {
         {/* Collaborate Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="mt-16 mb-20 px-4"
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mt-24 sm:mt-32 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
         >
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Handshake className="w-7 h-7 text-primary" />
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Collaborate
-              </h2>
-            </div>
-            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-              Open to collaborate on hackathons, open source, and impactful projects
+          <div className="rounded-[28px] overflow-hidden border border-[#252830] bg-[#0B0D10] p-6 sm:p-10 text-center space-y-6">
+            <span className="editorial-eyebrow">[ OPEN TO COLLABORATE ]</span>
+            <h3 className="font-display text-3xl sm:text-4xl text-white uppercase tracking-tight">
+              LOOKING FOR A <span className="text-[#246BFD]">HACKATHON TEAMMATE</span> OR AI BUILDER?
+            </h3>
+            <p className="text-sm sm:text-base text-[#9A9CA3] max-w-xl mx-auto">
+              Open to partner on competitive hackathons, innovative Web3 prototypes, or AI applications. Let's combine forces and ship.
             </p>
-          </div>
-          <div className="max-w-2xl mx-auto">
-            <div className="rounded-2xl overflow-hidden bg-background/40 backdrop-blur-xl border border-border/30 shadow-lg hover:shadow-primary/20 transition-all duration-300">
+            <div className="rounded-2xl overflow-hidden border border-[#252830] max-w-xl mx-auto">
               <img
                 src={collaborateCard}
-                alt="Najish Anjum - Open to Collaborate"
-                className="w-full h-auto"
+                alt="Najish Anjum — Open to Collaborate"
+                className="w-full h-auto filter grayscale contrast-110 hover:grayscale-0 transition-all duration-500"
               />
+            </div>
+            <div>
+              <a
+                href="mailto:najishanjum058@gmail.com"
+                className="editorial-btn-primary"
+              >
+                <span>REACH OUT VIA EMAIL</span>
+              </a>
             </div>
           </div>
         </motion.div>
 
-
+        {/* Measurable Milestones Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-4xl mx-auto mt-10 px-4"
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto mt-20 px-4 sm:px-6 lg:px-8"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { label: "Hackathons", value: "10+" },
-              { label: "Certifications", value: "15+" },
-              { label: "Workshops", value: "8+" },
-              { label: "Competitions", value: "12+" },
+              { label: "Hackathons", value: "12+" },
+              { label: "Certifications", value: "29+" },
+              { label: "Workshops & Meets", value: "10+" },
+              { label: "Global Programs", value: "6+" },
             ].map((stat, index) => (
-              <motion.div
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                className="text-center p-6 rounded-2xl bg-background/40 backdrop-blur-xl border border-border/30"
+                className="p-6 rounded-2xl bg-[#0B0D10] border border-[#252830] text-center"
               >
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                <div className="font-display text-3xl sm:text-4xl text-[#246BFD] mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </motion.div>
+                <div className="font-mono text-xs uppercase tracking-wider text-[#9A9CA3]">
+                  {stat.label}
+                </div>
+              </div>
             ))}
           </div>
         </motion.div>
@@ -910,42 +923,36 @@ const Certificates = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
             onClick={() => setSelectedPass(null)}
           >
-            <div className="absolute inset-0 bg-background/90 backdrop-blur-xl" />
+            <div className="absolute inset-0 bg-[#050505]/95 backdrop-blur-xl" />
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative max-w-4xl w-full max-h-[90vh] overflow-auto bg-background/60 backdrop-blur-2xl rounded-3xl border border-border/30 shadow-2xl"
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ duration: 0.25 }}
+              className="relative max-w-3xl w-full max-h-[90vh] overflow-auto bg-[#0B0D10] rounded-[28px] border border-[#252830] shadow-2xl p-6 sm:p-8 text-white space-y-4"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setSelectedPass(null)}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/80 hover:bg-background border border-border/30 transition-colors"
+                className="absolute top-6 right-6 p-2 rounded-full border border-[#252830] hover:border-[#246BFD] text-white transition-colors"
               >
-                <X className="w-5 h-5 text-foreground" />
+                <X className="w-5 h-5" />
               </button>
-              <div className="p-4 md:p-6">
-                <div className="rounded-2xl overflow-hidden shadow-lg">
-                  <img
-                    src={selectedPass.image}
-                    alt={selectedPass.title}
-                    className="w-full h-auto"
-                  />
-                </div>
+              <div className="rounded-2xl overflow-hidden border border-[#252830] bg-[#050505]">
+                <img
+                  src={selectedPass.image}
+                  alt={selectedPass.title}
+                  className="w-full h-auto max-h-[60vh] object-contain mx-auto"
+                />
               </div>
-              <div className="p-6 pt-0 space-y-4">
-                <h2 className="text-xl md:text-2xl font-bold text-foreground">
-                  {selectedPass.title}
-                </h2>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Building className="w-4 h-4 text-primary" />
-                  <span>{selectedPass.issuer}</span>
-                </div>
-              </div>
+              <h2 className="font-display text-2xl uppercase tracking-tight text-white pt-2">
+                {selectedPass.title}
+              </h2>
+              <p className="font-mono text-xs text-[#246BFD]">{selectedPass.issuer}</p>
+              <p className="font-sans text-sm text-[#9A9CA3]">{selectedPass.description}</p>
             </motion.div>
           </motion.div>
         )}

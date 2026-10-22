@@ -1,15 +1,7 @@
 import { motion } from "framer-motion";
-import { Download, Clock, CalendarDays, Timer, CloudSun, RefreshCw, Send, Volume2, VolumeX, Play } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Clock, CalendarDays, Timer, CloudSun, RefreshCw, Volume2, VolumeX, Sparkles } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
-
-const roles = [
-  "Tech Innovator",
-  "AI/ML Developer",
-  "Full Stack Enthusiast",
-  "Hackathon Winner",
-  "Team Lead Team ILM Tech",
-];
 
 const PORTFOLIO_LAST_UPDATED = "2026-04-05";
 
@@ -18,9 +10,9 @@ function getLastUpdatedText() {
   const now = new Date();
   const diffMs = now.getTime() - updated.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  if (diffDays === 0) return "today";
+  if (diffDays <= 0) return "today";
   if (diffDays === 1) return "yesterday";
-  return `${diffDays} days ago`;
+  return `${diffDays}d ago`;
 }
 
 function formatTime(date: Date) {
@@ -36,80 +28,12 @@ interface HeroProps {
 }
 
 export const Hero = ({ onReplayIntro }: HeroProps) => {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
   const [now, setNow] = useState(new Date());
   const [seconds, setSeconds] = useState(0);
   const [weather, setWeather] = useState<{ temp: number; condition: string; icon: string } | null>(null);
   const [locationName, setLocationName] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMuted, setIsMuted] = useState(false);
-
-  const [hasPlayedOnce, setHasPlayedOnce] = useState(() => {
-    if (typeof window !== "undefined") {
-      return !!sessionStorage.getItem("na_hero_video_played");
-    }
-    return false;
-  });
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
-    }
-  };
-
-  const handleVideoEnded = () => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("na_hero_video_played", "true");
-    }
-    setHasPlayedOnce(true);
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-  };
-
-  const handlePlayIntroVideo = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.muted = false;
-      setIsMuted(false);
-      videoRef.current.play().catch(() => {
-        if (videoRef.current) {
-          videoRef.current.muted = true;
-          setIsMuted(true);
-          videoRef.current.play();
-        }
-      });
-    }
-    if (onReplayIntro) {
-      onReplayIntro();
-    }
-  };
-
-  useEffect(() => {
-    if (hasPlayedOnce && videoRef.current) {
-      videoRef.current.pause();
-    }
-  }, [hasPlayedOnce]);
-
-  useEffect(() => {
-    const enableSoundOnInteraction = () => {
-      if (videoRef.current && !isMuted && !hasPlayedOnce) {
-        videoRef.current.muted = false;
-        videoRef.current.play().catch(() => {
-          if (videoRef.current) {
-            videoRef.current.muted = true;
-            setIsMuted(true);
-            videoRef.current.play();
-          }
-        });
-      }
-    };
-    window.addEventListener("click", enableSoundOnInteraction, { once: true });
-    return () => window.removeEventListener("click", enableSoundOnInteraction);
-  }, [isMuted, hasPlayedOnce]);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -131,303 +55,243 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
           if (error || !data || typeof data.temp !== "number") return;
           setWeather({ temp: data.temp, condition: data.condition, icon: data.icon });
           setLocationName(data.name);
-        } catch { /* silent */ }
+        } catch {
+          // silent fallback
+        }
       },
-      () => { /* denied */ }
+      () => {
+        // denied
+      }
     );
   }, []);
 
-  useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (displayText.length < currentRole.length) {
-            setDisplayText(currentRole.slice(0, displayText.length + 1));
-          } else {
-            setTimeout(() => setIsDeleting(true), 2000);
-          }
-        } else {
-          if (displayText.length > 0) {
-            setDisplayText(displayText.slice(0, -1));
-          } else {
-            setIsDeleting(false);
-            setRoleIndex((prev) => (prev + 1) % roles.length);
-          }
-        }
-      },
-      isDeleting ? 50 : 100
-    );
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, roleIndex]);
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
 
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   const timeSpentText = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
 
   return (
-    <section
-      className="min-h-screen w-full relative overflow-hidden flex items-center"
-      style={{ background: "#FAF8F3" }}
-    >
-      {/* Background Video (hero intro) */}
+    <section className="relative min-h-screen w-full bg-[#050505] text-white overflow-hidden flex flex-col justify-between pt-28 pb-12 sm:pt-32 sm:pb-16">
+      {/* Background Subtle Video + Monochrome Texture */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <video
           ref={videoRef}
-          autoPlay={!hasPlayedOnce}
-          onEnded={handleVideoEnded}
+          autoPlay
+          loop
+          muted={isMuted}
           playsInline
           preload="auto"
           aria-hidden="true"
-          className="w-full h-full object-cover opacity-20"
-          style={{ objectPosition: "70% 50%" }}
+          className="w-full h-full object-cover opacity-[0.14] scale-105 filter grayscale contrast-125"
         >
           <source src="/videos/intro2.mp4" type="video/mp4" />
           <source src="/videos/into.mp4" type="video/mp4" />
           <source src="/videos/intro.mp4" type="video/mp4" />
         </video>
-        {/* warm overlay */}
-        <div className="absolute inset-0" style={{ background: "rgba(250,248,243,0.75)" }} />
+        {/* Radial Dark Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505]" />
+        <div className="absolute -top-40 right-[-10%] w-[600px] h-[600px] bg-[#246BFD]/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute -bottom-40 left-[-10%] w-[500px] h-[500px] bg-[#246BFD]/8 rounded-full blur-[140px] pointer-events-none" />
       </div>
 
-      {/* Accent shapes */}
-      <div
-        className="absolute top-20 right-16 w-64 h-64 rounded-full pointer-events-none opacity-60 hidden lg:block"
-        style={{ background: "#FFD21C", zIndex: 1 }}
-      />
-      <div
-        className="absolute bottom-32 right-8 w-32 h-48 rounded-2xl pointer-events-none opacity-40 hidden lg:block"
-        style={{ background: "#FF3D83", zIndex: 1 }}
-      />
-      <div
-        className="absolute top-1/2 right-40 w-20 h-20 rounded-full pointer-events-none opacity-50 hidden lg:block"
-        style={{ background: "#7557F7", zIndex: 1, transform: "translateY(-50%)" }}
-      />
+      {/* Decorative Technical Crosshairs & Subtle Lines */}
+      <div className="absolute top-28 left-6 sm:left-12 font-mono text-[11px] text-[#9A9CA3]/40 select-none hidden md:block">
+        + 19.0760° N, 72.8777° E
+      </div>
+      <div className="absolute top-28 right-6 sm:right-12 font-mono text-[11px] text-[#9A9CA3]/40 select-none hidden md:block">
+        [ SYS: ONLINE / 2026 ]
+      </div>
 
-      {/* Sound Control Badge */}
+      {/* Audio Ambient Control */}
       <button
         onClick={toggleMute}
         type="button"
-        className="absolute top-24 right-4 sm:right-6 z-30 flex items-center gap-2 px-3 py-2 rounded-xl font-bold text-xs border-[2px] border-[#090909] shadow-[3px_3px_0_#090909] transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none pointer-events-auto"
-        style={{ background: "#FAF8F3" }}
-        title={isMuted ? "Click to Unmute" : "Click to Mute"}
+        className="absolute top-24 right-4 sm:top-28 sm:right-8 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0B0D10]/80 border border-[#252830] font-mono text-xs text-[#9A9CA3] hover:text-white hover:border-[#246BFD] backdrop-blur-md transition-colors"
+        title={isMuted ? "Unmute Ambient Intro" : "Mute Intro"}
       >
         {isMuted ? (
           <>
-            <VolumeX className="w-3.5 h-3.5 text-[#FF3D83]" />
-            <span className="hidden sm:inline text-[#090909]">Muted</span>
+            <VolumeX className="w-3.5 h-3.5 text-[#9A9CA3]" />
+            <span className="hidden sm:inline">SOUND OFF</span>
           </>
         ) : (
           <>
-            <Volume2 className="w-3.5 h-3.5 text-[#35D04F]" />
-            <span className="text-[#090909]">Sound On</span>
+            <Volume2 className="w-3.5 h-3.5 text-[#246BFD]" />
+            <span className="text-[#246BFD] font-bold">SOUND ON</span>
           </>
         )}
       </button>
 
-      {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-28 pb-16 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left: Text Content */}
-          <div className="lg:col-span-7 space-y-6">
-            {/* Eyebrow */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex items-center gap-3"
-            >
-              <span
-                className="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest border-[2px] border-[#090909] rounded-lg shadow-[3px_3px_0_#090909]"
-                style={{ background: "#FFD21C", color: "#090909" }}
-              >
-                Hello, I'm
+      {/* Main Content Area */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
+        {/* Eyebrow Label */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-wrap items-center gap-3 mb-6"
+        >
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#246BFD]/30 bg-[#246BFD]/10 font-mono text-xs font-semibold tracking-wider text-[#4D8DFF] uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#246BFD] animate-ping" />
+            AI/ML · FULL-STACK · WEB3 BUILDER
+          </span>
+          <span className="hidden sm:inline-block font-mono text-xs text-[#9A9CA3]">
+            [ NAJISH ANJUM — PORTFOLIO '26 ]
+          </span>
+        </motion.div>
+
+        {/* Oversized Ultra-Bold Condensed Headline */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="w-full"
+        >
+          <h1 className="editorial-hero-title text-white tracking-[-0.03em] select-none">
+            <span className="block">I BUILD THE</span>
+            <span className="block">
+              <span className="text-[#246BFD]">FUTURE</span> WITH
+            </span>
+            <span className="block flex flex-wrap items-baseline gap-x-4 sm:gap-x-8">
+              <span><span className="text-[#246BFD]">AI</span> &amp; CODE.</span>
+              <span className="hidden md:inline-block font-mono text-xs font-normal tracking-normal text-[#9A9CA3] max-w-xs normal-case border-l border-[#252830] pl-4 self-center leading-relaxed">
+                Transforming complex algorithms and decentralized protocols into intuitive, resilient digital products.
               </span>
-            </motion.div>
+            </span>
+          </h1>
+        </motion.div>
 
-            {/* Name */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h1
-                className="font-display leading-none"
-                style={{
-                  fontSize: "clamp(3.5rem, 9vw, 7rem)",
-                  fontWeight: 800,
-                  letterSpacing: "-0.03em",
-                  color: "#090909",
-                  lineHeight: 1,
-                }}
-              >
-                Najish
-                <br />
-                <span style={{ color: "#7557F7" }}>Anjum</span>
-              </h1>
-            </motion.div>
+        {/* Narrative & Profile Overview Spread */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-8 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end"
+        >
+          {/* Supporting Statement & Bio */}
+          <div className="lg:col-span-7 space-y-6">
+            <p className="text-base sm:text-xl text-[#F7F7F7] font-sans font-normal leading-relaxed max-w-2xl">
+              Hello, I'm <strong className="text-white font-bold">Najish Anjum</strong> — a B.Tech Computer Science student specializing in Artificial Intelligence &amp; Machine Learning, Team Lead at <span className="text-[#4D8DFF] font-medium">Team ILM Tech</span>, and <span className="text-[#4D8DFF] font-medium">Stellar India Ambassador</span>.
+            </p>
+            <p className="text-sm sm:text-base text-[#9A9CA3] font-sans leading-relaxed max-w-xl">
+              I operate at the intersection of production AI engineering, full-stack web applications, and Web3 infrastructure. From building repository intelligence tools to hackathon-winning prototypes, I turn ambitious ideas into shipped software.
+            </p>
 
-            {/* Typing role */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="h-10 flex items-center"
-            >
-              <p
-                className="font-display font-bold"
-                style={{
-                  fontSize: "clamp(1.1rem, 3vw, 1.75rem)",
-                  color: "#FF3D83",
-                  letterSpacing: "-0.01em",
-                }}
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <a
+                href="#projects"
+                className="editorial-btn-primary group"
               >
-                {displayText}
-                <span className="typing-cursor">|</span>
-              </p>
-            </motion.div>
-
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-base sm:text-lg leading-relaxed max-w-lg"
-              style={{ color: "#5B5B5B", fontWeight: 500 }}
-            >
-              B.Tech AI/ML Student passionate about building innovative tech solutions.
-              Hackathon enthusiast and full-stack developer crafting the future with code.
-            </motion.p>
-
-            {/* Live Status Badges */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-wrap gap-2"
-            >
-              <div
-                className="flex items-center gap-1.5 px-3 py-1.5 border-[2px] border-[#090909] rounded-lg font-bold text-xs shadow-[2px_2px_0_#090909]"
-                style={{ background: "#FAF8F3", color: "#090909" }}
-              >
-                <Clock className="w-3 h-3" />
-                {formatTime(now)}
-              </div>
-              <div
-                className="flex items-center gap-1.5 px-3 py-1.5 border-[2px] border-[#090909] rounded-lg font-bold text-xs shadow-[2px_2px_0_#090909]"
-                style={{ background: "#FAF8F3", color: "#090909" }}
-              >
-                <CalendarDays className="w-3 h-3" />
-                {formatDate(now)}
-              </div>
-              {weather && (
-                <div
-                  className="flex items-center gap-1.5 px-3 py-1.5 border-[2px] border-[#090909] rounded-lg font-bold text-xs shadow-[2px_2px_0_#090909]"
-                  style={{ background: "#FAF8F3", color: "#090909" }}
-                >
-                  <CloudSun className="w-3 h-3" />
-                  {weather.temp}°C {weather.condition}{locationName ? ` · ${locationName}` : ""}
-                </div>
-              )}
-              <div
-                className="flex items-center gap-1.5 px-3 py-1.5 border-[2px] border-[#090909] rounded-lg font-bold text-xs shadow-[2px_2px_0_#090909]"
-                style={{ background: "#FFD21C", color: "#090909" }}
-              >
-                <Timer className="w-3 h-3" />
-                {timeSpentText} on site
-              </div>
-              <div
-                className="flex items-center gap-1.5 px-3 py-1.5 border-[2px] border-[#090909] rounded-lg font-bold text-xs shadow-[2px_2px_0_#090909]"
-                style={{ background: "#FAF8F3", color: "#090909" }}
-              >
-                <RefreshCw className="w-3 h-3" />
-                Updated {getLastUpdatedText()}
-              </div>
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex flex-wrap gap-4"
-            >
-              {onReplayIntro && (
-                <button
-                  onClick={handlePlayIntroVideo}
-                  className="flex items-center gap-2 px-6 py-3 font-bold text-sm border-[3px] border-[#090909] rounded-xl shadow-[5px_5px_0_#090909] transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#090909] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none"
-                  style={{ background: "#090909", color: "#FFD21C" }}
-                >
-                  <Play className="w-4 h-4 fill-current" />
-                  Play Intro
-                </button>
-              )}
-              <a href="/resume/Najish_Anjum_Resume.pdf" target="_blank" rel="noopener noreferrer" download>
-                <button
-                  className="flex items-center gap-2 px-6 py-3 font-bold text-sm border-[3px] border-[#090909] rounded-xl shadow-[5px_5px_0_#090909] transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#090909] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none"
-                  style={{ background: "#FFD21C", color: "#090909" }}
-                >
-                  <Download className="w-4 h-4" />
-                  Download Resume
-                </button>
+                <span>EXPLORE PROJECTS</span>
+                <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
               </a>
-              <a href="https://connect-with-najish.vercel.app/" target="_blank" rel="noopener noreferrer">
-                <button
-                  className="flex items-center gap-2 px-6 py-3 font-bold text-sm border-[3px] border-[#090909] rounded-xl shadow-[5px_5px_0_#090909] transition-all duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#090909] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none"
-                  style={{ background: "#FAF8F3", color: "#090909" }}
-                >
-                  <Send className="w-4 h-4" />
-                  Contact Me
-                </button>
+
+              <a
+                href="#contact"
+                className="editorial-btn-secondary group"
+              >
+                <span>LET'S CONNECT</span>
+                <ArrowUpRight className="w-4 h-4 text-[#9A9CA3] group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
-            </motion.div>
+
+              <a
+                href="/resume/Najish_Anjum_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="px-4 py-3 font-mono text-xs font-semibold tracking-wider text-[#9A9CA3] hover:text-white transition-colors underline underline-offset-4"
+              >
+                DOWNLOAD CV
+              </a>
+            </div>
           </div>
 
-          {/* Right: Profile Image Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              {/* Accent shape behind card */}
-              <div
-                className="absolute -bottom-4 -right-4 w-full h-full rounded-3xl border-[3px] border-[#090909]"
-                style={{ background: "#FFD21C", zIndex: 0 }}
-              />
-              <div
-                className="absolute -top-4 -left-4 w-20 h-20 rounded-full"
-                style={{ background: "#FF3D83", zIndex: 0 }}
-              />
-              {/* Main profile card */}
-              <div
-                className="relative rounded-3xl border-[3px] border-[#090909] overflow-hidden"
-                style={{
-                  width: "clamp(240px, 35vw, 380px)",
-                  height: "clamp(280px, 45vw, 460px)",
-                  zIndex: 2,
-                  boxShadow: "8px 8px 0 #090909",
-                }}
-              >
-                <img
-                  src="/images/najish-profile.jpeg"
-                  alt="Najish Anjum"
-                  className="w-full h-full object-cover object-top"
-                />
-                {/* Bottom info bar */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 px-4 py-3 border-t-[3px] border-[#090909]"
-                  style={{ background: "#FFD21C" }}
-                >
-                  <p className="font-bold text-sm text-[#090909]" style={{ letterSpacing: "-0.01em" }}>
-                    Najish Anjum
-                  </p>
-                  <p className="text-xs font-semibold text-[#090909]/70">AI/ML Developer · Full Stack</p>
+          {/* Quick Technical Telemetry Card */}
+          <div className="lg:col-span-5 flex flex-col gap-3">
+            <div className="p-5 rounded-2xl bg-[#0B0D10] border border-[#252830] backdrop-blur-md">
+              <div className="flex items-center justify-between pb-3 border-b border-[#252830]/80">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#246BFD] flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#246BFD] inline-block" />
+                  LIVE TELEMETRY
+                </span>
+                <span className="font-mono text-[11px] text-[#9A9CA3]">
+                  INDIA
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 pt-3">
+                <div className="flex items-center gap-2 text-xs font-mono text-[#F7F7F7]">
+                  <Clock className="w-3.5 h-3.5 text-[#246BFD]" />
+                  <span>{formatTime(now)}</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-mono text-[#F7F7F7]">
+                  <CalendarDays className="w-3.5 h-3.5 text-[#246BFD]" />
+                  <span>{formatDate(now)}</span>
+                </div>
+                {weather && (
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#F7F7F7] col-span-2">
+                    <CloudSun className="w-3.5 h-3.5 text-[#4D8DFF]" />
+                    <span>{weather.temp}°C {weather.condition}{locationName ? ` · ${locationName}` : ""}</span>
+                  </div>
+                )}
+                <div className="flex items-center gap-2 text-xs font-mono text-[#9A9CA3]">
+                  <Timer className="w-3.5 h-3.5 text-[#246BFD]" />
+                  <span>{timeSpentText} session</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-mono text-[#9A9CA3]">
+                  <RefreshCw className="w-3.5 h-3.5 text-[#246BFD]" />
+                  <span>Upd: {getLastUpdatedText()}</span>
                 </div>
               </div>
             </div>
-          </motion.div>
+
+            {/* Verified Credentials Monospace Banner */}
+            <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-[#0B0D10]/60 border border-[#252830] font-mono text-[11px] text-[#9A9CA3]">
+              <span className="text-[#F7F7F7]">ROLES:</span>
+              <span>AI/ML · FULL-STACK · WEB3 · OPEN SOURCE</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Hero Bottom Ticker & Metrics Strip */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-12 pt-6 border-t border-[#252830]/80">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="border-l-2 border-[#246BFD] pl-4">
+            <div className="font-display text-3xl sm:text-4xl text-white tracking-tight">12+</div>
+            <div className="font-mono text-xs uppercase tracking-wider text-[#9A9CA3] mt-0.5">
+              Hackathons &amp; Sprints
+            </div>
+          </div>
+
+          <div className="border-l-2 border-[#246BFD] pl-4">
+            <div className="font-display text-3xl sm:text-4xl text-white tracking-tight">10+</div>
+            <div className="font-mono text-xs uppercase tracking-wider text-[#9A9CA3] mt-0.5">
+              Shipped Projects
+            </div>
+          </div>
+
+          <div className="border-l-2 border-[#246BFD] pl-4">
+            <div className="font-display text-3xl sm:text-4xl text-white tracking-tight">1.2K+</div>
+            <div className="font-mono text-xs uppercase tracking-wider text-[#9A9CA3] mt-0.5">
+              Open-Source Commits
+            </div>
+          </div>
+
+          <div className="border-l-2 border-[#246BFD] pl-4">
+            <div className="font-display text-3xl sm:text-4xl text-white tracking-tight">STELLAR</div>
+            <div className="font-mono text-xs uppercase tracking-wider text-[#9A9CA3] mt-0.5">
+              India Ambassador
+            </div>
+          </div>
         </div>
       </div>
     </section>

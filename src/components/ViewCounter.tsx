@@ -45,20 +45,20 @@ export const ViewCounter = () => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="fixed bottom-6 right-6 z-50 group cursor-default"
+          className="fixed bottom-6 left-6 z-40 group cursor-default"
         >
-          <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-card/80 backdrop-blur-xl border border-primary/20 shadow-lg shadow-primary/5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-primary/20 group-hover:border-primary/40">
+          <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-[#0B0D10]/90 backdrop-blur-md border border-[#252830] shadow-lg transition-all duration-300 hover:border-[#246BFD]/50">
             <motion.div
               animate={{ scale: [1, 1.15, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Eye className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+              <Eye className="w-3.5 h-3.5 text-[#246BFD]" />
             </motion.div>
-            <span className="font-mono text-sm md:text-base font-semibold text-foreground">
+            <span className="font-mono text-xs font-semibold text-white">
               {count.toLocaleString()}
             </span>
-            <span className="font-mono text-[10px] md:text-xs text-muted-foreground uppercase tracking-wider">
-              views
+            <span className="font-mono text-[10px] text-[#9A9CA3] uppercase tracking-wider">
+              VIEWS
             </span>
           </div>
         </motion.div>

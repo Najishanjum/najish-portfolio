@@ -1,5 +1,4 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
-import { motion } from "framer-motion";
+import { Github, Linkedin, Twitter, ArrowUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const navLinks = [
@@ -19,80 +18,70 @@ const socialLinks = [
 ];
 
 export const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer
-      className="border-t-[3px] border-[#090909] py-16 px-4 sm:px-8"
-      style={{ background: "#090909" }}
-    >
-      <div className="max-w-6xl mx-auto space-y-12">
-        {/* Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="w-full rounded-2xl overflow-hidden border-[3px] border-[#FAF8F3]"
-          style={{ boxShadow: "6px 6px 0 #FFD21C" }}
-        >
+    <footer className="bg-[#050505] text-white border-t border-[#252830] pt-16 pb-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto space-y-12">
+        {/* Banner if available, sleekly framed in dark border */}
+        <div className="w-full rounded-2xl overflow-hidden border border-[#252830] bg-[#0B0D10]">
           <img
             src="/images/linkedin-banner.png"
             alt="Md Najish Anjum - A Builder at Heart and a Leader by Choice"
-            className="w-full h-auto object-cover"
+            className="w-full h-auto object-cover opacity-85 hover:opacity-100 transition-opacity"
           />
-        </motion.div>
+        </div>
 
-        {/* Middle: Logo + Nav + Social */}
-        <div className="grid md:grid-cols-3 gap-10 items-start">
-          {/* Logo & tagline */}
-          <div className="space-y-4">
-            <div
-              className="inline-flex items-center gap-1 px-4 py-2 rounded-xl border-[2px] border-[#FAF8F3] shadow-[3px_3px_0_#FFD21C]"
-              style={{ background: "#FAF8F3" }}
-            >
-              <span className="font-black text-xl text-[#090909]">&lt;NA /&gt;</span>
+        {/* Top/Middle Row: Brand + Navigation + Socials */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start justify-between">
+          {/* Brand Column */}
+          <div className="md:col-span-5 space-y-4">
+            <div className="flex items-center gap-2">
+              <span className="font-display text-2xl tracking-tight text-white">
+                &lt;NA <span className="text-[#246BFD]">/&gt;</span>
+              </span>
             </div>
-            <p className="text-sm font-medium leading-relaxed" style={{ color: "#F3F0E8" }}>
-              B.Tech AI/ML · Full Stack Developer ·<br />
-              Hackathon Enthusiast · Team ILM Tech
+            <p className="font-sans text-sm text-[#9A9CA3] max-w-sm leading-relaxed">
+              Najish Anjum &middot; AI/ML Developer, Full-Stack Engineer &amp; Web3 Builder. Leading Team ILM Tech and serving as Stellar India Ambassador.
             </p>
           </div>
 
           {/* Nav links */}
-          <div className="space-y-3">
-            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#5B5B5B" }}>
-              Navigate
-            </p>
-            <ul className="space-y-2">
+          <div className="md:col-span-4 space-y-3">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#246BFD]">
+              NAVIGATION
+            </span>
+            <div className="grid grid-cols-2 gap-2 pt-1">
               {navLinks.map((item) => (
-                <li key={item.label}>
+                <div key={item.label}>
                   {item.isRoute ? (
                     <Link
                       to={item.href}
-                      className="text-sm font-semibold hover:text-[#FFD21C] transition-colors"
-                      style={{ color: "#F3F0E8" }}
+                      className="text-xs font-mono text-[#9A9CA3] hover:text-white transition-colors"
                     >
                       {item.label}
                     </Link>
                   ) : (
                     <a
                       href={item.href}
-                      className="text-sm font-semibold hover:text-[#FFD21C] transition-colors"
-                      style={{ color: "#F3F0E8" }}
+                      className="text-xs font-mono text-[#9A9CA3] hover:text-white transition-colors"
                     >
                       {item.label}
                     </a>
                   )}
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Social */}
-          <div className="space-y-4">
-            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "#5B5B5B" }}>
-              Connect
-            </p>
-            <div className="flex gap-3">
+          {/* Connect Column */}
+          <div className="md:col-span-3 space-y-3">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#246BFD]">
+              CONNECT
+            </span>
+            <div className="flex items-center gap-2 pt-1">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -100,31 +89,28 @@ export const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-11 h-11 rounded-xl border-[2px] border-[#FAF8F3] flex items-center justify-center shadow-[2px_2px_0_#FFD21C] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all"
-                  style={{ background: "#FAF8F3" }}
+                  className="w-9 h-9 rounded-full border border-[#252830] bg-[#0B0D10] flex items-center justify-center text-[#9A9CA3] hover:text-white hover:border-[#246BFD] transition-colors"
                 >
-                  <social.icon className="w-5 h-5 text-[#090909]" />
+                  <social.icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
-            <a
-              href="/resume/Najish_Anjum_Resume.pdf"
-              download
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm border-[2px] border-[#FAF8F3] shadow-[3px_3px_0_#FFD21C] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all"
-              style={{ background: "#FFD21C", color: "#090909" }}
-            >
-              Download Resume
-            </a>
           </div>
         </div>
 
-        {/* Bottom copyright */}
-        <div
-          className="pt-6 border-t-[2px] border-[#FAF8F3]/10 flex flex-col sm:flex-row items-center justify-between gap-4"
-        >
-          <p className="text-xs font-bold" style={{ color: "#5B5B5B" }}>
-            © 2025 Najish Anjum. All rights reserved.
-          </p>
+        {/* Bottom Row: Copyright + Back to Top */}
+        <div className="pt-8 border-t border-[#252830] flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-[#9A9CA3]">
+          <div>
+            &copy; 2026 NAJISH ANJUM. ALL RIGHTS RESERVED.
+          </div>
+
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#9A9CA3] hover:text-[#246BFD] transition-colors"
+          >
+            <span>BACK TO TOP</span>
+            <ArrowUp className="w-3.5 h-3.5 text-[#246BFD]" />
+          </button>
         </div>
       </div>
     </footer>

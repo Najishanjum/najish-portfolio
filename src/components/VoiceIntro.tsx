@@ -139,9 +139,9 @@ export const VoiceIntro = () => {
           exit={{ opacity: 0, y: 12 }}
           onClick={toggleMute}
           aria-label={muted ? "Unmute intro" : "Mute intro"}
-          className="fixed bottom-24 right-6 z-40 p-3 rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/40 backdrop-blur-md text-primary shadow-lg shadow-primary/20 transition-all"
+          className="fixed bottom-24 left-6 z-40 p-2.5 rounded-full bg-[#0B0D10]/90 hover:bg-[#12151B] border border-[#252830] hover:border-[#246BFD] backdrop-blur-md text-[#246BFD] shadow-lg transition-all"
         >
-          {muted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+          {muted ? <VolumeX className="w-4 h-4 text-[#9A9CA3]" /> : <Volume2 className="w-4 h-4 text-[#246BFD]" />}
         </motion.button>
       )}
     </AnimatePresence>

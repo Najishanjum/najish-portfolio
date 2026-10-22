@@ -20,14 +20,19 @@ export const GitHubActivity: React.FC = () => {
   const { data, loading, error, sync } = useGitHubContributions();
   const [activeHover, setActiveHover] = useState<{ day: ContributionDay; x: number; y: number } | null>(null);
 
-  // NSHA contribution levels (uses green palette on off-white)
+  // Black & Electric Blue Heatmap Levels
   const getLevelStyle = (level: number) => {
     switch (level) {
-      case 1: return { background: "#B7E83B", border: "#090909" };
-      case 2: return { background: "#35D04F", border: "#090909" };
-      case 3: return { background: "#22a63c", border: "#090909" };
-      case 4: return { background: "#FFD21C", border: "#090909" };
-      default: return { background: "#F3F0E8", border: "#d0ccc2" };
+      case 1:
+        return { background: "rgba(36, 107, 253, 0.3)", border: "rgba(36, 107, 253, 0.5)" };
+      case 2:
+        return { background: "rgba(36, 107, 253, 0.6)", border: "rgba(77, 141, 255, 0.75)" };
+      case 3:
+        return { background: "#246BFD", border: "#4D8DFF" };
+      case 4:
+        return { background: "#4D8DFF", border: "#FFFFFF" };
+      default:
+        return { background: "#12151B", border: "#252830" };
     }
   };
 
@@ -37,24 +42,32 @@ export const GitHubActivity: React.FC = () => {
   };
 
   return (
-    <section id="github-matrix" className="py-24 px-4 sm:px-8" style={{ background: "#FAF8F3" }}>
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
+    <section id="github-matrix" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#050505] text-white border-t border-[#252830] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Marker */}
+        <div className="flex items-center justify-between pb-6 border-b border-[#252830] mb-12 sm:mb-16">
+          <span className="editorial-eyebrow">[ OPEN-SOURCE PULSE ]</span>
+          <span className="font-mono text-xs text-[#9A9CA3] uppercase tracking-widest hidden sm:inline-block">
+            LIVE GITHUB TELEMETRY
+          </span>
+        </div>
+
+        {/* Section Headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="mb-14 sm:mb-20"
         >
-          <p className="nsha-section-eyebrow">Open source activity</p>
-          <h2 className="nsha-section-title">
-            GitHub <span style={{ color: "#35D04F" }}>Contributions</span>
+          <h2 className="editorial-section-title text-white">
+            <span>GITHUB</span>
+            <br />
+            <span className="text-[#246BFD]">CONTRIBUTIONS.</span>
           </h2>
-          <div
-            className="mt-4 h-1.5 w-20 rounded-full border-[2px] border-[#090909]"
-            style={{ background: "#35D04F" }}
-          />
+          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-xl font-sans">
+            Consistent code commits across repositories, open-source initiatives, and live deployments.
+          </p>
         </motion.div>
 
         {/* Main Card */}
@@ -63,30 +76,23 @@ export const GitHubActivity: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="rounded-2xl border-[3px] border-[#090909] overflow-hidden"
-          style={{ boxShadow: "7px 7px 0 #35D04F" }}
+          className="rounded-[28px] bg-[#0B0D10] border border-[#252830] overflow-hidden"
         >
-          {/* Card header */}
-          <div
-            className="px-6 py-4 border-b-[3px] border-[#090909] flex flex-col md:flex-row md:items-center justify-between gap-4"
-            style={{ background: "#090909" }}
-          >
+          {/* Card Header */}
+          <div className="p-6 sm:p-8 border-b border-[#252830] flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[#12151B]">
             <div className="flex items-center gap-3">
-              <div
-                className="w-10 h-10 rounded-xl border-[2px] border-[#FAF8F3] flex items-center justify-center"
-                style={{ background: "#35D04F" }}
-              >
-                <Code className="w-5 h-5 text-[#090909]" />
+              <div className="w-10 h-10 rounded-xl bg-[#050505] border border-[#252830] flex items-center justify-center text-[#246BFD]">
+                <Code className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-white">
+                <h3 className="font-display text-xl sm:text-2xl text-white uppercase tracking-tight">
                   {data
-                    ? `${data.totalCommits.toLocaleString()} contributions in the last year`
-                    : "GitHub Contributions"}
+                    ? `${data.totalCommits.toLocaleString()} CONTRIBUTIONS IN THE LAST YEAR`
+                    : "GITHUB CONTRIBUTIONS"}
                 </h3>
                 {data?.lastSync && (
-                  <p className="text-xs font-mono" style={{ color: "#5B5B5B" }}>
-                    Last sync: {data.lastSync}
+                  <p className="font-mono text-xs text-[#9A9CA3] mt-0.5">
+                    Synced: {data.lastSync}
                   </p>
                 )}
               </div>
@@ -97,50 +103,48 @@ export const GitHubActivity: React.FC = () => {
                 href={GITHUB_PROFILE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border-[2px] border-[#FAF8F3] text-[#FAF8F3] hover:bg-[#FAF8F3] hover:text-[#090909] transition-all group"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-xs font-semibold text-white bg-[#050505] border border-[#252830] hover:border-[#246BFD] transition-colors"
               >
                 <span>@{GITHUB_USERNAME}</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-3.5 h-3.5 text-[#246BFD]" />
               </a>
               <button
                 onClick={sync}
                 disabled={loading}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold border-[2px] border-[#35D04F] text-[#35D04F] hover:bg-[#35D04F] hover:text-[#090909] transition-all disabled:opacity-50"
+                className="flex items-center gap-2 px-4 py-2 rounded-full font-mono text-xs font-bold text-[#246BFD] border border-[#246BFD]/40 hover:bg-[#246BFD]/10 transition-colors disabled:opacity-50"
               >
                 <RotateCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
-                {loading ? "SYNCING..." : "SYNC"}
+                <span>{loading ? "SYNCING..." : "SYNC"}</span>
               </button>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="p-6" style={{ background: "#FAF8F3" }}>
+          {/* Heatmap Area */}
+          <div className="p-6 sm:p-8 bg-[#0B0D10]">
             {error ? (
               <div className="py-10 text-center space-y-3">
-                <AlertCircle className="w-8 h-8 text-[#FF3D83] mx-auto" />
-                <p className="text-sm font-bold" style={{ color: "#FF3D83" }}>{error}</p>
+                <AlertCircle className="w-8 h-8 text-[#4D8DFF] mx-auto" />
+                <p className="text-sm font-mono text-white">{error}</p>
                 <button
                   onClick={sync}
-                  className="px-4 py-2 text-xs font-bold rounded-lg border-[2px] border-[#090909] shadow-[2px_2px_0_#090909] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all"
-                  style={{ background: "#FAF8F3" }}
+                  className="editorial-btn-secondary py-2 px-4 text-xs font-mono"
                 >
                   RETRY SYNC
                 </button>
               </div>
             ) : loading && !data ? (
               <div className="py-14 text-center space-y-4">
-                <RotateCw className="w-8 h-8 text-[#35D04F] animate-spin mx-auto" />
-                <p className="text-xs font-bold uppercase tracking-widest animate-pulse" style={{ color: "#5B5B5B" }}>
-                  Fetching contribution data from GitHub...
+                <RotateCw className="w-8 h-8 text-[#246BFD] animate-spin mx-auto" />
+                <p className="font-mono text-xs uppercase tracking-widest text-[#9A9CA3] animate-pulse">
+                  Querying live GitHub GraphQL pipeline...
                 </p>
               </div>
             ) : data ? (
               <div>
-                {/* Contribution matrix */}
-                <div className="overflow-x-auto pb-2">
+                <div className="overflow-x-auto pb-4">
                   <div className="min-w-[720px]">
                     {/* Month labels */}
-                    <div className="flex text-[11px] font-bold text-[#5B5B5B] mb-2 pl-8">
+                    <div className="flex font-mono text-[11px] text-[#9A9CA3] mb-3 pl-8">
                       {data.months.map((m, idx) => (
                         <div
                           key={`${m.name}-${idx}`}
@@ -157,13 +161,13 @@ export const GitHubActivity: React.FC = () => {
                     {/* Grid */}
                     <div className="flex gap-2">
                       {/* Weekday labels */}
-                      <div className="flex flex-col gap-1 pr-1 justify-between text-[10px] font-bold text-[#5B5B5B] py-0.5">
+                      <div className="flex flex-col gap-1 pr-2 justify-between font-mono text-[10px] text-[#9A9CA3] py-0.5">
                         {WEEKDAYS.map((w, i) => (
                           <div key={i} className="h-3 flex items-center">{w.label}</div>
                         ))}
                       </div>
 
-                      {/* Heatmap */}
+                      {/* Heatmap Matrix */}
                       <div className="flex gap-1 flex-1">
                         {data.weeks.map((week, wIdx) => (
                           <div key={wIdx} className="flex flex-col gap-1">
@@ -177,7 +181,7 @@ export const GitHubActivity: React.FC = () => {
                                     setActiveHover({ day, x: rect.left + rect.width / 2, y: rect.top });
                                   }}
                                   onMouseLeave={() => setActiveHover(null)}
-                                  className="w-3 h-3 rounded-[2px] border transition-transform duration-100 hover:scale-125 cursor-pointer"
+                                  className="w-3 h-3 rounded-[3px] border transition-transform duration-100 hover:scale-150 cursor-pointer"
                                   style={{ background: style.background, borderColor: style.border }}
                                 />
                               );
@@ -189,62 +193,45 @@ export const GitHubActivity: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Tooltip */}
+                {/* Hover Tooltip */}
                 {activeHover && (
                   <div
-                    className="fixed z-50 pointer-events-none transform -translate-x-1/2 -translate-y-full px-3 py-1.5 rounded-lg border-[2px] border-[#090909] text-xs font-bold shadow-[2px_2px_0_#090909]"
+                    className="fixed z-50 pointer-events-none transform -translate-x-1/2 -translate-y-full px-3 py-1.5 rounded-lg border border-[#252830] font-mono text-xs shadow-xl"
                     style={{
                       left: `${activeHover.x}px`,
                       top: `${activeHover.y - 8}px`,
-                      background: "#090909",
-                      color: "#FFD21C",
+                      background: "#050505",
+                      color: "#FFFFFF",
                     }}
                   >
-                    {activeHover.day.count} contribution{activeHover.day.count !== 1 ? "s" : ""} on{" "}
+                    <span className="text-[#246BFD] font-bold">{activeHover.day.count} contributions</span> on{" "}
                     {formatDate(activeHover.day.date)}
                   </div>
                 )}
 
-                {/* Footer stats */}
-                <div
-                  className="mt-6 pt-5 border-t-[2px] border-[#090909] flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
-                >
-                  {/* Stats */}
-                  <div className="grid grid-cols-3 gap-4">
-                    <div
-                      className="flex items-center gap-2.5 px-4 py-3 rounded-xl border-[2px] border-[#090909] shadow-[3px_3px_0_#35D04F]"
-                      style={{ background: "#FAF8F3" }}
-                    >
-                      <div
-                        className="w-8 h-8 rounded-lg border-[2px] border-[#090909] flex items-center justify-center"
-                        style={{ background: "#35D04F" }}
-                      >
-                        <Flame className="w-4 h-4 text-[#090909]" />
+                {/* Footer Streak Statistics Strip */}
+                <div className="mt-8 pt-6 border-t border-[#252830] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div className="flex items-center gap-3 p-3.5 rounded-xl bg-[#12151B] border border-[#252830]">
+                      <div className="w-8 h-8 rounded-lg bg-[#050505] border border-[#252830] flex items-center justify-center text-[#246BFD]">
+                        <Flame className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-[#5B5B5B]">STREAK</div>
-                        <div className="text-sm font-black text-[#090909]">
-                          {data.currentStreak}{" "}
-                          <span className="text-xs font-bold text-[#5B5B5B]">DAYS</span>
+                        <div className="font-mono text-[10px] uppercase text-[#9A9CA3]">CURRENT STREAK</div>
+                        <div className="font-display text-lg text-white">
+                          {data.currentStreak} <span className="font-mono text-xs text-[#9A9CA3]">DAYS</span>
                         </div>
                       </div>
                     </div>
 
-                    <div
-                      className="flex items-center gap-2.5 px-4 py-3 rounded-xl border-[2px] border-[#090909] shadow-[3px_3px_0_#FFD21C]"
-                      style={{ background: "#FAF8F3" }}
-                    >
-                      <div
-                        className="w-8 h-8 rounded-lg border-[2px] border-[#090909] flex items-center justify-center"
-                        style={{ background: "#FFD21C" }}
-                      >
-                        <Trophy className="w-4 h-4 text-[#090909]" />
+                    <div className="flex items-center gap-3 p-3.5 rounded-xl bg-[#12151B] border border-[#252830]">
+                      <div className="w-8 h-8 rounded-lg bg-[#050505] border border-[#252830] flex items-center justify-center text-[#246BFD]">
+                        <Trophy className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-[#5B5B5B]">LONGEST</div>
-                        <div className="text-sm font-black text-[#090909]">
-                          {data.longestStreak}{" "}
-                          <span className="text-xs font-bold text-[#5B5B5B]">DAYS</span>
+                        <div className="font-mono text-[10px] uppercase text-[#9A9CA3]">LONGEST STREAK</div>
+                        <div className="font-display text-lg text-white">
+                          {data.longestStreak} <span className="font-mono text-xs text-[#9A9CA3]">DAYS</span>
                         </div>
                       </div>
                     </div>
@@ -253,20 +240,16 @@ export const GitHubActivity: React.FC = () => {
                       href={GITHUB_PROFILE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2.5 px-4 py-3 rounded-xl border-[2px] border-[#090909] shadow-[3px_3px_0_#7557F7] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all"
-                      style={{ background: "#FAF8F3" }}
+                      className="col-span-2 sm:col-span-1 flex items-center gap-3 p-3.5 rounded-xl bg-[#12151B] border border-[#252830] hover:border-[#246BFD] transition-colors group"
                     >
-                      <div
-                        className="w-8 h-8 rounded-lg border-[2px] border-[#090909] flex items-center justify-center"
-                        style={{ background: "#7557F7" }}
-                      >
-                        <Code className="w-4 h-4 text-white" />
+                      <div className="w-8 h-8 rounded-lg bg-[#050505] border border-[#252830] flex items-center justify-center text-white group-hover:text-[#246BFD]">
+                        <Code className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-[#5B5B5B] flex items-center gap-1">
-                          GITHUB <ExternalLink className="w-2.5 h-2.5" />
+                        <div className="font-mono text-[10px] uppercase text-[#9A9CA3] flex items-center gap-1">
+                          PROFILE <ExternalLink className="w-2.5 h-2.5" />
                         </div>
-                        <div className="text-xs font-black text-[#090909] truncate max-w-[80px]">
+                        <div className="font-mono text-xs text-white truncate max-w-[90px]">
                           @{GITHUB_USERNAME}
                         </div>
                       </div>
@@ -274,8 +257,8 @@ export const GitHubActivity: React.FC = () => {
                   </div>
 
                   {/* Legend */}
-                  <div className="flex items-center gap-2 text-xs font-bold text-[#5B5B5B]">
-                    <span>Less</span>
+                  <div className="flex items-center gap-2 font-mono text-xs text-[#9A9CA3]">
+                    <span>LESS</span>
                     <div className="flex gap-1 items-center">
                       {[0, 1, 2, 3, 4].map((l) => {
                         const s = getLevelStyle(l);
@@ -288,7 +271,7 @@ export const GitHubActivity: React.FC = () => {
                         );
                       })}
                     </div>
-                    <span>More</span>
+                    <span>MORE</span>
                   </div>
                 </div>
               </div>
