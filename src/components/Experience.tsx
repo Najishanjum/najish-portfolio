@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Calendar, MapPin, Maximize2, X, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Calendar, MapPin, Maximize2, X, ChevronRight, ChevronLeft } from "lucide-react";
 
 import ilmTechLogo from "@/assets/ilm-tech-logo.jpg";
 import ilmTechProfile from "@/assets/ilm-tech-profile.jpg";
@@ -203,6 +203,185 @@ const experiences: ExperienceItem[] = [
   },
 ];
 
+interface ExperienceCardProps {
+  exp: ExperienceItem;
+  index: number;
+  total: number;
+  onOpenImage: (img: string) => void;
+}
+
+const ExperienceCardItem = ({ exp, index, total, onOpenImage }: ExperienceCardProps) => {
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const images = exp.images || [];
+  const hasImages = images.length > 0;
+  const currentImage = hasImages ? images[activeImgIndex] : null;
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActiveImgIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActiveImgIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  // Sticky top offset: comfortable sticky header margin
+  const topOffset = `calc(4.5rem + ${index * 8}px)`;
+
+  return (
+    <div
+      style={{
+        top: topOffset,
+        zIndex: index + 1,
+      }}
+      className={`sticky rounded-[24px] sm:rounded-[32px] bg-[#12151B] border border-[#252830] p-5 sm:p-7 md:p-8 hover:border-[#246BFD]/60 transition-all duration-300 shadow-[0_-20px_50px_rgba(0,0,0,0.95)] group mb-36 sm:mb-52 last:mb-12`}
+    >
+      {/* Top Metadata Strip */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#252830]">
+        <div className="flex items-center gap-2.5">
+          <span className="font-mono text-xs font-bold text-[#246BFD]">
+            {exp.num} //
+          </span>
+          <span className="font-mono text-[11px] sm:text-xs text-[#9A9CA3] uppercase tracking-wider">
+            {exp.category}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2 font-mono text-xs text-[#9A9CA3]">
+          <Calendar className="w-3.5 h-3.5 text-[#246BFD]" />
+          <span>{exp.period}</span>
+        </div>
+      </div>
+
+      {/* Role, Visit Link & Organization */}
+      <div className="pt-4 pb-2">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h3 className="font-display text-2xl sm:text-3xl text-white uppercase tracking-tight group-hover:text-[#4D8DFF] transition-colors">
+            {exp.role}
+          </h3>
+
+          {exp.link && (
+            <a
+              href={exp.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-mono text-xs text-[#9A9CA3] hover:text-[#246BFD] transition-colors border border-[#252830] px-3 py-1 rounded-full bg-[#0B0D10]"
+            >
+              <span>VISIT</span>
+              <ArrowUpRight className="w-3 h-3 text-[#246BFD]" />
+            </a>
+          )}
+        </div>
+
+        <p className="font-sans font-semibold text-sm sm:text-base text-[#F7F7F7] mt-1">
+          {exp.organization}
+          <span className="text-[#9A9CA3] font-normal text-xs sm:text-sm font-mono ml-2 sm:ml-3">
+            &middot; {exp.location}
+          </span>
+        </p>
+      </div>
+
+      {/* Description */}
+      <p className="text-xs sm:text-sm text-[#9A9CA3] font-sans leading-relaxed my-2">
+        {exp.description}
+      </p>
+
+      {/* Skills Chips */}
+      <div className="flex flex-wrap gap-1.5 pt-1">
+        {exp.skills.map((skill) => (
+          <span key={skill} className="editorial-tag text-[10px]">
+            {skill}
+          </span>
+        ))}
+      </div>
+
+      {/* Verified Attachments Showcase: Large uncropped full image display */}
+      {hasImages && currentImage && (
+        <div className="pt-4 border-t border-[#252830]/80 mt-4">
+          <div className="flex items-center justify-between pb-2 mb-2 font-mono text-[10px] sm:text-[11px]">
+            <span className="text-[#246BFD] font-bold uppercase tracking-wider flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#246BFD]" />
+              VERIFIED ATTACHMENTS
+            </span>
+            {images.length > 1 && (
+              <span className="text-[#9A9CA3] uppercase tracking-wider">
+                IMAGE {activeImgIndex + 1} OF {images.length}
+              </span>
+            )}
+          </div>
+
+          {/* Large showcase box with object-contain: shows full image, never cuts up or below */}
+          <div className="relative w-full h-64 sm:h-80 md:h-[350px] rounded-2xl bg-[#060709] border border-[#252830] p-2.5 sm:p-4 flex items-center justify-center overflow-hidden group/showcase">
+            <img
+              src={currentImage}
+              alt={`${exp.organization} attachment ${activeImgIndex + 1}`}
+              className="max-w-full max-h-full object-contain filter contrast-105 select-none transition-transform duration-300"
+            />
+
+            {/* Click to expand overlay */}
+            <button
+              type="button"
+              onClick={() => onOpenImage(currentImage)}
+              className="absolute top-3 right-3 flex items-center gap-1.5 bg-[#050505]/85 hover:bg-[#246BFD] text-white border border-[#252830] hover:border-[#246BFD] px-2.5 py-1 rounded-lg font-mono text-[10px] transition-all duration-200 backdrop-blur-md shadow-lg"
+              title="View full resolution"
+            >
+              <Maximize2 className="w-3 h-3" />
+              <span className="hidden sm:inline">FULLSCREEN</span>
+            </button>
+
+            {/* Previous & Next controls if multiple images */}
+            {images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={prevImage}
+                  className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#050505]/85 hover:bg-[#246BFD] text-white border border-[#252830] hover:border-[#246BFD] transition-all backdrop-blur-md shadow-lg"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={nextImage}
+                  className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#050505]/85 hover:bg-[#246BFD] text-white border border-[#252830] hover:border-[#246BFD] transition-all backdrop-blur-md shadow-lg"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Miniature thumbnail selector strip if multiple images */}
+          {images.length > 1 && (
+            <div className="flex items-center gap-2 pt-2.5 overflow-x-auto pb-1">
+              {images.map((img, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActiveImgIndex(i)}
+                  className={`relative flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden border p-1 bg-[#050505] transition-all ${
+                    activeImgIndex === i
+                      ? "border-[#246BFD] ring-2 ring-[#246BFD]/40 opacity-100"
+                      : "border-[#252830] opacity-50 hover:opacity-100"
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`Thumbnail ${i + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const Experience = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -238,114 +417,16 @@ export const Experience = () => {
         </motion.div>
 
         {/* Stacking Overlapping Cards Container */}
-        <div className="relative pb-36 space-y-12 sm:space-y-16">
-          {experiences.map((exp, index) => {
-            // Progressive top offset for stacking overlap on scroll
-            const topOffset = `calc(5rem + ${index * 14}px)`;
-
-            return (
-              <div
-                key={exp.id}
-                style={{
-                  top: topOffset,
-                  zIndex: index + 1,
-                }}
-                className="sticky rounded-[26px] sm:rounded-[32px] bg-[#12151B] border border-[#252830] p-6 sm:p-8 hover:border-[#246BFD]/60 transition-all duration-300 shadow-[0_-20px_45px_rgba(0,0,0,0.95)] group"
-              >
-                {/* Top Metadata Strip */}
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#252830]">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-bold text-[#246BFD]">
-                      {exp.num} //
-                    </span>
-                    <span className="font-mono text-[11px] sm:text-xs text-[#9A9CA3] uppercase tracking-wider">
-                      {exp.category}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2 font-mono text-xs text-[#9A9CA3]">
-                    <Calendar className="w-3.5 h-3.5 text-[#246BFD]" />
-                    <span>{exp.period}</span>
-                  </div>
-                </div>
-
-                {/* Role, Visit Link & Organization */}
-                <div className="pt-4 pb-2">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-display text-2xl sm:text-3xl text-white uppercase tracking-tight group-hover:text-[#4D8DFF] transition-colors">
-                      {exp.role}
-                    </h3>
-
-                    {exp.link && (
-                      <a
-                        href={exp.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-mono text-xs text-[#9A9CA3] hover:text-[#246BFD] transition-colors border border-[#252830] px-3 py-1 rounded-full bg-[#0B0D10]"
-                      >
-                        <span>VISIT</span>
-                        <ArrowUpRight className="w-3 h-3 text-[#246BFD]" />
-                      </a>
-                    )}
-                  </div>
-
-                  <p className="font-sans font-semibold text-sm sm:text-base text-[#F7F7F7] mt-1">
-                    {exp.organization}
-                    <span className="text-[#9A9CA3] font-normal text-xs sm:text-sm font-mono ml-3">
-                      &middot; {exp.location}
-                    </span>
-                  </p>
-                </div>
-
-                {/* Shortened Description */}
-                <p className="text-xs sm:text-sm text-[#9A9CA3] font-sans leading-relaxed my-2">
-                  {exp.description}
-                </p>
-
-                {/* Skills Chips */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {exp.skills.map((skill) => (
-                    <span key={skill} className="editorial-tag text-[10px]">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Large Shape Verified Attachments */}
-                {exp.images && exp.images.length > 0 && (
-                  <div className="pt-4 border-t border-[#252830]/80 mt-4">
-                    <p className="font-mono text-[10px] sm:text-[11px] text-[#246BFD] uppercase tracking-wider mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#246BFD]" />
-                      <span>VERIFIED ATTACHMENTS &middot; {exp.images.length} {exp.images.length === 1 ? "FILE" : "FILES"}</span>
-                    </p>
-                    {/* Large Photo Gallery Preview */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                      {exp.images.map((img, i) => (
-                        <button
-                          key={i}
-                          type="button"
-                          onClick={() => setSelectedImage(img)}
-                          className="relative h-40 sm:h-48 rounded-xl overflow-hidden border border-[#252830] bg-[#050505] hover:border-[#246BFD] transition-all group/thumb text-left"
-                        >
-                          <img
-                            src={img}
-                            alt={`${exp.organization} document ${i + 1}`}
-                            className="w-full h-full object-cover filter contrast-110 group-hover/thumb:scale-105 transition-all duration-500"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/80 via-transparent to-transparent flex items-end p-2.5">
-                            <span className="font-mono text-[10px] text-white flex items-center gap-1.5 bg-[#050505]/80 px-2 py-0.5 rounded-md border border-[#252830]">
-                              <Maximize2 className="w-3 h-3 text-[#246BFD]" />
-                              <span>VIEW ATTACHMENT</span>
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+        <div className="relative pb-36">
+          {experiences.map((exp, index) => (
+            <ExperienceCardItem
+              key={exp.id}
+              exp={exp}
+              index={index}
+              total={experiences.length}
+              onOpenImage={(img) => setSelectedImage(img)}
+            />
+          ))}
         </div>
       </div>
 
