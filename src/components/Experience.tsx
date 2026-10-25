@@ -207,7 +207,7 @@ export const Experience = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <section id="experience" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#0B0D10] text-white border-t border-[#252830] relative overflow-hidden">
+    <section id="experience" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#0B0D10] text-white border-t border-[#252830] relative overflow-visible">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Marker */}
         <div className="flex items-center justify-between pb-6 border-b border-[#252830] mb-12 sm:mb-16">
@@ -238,10 +238,10 @@ export const Experience = () => {
         </motion.div>
 
         {/* Stacking Overlapping Cards Container */}
-        <div className="relative pb-24 space-y-8 sm:space-y-12">
+        <div className="relative pb-36 space-y-12 sm:space-y-16">
           {experiences.map((exp, index) => {
             // Progressive top offset for stacking overlap on scroll
-            const topOffset = `calc(5rem + ${index * 16}px)`;
+            const topOffset = `calc(5rem + ${index * 14}px)`;
 
             return (
               <div
@@ -250,7 +250,7 @@ export const Experience = () => {
                   top: topOffset,
                   zIndex: index + 1,
                 }}
-                className="sticky rounded-[26px] sm:rounded-[32px] bg-[#12151B] border border-[#252830] p-6 sm:p-8 hover:border-[#246BFD]/60 transition-all duration-300 shadow-[0_-16px_36px_rgba(0,0,0,0.85)] group backdrop-blur-md"
+                className="sticky rounded-[26px] sm:rounded-[32px] bg-[#12151B] border border-[#252830] p-6 sm:p-8 hover:border-[#246BFD]/60 transition-all duration-300 shadow-[0_-20px_45px_rgba(0,0,0,0.95)] group"
               >
                 {/* Top Metadata Strip */}
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#252830]">

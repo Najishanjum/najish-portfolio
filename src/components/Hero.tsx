@@ -98,17 +98,6 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
   const secs = seconds % 60;
   const timeSpentText = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
 
-  // Animation variants for headline kinetic reveal on opening
-  const headlineWords = [
-    { text: "I", highlight: false },
-    { text: "BUILD", highlight: false },
-    { text: "THE", highlight: false },
-    { text: "FUTURE", highlight: true },
-    { text: "WITH", highlight: false },
-    { text: "AI", highlight: true },
-    { text: "&", highlight: false },
-    { text: "CODE.", highlight: false },
-  ];
 
   return (
     <section className="relative min-h-screen w-full bg-[#050505] text-white overflow-hidden flex flex-col justify-between pt-28 pb-12 sm:pt-32 sm:pb-16">
@@ -169,38 +158,64 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
-        {/* Eyebrow Label */}
+        {/* Eyebrow Badge & Portfolio Indicator */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center gap-3 mb-6"
+          className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
         >
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#246BFD]/30 bg-[#246BFD]/10 font-mono text-xs font-semibold tracking-wider text-[#4D8DFF] uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#246BFD] animate-ping" />
-            [ NAJISH ANJUM — PORTFOLIO '26 ]
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#246BFD]/50 bg-[#0B0D10]/90 font-mono text-xs font-semibold tracking-wider text-[#4D8DFF] uppercase shadow-[0_0_15px_rgba(36,107,253,0.18)]">
+            <span className="w-2 h-2 rounded-full bg-[#246BFD]" />
+            AI/ML &middot; FULL-STACK &middot; WEB3 BUILDER
+          </span>
+          <span className="font-mono text-xs text-[#9A9CA3]/70 tracking-wider">
+            [ NAJISH ANJUM &mdash; PORTFOLIO '26 ]
           </span>
         </motion.div>
 
-        {/* Oversized Ultra-Bold Condensed Headline with Kinetic Opening Reveal Animation */}
+        {/* Oversized Ultra-Bold Condensed Headline matching exact image typography & 3-line layout */}
         <div className="w-full">
-          <h1 className="editorial-hero-title text-white tracking-[-0.03em] select-none flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-1 sm:gap-y-2">
-            {headlineWords.map((item, i) => (
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8">
+            <h1 className="editorial-hero-title text-white tracking-[-0.015em] select-none flex flex-col leading-[0.88]">
               <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+                initial={{ opacity: 0, y: 35, filter: "blur(6px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.1 + i * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={`inline-block ${item.highlight ? "text-[#246BFD]" : "text-white"}`}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="block text-white"
               >
-                {item.text}
+                I BUILD THE
               </motion.span>
-            ))}
-          </h1>
+              <motion.span
+                initial={{ opacity: 0, y: 35, filter: "blur(6px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="block"
+              >
+                <span className="text-[#246BFD]">FUTURE</span> <span className="text-white">WITH</span>
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, y: 35, filter: "blur(6px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="block"
+              >
+                <span className="text-[#246BFD]">AI &amp;</span> <span className="text-white">CODE.</span>
+              </motion.span>
+            </h1>
+
+            {/* Right side magazine tagline from design */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className="hidden md:flex flex-col justify-end pb-3 sm:pb-4 border-l border-[#252830] pl-6 max-w-xs lg:max-w-sm self-end mb-2"
+            >
+              <p className="font-mono text-xs sm:text-sm text-[#9A9CA3] leading-relaxed">
+                Transforming complex algorithms and decentralized protocols into intuitive, resilient digital products.
+              </p>
+            </motion.div>
+          </div>
         </div>
 
         {/* Narrative & Profile Overview Spread */}
