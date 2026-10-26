@@ -43,7 +43,7 @@ export const Footer = () => {
                 &lt;NA <span className="text-[#246BFD]">/&gt;</span>
               </span>
             </div>
-            <p className="font-sans text-sm text-[#9A9CA3] max-w-sm leading-relaxed">
+            <p className="font-sans text-sm text-[#A4A7AF] max-w-sm leading-relaxed">
               Najish Anjum &middot; AI/ML Developer, Full-Stack Engineer &amp; Web3 Builder. Leading Team ILM Tech and serving as Stellar India Ambassador.
             </p>
           </div>
@@ -59,14 +59,14 @@ export const Footer = () => {
                   {item.isRoute ? (
                     <Link
                       to={item.href}
-                      className="text-xs font-mono text-[#9A9CA3] hover:text-white transition-colors"
+                      className="text-xs font-sans text-[#A4A7AF] hover:text-white transition-colors"
                     >
                       {item.label}
                     </Link>
                   ) : (
                     <a
                       href={item.href}
-                      className="text-xs font-mono text-[#9A9CA3] hover:text-white transition-colors"
+                      className="text-xs font-sans text-[#A4A7AF] hover:text-white transition-colors"
                     >
                       {item.label}
                     </a>
@@ -89,7 +89,7 @@ export const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-9 h-9 rounded-full border border-[#252830] bg-[#0B0D10] flex items-center justify-center text-[#9A9CA3] hover:text-white hover:border-[#246BFD] transition-colors"
+                  className="w-9 h-9 rounded-full border border-[#252830] bg-[#0B0D10] flex items-center justify-center text-[#A4A7AF] hover:text-white hover:border-[#246BFD] transition-colors"
                 >
                   <social.icon className="w-4 h-4" />
                 </a>
@@ -99,14 +99,14 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Row: Copyright + Back to Top */}
-        <div className="pt-8 border-t border-[#252830] flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-[#9A9CA3]">
+        <div className="pt-8 border-t border-[#252830] flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-xs text-[#777B85]">
           <div>
-            &copy; 2026 NAJISH ANJUM. ALL RIGHTS RESERVED.
+            &copy; 2026 Najish Anjum. All rights reserved.
           </div>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#9A9CA3] hover:text-[#246BFD] transition-colors"
+            className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A4A7AF] hover:text-[#246BFD] transition-colors font-mono"
           >
             <span>BACK TO TOP</span>
             <ArrowUp className="w-3.5 h-3.5 text-[#246BFD]" />

@@ -227,7 +227,7 @@ export const Navigation = ({ onReplayIntro }: NavigationProps) => {
                     <Link
                       to={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-between py-3.5 border-b border-[#252830] font-display text-2xl uppercase tracking-wide text-white hover:text-[#246BFD] transition-colors"
+                      className="flex items-center justify-between py-3.5 border-b border-[#252830] font-display text-2xl tracking-tight text-white hover:text-[#246BFD] transition-colors"
                     >
                       <span>{item.label}</span>
                       <ArrowUpRight className="w-5 h-5 text-[#9A9CA3]" />
@@ -235,7 +235,7 @@ export const Navigation = ({ onReplayIntro }: NavigationProps) => {
                   ) : (
                     <button
                       onClick={() => scrollToSection(item.href)}
-                      className="w-full flex items-center justify-between py-3.5 border-b border-[#252830] font-display text-2xl uppercase tracking-wide text-white hover:text-[#246BFD] transition-colors text-left"
+                      className="w-full flex items-center justify-between py-3.5 border-b border-[#252830] font-display text-2xl tracking-tight text-white hover:text-[#246BFD] transition-colors text-left"
                     >
                       <span>{item.label}</span>
                       <ArrowUpRight className="w-5 h-5 text-[#9A9CA3]" />

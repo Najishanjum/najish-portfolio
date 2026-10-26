@@ -83,9 +83,11 @@ export default {
         },
       },
       fontFamily: {
-        display: ["Anton", "sans-serif"],
-        sans: ["Space Grotesk", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        display: ['"DM Serif Display"', "Georgia", "serif"],
+        serif: ['"DM Serif Display"', "Georgia", "serif"],
+        sans: ["Manrope", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        body: ["Manrope", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        mono: ['"JetBrains Mono"', "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -137,5 +139,6 @@ export default {
       },
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

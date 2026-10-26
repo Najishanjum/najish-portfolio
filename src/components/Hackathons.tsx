@@ -170,11 +170,12 @@ export const Hackathons = () => {
           className="mb-16 sm:mb-24"
         >
           <h2 className="editorial-section-title text-white">
-            <span>BUILT UNDER</span>
+            <span>Built under</span>
             <br />
-            <span className="text-[#246BFD]">PRESSURE.</span>
+            <span className="italic font-normal text-[#246BFD]">intense</span>{" "}
+            <span className="text-white">pressure.</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-xl font-sans">
+          <p className="mt-4 text-base sm:text-lg text-[#A4A7AF] max-w-xl font-sans">
             A comprehensive record of 24 to 72-hour national and global hackathons where ideas were stress-tested, coded, and demonstrated live before juries.
           </p>
         </motion.div>
@@ -226,21 +227,21 @@ export const Hackathons = () => {
                     <span className="px-2.5 py-0.5 rounded-full bg-[#246BFD]/15 border border-[#246BFD]/30 text-[#4D8DFF] font-semibold uppercase tracking-wider">
                       {hackathon.status}
                     </span>
-                    <span className="text-[#9A9CA3]">{hackathon.date}</span>
+                    <span className="text-[#A4A7AF]">{hackathon.date}</span>
                   </div>
 
                   {/* Title & Organizer */}
                   <div>
-                    <h3 className="font-display text-2xl text-white uppercase tracking-tight group-hover:text-[#4D8DFF] transition-colors">
+                    <h3 className="font-display text-2xl text-white tracking-tight group-hover:text-[#4D8DFF] transition-colors">
                       {hackathon.title}
                     </h3>
-                    <p className="font-mono text-xs text-[#9A9CA3] mt-1 leading-snug">
+                    <p className="font-mono text-xs text-[#A4A7AF] mt-1 leading-snug">
                       {hackathon.organizer}
                     </p>
                   </div>
 
                   {/* Description */}
-                  <p className="text-xs sm:text-sm text-[#9A9CA3] font-sans leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#A4A7AF] font-sans leading-relaxed">
                     {hackathon.description}
                   </p>
                 </div>

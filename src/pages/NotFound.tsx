@@ -41,8 +41,8 @@ const NotFound = () => {
 
         <div>
           <span className="editorial-eyebrow">[ ERROR // 404 ]</span>
-          <h1 className="font-display text-5xl sm:text-6xl uppercase tracking-tight text-white mt-1">
-            PAGE NOT <span className="text-[#246BFD]">FOUND</span>
+          <h1 className="editorial-section-title text-4xl sm:text-5xl text-white mt-1">
+            Page not <span className="italic font-normal text-[#246BFD]">found.</span>
           </h1>
           <p className="font-sans text-sm sm:text-base text-[#9A9CA3] mt-2 max-w-md mx-auto">
             The requested protocol address doesn't exist on this node.

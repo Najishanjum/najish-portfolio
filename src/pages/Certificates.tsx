@@ -555,7 +555,7 @@ const CertificateModal = ({
 
         {/* Certificate Details */}
         <div className="space-y-4">
-          <h2 className="font-display text-2xl sm:text-3xl uppercase tracking-tight text-white">
+          <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-white">
             {certificate.title}
           </h2>
 
@@ -657,7 +657,7 @@ const Certificates = () => {
         .select("certificate_id, likes, rating_sum, rating_count");
       if (error || !data) return;
       const map: StatsMap = {};
-      data.forEach((r: any) => {
+      data.forEach((r: { certificate_id: number; likes: number; rating_sum: number; rating_count: number }) => {
         map[r.certificate_id] = { likes: r.likes, rating_sum: r.rating_sum, rating_count: r.rating_count };
       });
       setStats(map);
@@ -774,13 +774,12 @@ const Certificates = () => {
           </div>
 
           <h1 className="editorial-section-title text-white">
-            <span>LEARNING.</span>
+            <span>Learning. Building.</span>
             <br />
-            <span>BUILDING.</span>
-            <br />
-            <span className="text-[#246BFD]">LEVELING UP.</span>
+            <span className="italic font-normal text-[#246BFD]">Constantly</span>{" "}
+            <span className="text-white">leveling up.</span>
           </h1>
-          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-2xl font-sans">
+          <p className="mt-4 text-base sm:text-lg text-[#A4A7AF] max-w-2xl font-sans">
             A comprehensive catalog of academic achievements, program certifications, and competitive recognitions spanning AI/ML, cloud, and systems.
           </p>
         </motion.div>
@@ -823,8 +822,9 @@ const Certificates = () => {
         >
           <div className="pb-6 border-b border-[#252830] mb-12">
             <span className="editorial-eyebrow">[ HACKER PASSES &amp; BADGES ]</span>
-            <h2 className="font-display text-3xl sm:text-4xl text-white uppercase tracking-tight mt-2">
-              BUILDER <span className="text-[#246BFD]">PASSES &amp; CREDENTIALS</span>
+            <h2 className="font-display text-3xl sm:text-4xl text-white tracking-tight mt-2">
+              Builder <span className="italic font-normal text-[#246BFD]">passes &amp;</span>{" "}
+              <span>credentials.</span>
             </h2>
           </div>
 
@@ -844,10 +844,10 @@ const Certificates = () => {
         >
           <div className="rounded-[28px] overflow-hidden border border-[#252830] bg-[#0B0D10] p-6 sm:p-10 text-center space-y-6">
             <span className="editorial-eyebrow">[ OPEN TO COLLABORATE ]</span>
-            <h3 className="font-display text-3xl sm:text-4xl text-white uppercase tracking-tight">
-              LOOKING FOR A <span className="text-[#246BFD]">HACKATHON TEAMMATE</span> OR AI BUILDER?
+            <h3 className="font-display text-2xl sm:text-3xl text-white tracking-tight">
+              Looking for a <span className="italic font-normal text-[#246BFD]">hackathon teammate</span> or AI builder?
             </h3>
-            <p className="text-sm sm:text-base text-[#9A9CA3] max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-[#A4A7AF] max-w-xl mx-auto">
               Open to partner on competitive hackathons, innovative Web3 prototypes, or AI applications. Let's combine forces and ship.
             </p>
             <div className="rounded-2xl overflow-hidden border border-[#252830] max-w-xl mx-auto">

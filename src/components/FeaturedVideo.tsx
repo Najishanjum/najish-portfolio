@@ -32,11 +32,12 @@ export const FeaturedVideo = () => {
           className="mb-14 sm:mb-20"
         >
           <h2 className="editorial-section-title text-white">
-            <span>FEATURED</span>
+            <span>Documented sprints</span>
             <br />
-            <span className="text-[#246BFD]">VIDEOS.</span>
+            <span>&amp; <span className="italic font-normal text-[#246BFD]">build</span></span>{" "}
+            <span className="text-[#246BFD]">stories.</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-xl font-sans">
+          <p className="mt-4 text-base sm:text-lg text-[#A4A7AF] max-w-xl font-sans">
             Capturing hackathon pitches, Stellar Web3 ambassadorship milestones, and developer highlights on screen.
           </p>
         </motion.div>

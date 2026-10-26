@@ -30,13 +30,15 @@ export const Contact = () => {
       const { data, error } = await supabase.functions.invoke("send-contact-email", {
         body: formData,
       });
-      if (error || (data as any)?.error) throw new Error(error?.message || (data as any)?.error);
+      const dataObj = data as { error?: string } | null;
+      if (error || dataObj?.error) throw new Error(error?.message || dataObj?.error);
       toast.success("Message transmitted successfully!", {
         description: "Thank you for reaching out. I will get back to you shortly.",
       });
       setFormData({ name: "", email: "", message: "" });
-    } catch (err: any) {
-      toast.error("Failed to send message", { description: err?.message ?? "Please try again or email directly." });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Please try again or email directly.";
+      toast.error("Failed to send message", { description: message });
     } finally {
       setSubmitting(false);
     }
@@ -65,11 +67,12 @@ export const Contact = () => {
           className="mb-16 sm:mb-24"
         >
           <h2 className="editorial-section-title text-white">
-            <span>HAVE AN IDEA?</span>
+            <span>Have an idea?</span>
             <br />
-            <span className="text-[#246BFD]">LET'S BUILD IT.</span>
+            <span>Let's build <span className="italic font-normal text-[#246BFD]">something</span></span>{" "}
+            <span className="text-[#246BFD]">meaningful.</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-xl font-sans">
+          <p className="mt-4 text-base sm:text-lg text-[#A4A7AF] max-w-xl font-sans">
             Whether you want to collaborate on AI/ML research, build a full-stack platform, deploy a Web3 protocol, or assemble a championship hackathon squad — my inbox is open.
           </p>
         </motion.div>
@@ -86,7 +89,7 @@ export const Contact = () => {
                 </span>
                 <button
                   onClick={handleCopyEmail}
-                  className="font-mono text-xs text-[#9A9CA3] hover:text-white flex items-center gap-1 transition-colors"
+                  className="font-mono text-xs text-[#A4A7AF] hover:text-white flex items-center gap-1 transition-colors"
                 >
                   {copiedEmail ? <Check className="w-3.5 h-3.5 text-[#246BFD]" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedEmail ? "COPIED" : "COPY"}</span>
@@ -100,7 +103,7 @@ export const Contact = () => {
                 >
                   najishanjum058@gmail.com
                 </a>
-                <p className="text-xs text-[#9A9CA3] font-sans mt-1">
+                <p className="text-xs text-[#A4A7AF] font-sans mt-1">
                   Usually replies within 24 hours.
                 </p>
               </div>
@@ -118,7 +121,7 @@ export const Contact = () => {
 
             {/* Social Channels List */}
             <div className="rounded-[24px] bg-[#0B0D10] border border-[#252830] p-6 space-y-4">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#9A9CA3]">
+              <span className="font-mono text-xs uppercase tracking-widest text-[#A4A7AF]">
                 VERIFIED SOCIALS
               </span>
               <div className="space-y-2">
@@ -136,9 +139,9 @@ export const Contact = () => {
                         {s.label}
                       </span>
                     </div>
-                    <div className="flex items-center gap-1 font-mono text-xs text-[#9A9CA3]">
+                    <div className="flex items-center gap-1 font-mono text-xs text-[#A4A7AF]">
                       <span>{s.handle}</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-[#9A9CA3] group-hover:text-white" />
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#A4A7AF] group-hover:text-white" />
                     </div>
                   </a>
                 ))}
@@ -149,7 +152,7 @@ export const Contact = () => {
             <div className="p-6 rounded-[24px] bg-[#0B0D10] border border-[#252830] flex items-center justify-between">
               <div>
                 <p className="font-sans font-bold text-sm text-white">Curriculum Vitae</p>
-                <p className="font-mono text-xs text-[#9A9CA3]">Updated &middot; 2026 Edition</p>
+                <p className="font-mono text-xs text-[#A4A7AF]">Updated &middot; 2026 Edition</p>
               </div>
               <a
                 href="/resume/Najish_Anjum_Resume.pdf"
@@ -169,8 +172,8 @@ export const Contact = () => {
                 <span className="font-mono text-xs uppercase tracking-widest text-[#246BFD]">
                   DISPATCH TRANSMISSION
                 </span>
-                <h3 className="font-display text-2xl text-white uppercase tracking-tight mt-1">
-                  SEND DIRECT MESSAGE
+                <h3 className="font-display text-2xl text-white tracking-tight mt-1">
+                  Send direct message
                 </h3>
               </div>
 

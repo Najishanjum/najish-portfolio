@@ -257,7 +257,7 @@ const ExperienceCardItem = ({ exp, index, total, onOpenImage }: ExperienceCardPr
       {/* Role, Visit Link & Organization */}
       <div className="pt-4 pb-2">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h3 className="font-display text-2xl sm:text-3xl text-white uppercase tracking-tight group-hover:text-[#4D8DFF] transition-colors">
+          <h3 className="font-display text-2xl sm:text-3xl text-white tracking-tight group-hover:text-[#4D8DFF] transition-colors">
             {exp.role}
           </h3>
 
@@ -405,13 +405,12 @@ export const Experience = () => {
           className="mb-14 sm:mb-20"
         >
           <h2 className="editorial-section-title text-white">
-            <span>BUILDING.</span>
+            <span>Building. Leading.</span>
             <br />
-            <span>LEADING.</span>
-            <br />
-            <span className="text-[#246BFD]">SHIPPING.</span>
+            <span className="italic font-normal text-[#246BFD]">Shipping at</span>{" "}
+            <span className="text-white">scale.</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-xl font-sans">
+          <p className="mt-4 text-base sm:text-lg text-[#A4A7AF] max-w-xl font-sans">
             A chronological timeline of official leadership roles, global ambassador programs, open-source initiatives, and verified tech experiences.
           </p>
         </motion.div>

@@ -190,11 +190,11 @@ export const Testimonials = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="editorial-section-title text-white">
-            <span>COMMUNITY &amp;</span>
+            <span>Community voice &amp;</span>
             <br />
-            <span className="text-[#246BFD]">BUILDER VOICES.</span>
+            <span>builder <span className="italic font-normal text-[#246BFD]">perspectives.</span></span>
           </h2>
-          <p className="mt-3 text-base text-[#9A9CA3] font-sans max-w-xl">
+          <p className="mt-3 text-base text-[#A4A7AF] font-sans max-w-xl">
             Real feedback from collaborators, hackathon teammates, and clients across the developer ecosystem.
           </p>
         </motion.div>

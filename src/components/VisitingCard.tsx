@@ -84,10 +84,10 @@ export const VisitingCard = () => {
                 <span>NAJISH ANJUM &middot; &lt;NA /&gt;</span>
                 <Sparkles className="w-3.5 h-3.5" />
               </div>
-              <h2 className="font-display text-3xl md:text-4xl uppercase tracking-tight text-white">
-                GLAD TO SEE YOU HERE
+              <h2 className="font-display text-2xl md:text-3xl tracking-tight text-white">
+                Glad to see you <span className="italic font-normal text-[#246BFD]">here.</span>
               </h2>
-              <p className="text-[#9A9CA3] mt-2 text-sm leading-relaxed max-w-md mx-auto font-sans">
+              <p className="text-[#A4A7AF] mt-2 text-sm leading-relaxed max-w-md mx-auto font-sans">
                 Exploring the frontier of AI, full-stack systems, and Web3 — leave your mark below.
               </p>
             </div>
@@ -155,8 +155,8 @@ export const VisitingCard = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-6 space-y-3"
             >
-              <h3 className="font-display text-2xl text-white uppercase tracking-tight">
-                THANKS {formData.name.toUpperCase()}!
+              <h3 className="font-display text-2xl text-white tracking-tight">
+                Thanks, {formData.name}!
               </h3>
               <p className="text-[#9A9CA3] text-sm font-sans">
                 Great to connect with someone from <span className="text-[#246BFD] font-bold">{formData.city || "around the world"}</span>. I'll reach out soon.

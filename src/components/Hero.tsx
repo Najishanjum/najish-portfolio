@@ -177,22 +177,22 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
         {/* Oversized Ultra-Bold Condensed Headline matching exact image typography & 3-line layout */}
         <div className="w-full">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8">
-            <h1 className="editorial-hero-title text-white tracking-[-0.015em] select-none flex flex-col leading-[0.88]">
+            <h1 className="editorial-hero-title text-white select-none flex flex-col">
               <motion.span
                 initial={{ opacity: 0, y: 35, filter: "blur(6px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                 className="block text-white"
               >
-                I BUILD THE
+                Building <span className="italic font-normal">intelligent</span>
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: 35, filter: "blur(6px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="block"
+                className="block text-white"
               >
-                <span className="text-[#246BFD]">FUTURE</span> <span className="text-white">WITH</span>
+                products that <span className="italic font-normal text-[#246BFD]">solve real</span>
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: 35, filter: "blur(6px)" }}
@@ -200,7 +200,7 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
                 transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="block"
               >
-                <span className="text-[#246BFD]">AI &amp;</span> <span className="text-white">CODE.</span>
+                <span className="text-white">problems with</span> <span className="text-[#246BFD]">code.</span>
               </motion.span>
             </h1>
 

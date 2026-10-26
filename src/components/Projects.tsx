@@ -135,11 +135,12 @@ export const Projects = () => {
             viewport={{ once: true }}
           >
             <h2 className="editorial-section-title text-white">
-              <span>IDEAS INTO</span>
+              <span>Turning bold ideas</span>
               <br />
-              <span className="text-[#246BFD]">REAL PRODUCTS.</span>
+              <span>into <span className="italic font-normal text-[#246BFD]">functional</span></span>{" "}
+              <span className="text-[#246BFD]">products.</span>
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-[#9A9CA3] max-w-lg font-sans">
+            <p className="mt-3 text-sm sm:text-base text-[#A4A7AF] max-w-lg font-sans">
               Shipped applications, AI intelligence tools, and Web3 infrastructure displayed in dual-project slides.
             </p>
           </motion.div>
@@ -250,7 +251,7 @@ export const Projects = () => {
                         </span>
                       </div>
 
-                      <h3 className="font-display text-2xl sm:text-3xl text-white uppercase tracking-tight group-hover:text-[#4D8DFF] transition-colors">
+                      <h3 className="font-display text-2xl sm:text-3xl text-white tracking-tight group-hover:text-[#4D8DFF] transition-colors">
                         {project.title}
                       </h3>
 
@@ -258,7 +259,7 @@ export const Projects = () => {
                         {project.tagline}
                       </p>
 
-                      <p className="text-xs text-[#9A9CA3] leading-relaxed line-clamp-2">
+                      <p className="text-xs text-[#A4A7AF] font-sans leading-relaxed line-clamp-2">
                         {project.description}
                       </p>
                     </div>
@@ -269,7 +270,7 @@ export const Projects = () => {
                         {project.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-md border bg-[#12151B] border-[#252830] text-[#9A9CA3]"
+                            className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-md border bg-[#12151B] border-[#252830] text-[#A4A7AF]"
                           >
                             {tag}
                           </span>
@@ -295,7 +296,7 @@ export const Projects = () => {
                             href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider py-2 px-3.5 rounded-[12px] border bg-[#12151B] text-white border-[#252830] hover:border-[#246BFD] hover:text-[#4D8DFF] transition-all"
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider py-2 px-3.5 rounded-full border bg-transparent text-white border-[#252830] hover:border-[#246BFD] hover:text-[#4D8DFF] transition-all"
                           >
                             <Github className="w-3.5 h-3.5" />
                             <span>CODE</span>

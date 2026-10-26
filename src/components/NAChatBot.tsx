@@ -180,15 +180,15 @@ export const NAChatBot = () => {
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#246BFD] rounded-full border-2 border-[#0B0D10]" />
                 </div>
                 <div>
-                  <h3 className="font-display text-base uppercase tracking-tight text-white">NA CHATBOT</h3>
-                  <p className="font-mono text-[10px] text-[#9A9CA3]">AI ASSISTANT &middot; ONLINE</p>
+                  <h3 className="font-sans font-bold text-sm tracking-wide text-white">NA ChatBot</h3>
+                  <p className="font-mono text-[10px] text-[#A4A7AF]">AI ASSISTANT &middot; ONLINE</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#252830] transition-colors"
               >
-                <X className="w-4 h-4 text-[#9A9CA3]" />
+                <X className="w-4 h-4 text-[#A4A7AF]" />
               </button>
             </div>
 
@@ -197,7 +197,7 @@ export const NAChatBot = () => {
               {messages.length === 0 && (
                 <div className="text-center pt-6">
                   <img src={naChatbotLogo} alt="NA ChatBot" className="w-16 h-16 mx-auto mb-4 rounded-full object-cover border-2 border-[#246BFD]/30" />
-                  <h4 className="font-display text-xl text-white uppercase tracking-tight mb-1">HELLO THERE</h4>
+                  <h4 className="font-display text-xl text-white tracking-tight mb-1">Hello there!</h4>
                   <p className="text-xs text-[#9A9CA3] mb-5 font-sans">
                     I'm NA ChatBot. Ask me about Najish's skills, projects, or background!
                   </p>

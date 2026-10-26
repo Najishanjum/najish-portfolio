@@ -61,11 +61,11 @@ export const GitHubActivity: React.FC = () => {
           className="mb-14 sm:mb-20"
         >
           <h2 className="editorial-section-title text-white">
-            <span>GITHUB</span>
+            <span>Open source &amp;</span>
             <br />
-            <span className="text-[#246BFD]">CONTRIBUTIONS.</span>
+            <span>daily code <span className="italic font-normal text-[#246BFD]">contributions.</span></span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-xl font-sans">
+          <p className="mt-4 text-base sm:text-lg text-[#A4A7AF] max-w-xl font-sans">
             Consistent code commits across repositories, open-source initiatives, and live deployments.
           </p>
         </motion.div>
@@ -85,10 +85,10 @@ export const GitHubActivity: React.FC = () => {
                 <Code className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-display text-xl sm:text-2xl text-white uppercase tracking-tight">
+                <h3 className="font-display text-xl sm:text-2xl text-white tracking-tight">
                   {data
-                    ? `${data.totalCommits.toLocaleString()} CONTRIBUTIONS IN THE LAST YEAR`
-                    : "GITHUB CONTRIBUTIONS"}
+                    ? `${data.totalCommits.toLocaleString()} contributions in the last year`
+                    : "GitHub Contributions"}
                 </h3>
                 {data?.lastSync && (
                   <p className="font-mono text-xs text-[#9A9CA3] mt-0.5">

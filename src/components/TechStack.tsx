@@ -28,7 +28,7 @@ import {
 
 interface TechItem {
   name: string;
-  icon?: any;
+  icon?: React.ComponentType<{ className?: string }>;
   emoji?: string;
   role?: string;
 }
@@ -143,11 +143,11 @@ export const TechStack = () => {
           className="mb-16 sm:mb-24"
         >
           <h2 className="editorial-section-title text-white">
-            <span>TOOLS I USE TO</span>
+            <span>Technologies that</span>
             <br />
-            <span className="text-[#246BFD]">BUILD THE FUTURE.</span>
+            <span>power the <span className="italic font-normal text-[#246BFD]">vision.</span></span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#9A9CA3] max-w-xl font-sans">
+          <p className="mt-4 text-base sm:text-lg text-[#A4A7AF] max-w-xl font-sans">
             A structured breakdown of technologies verified through shipped products, hackathon victories, and production repositories.
           </p>
         </motion.div>
@@ -169,15 +169,15 @@ export const TechStack = () => {
                   <span className="font-mono text-xs uppercase tracking-widest text-[#246BFD]">
                     {cat.eyebrow}
                   </span>
-                  <span className="font-mono text-xs text-[#9A9CA3] px-2 py-0.5 rounded bg-[#12151B] border border-[#252830]">
+                  <span className="font-mono text-xs text-[#A4A7AF] px-2 py-0.5 rounded bg-[#12151B] border border-[#252830]">
                     {cat.techs.length}
                   </span>
                 </div>
 
-                <h3 className="font-display text-xl sm:text-2xl text-white uppercase tracking-tight mt-4 mb-2 group-hover:text-[#4D8DFF] transition-colors">
+                <h3 className="font-sans font-bold text-base sm:text-lg text-white tracking-wide mt-4 mb-2 group-hover:text-[#4D8DFF] transition-colors">
                   {cat.title}
                 </h3>
-                <p className="text-xs text-[#9A9CA3] font-sans leading-relaxed mb-6">
+                <p className="text-xs text-[#A4A7AF] font-sans leading-relaxed mb-6">
                   {cat.description}
                 </p>
               </div>

@@ -275,11 +275,11 @@ export const Gallery = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="editorial-section-title text-white">
-            <span>MOMENTS &amp;</span>
+            <span>Moments, milestones</span>
             <br />
-            <span className="text-[#246BFD]">MEMORIES.</span>
+            <span>&amp; builder <span className="italic font-normal text-[#246BFD]">memories.</span></span>
           </h2>
-          <p className="mt-3 text-base text-[#9A9CA3] font-sans max-w-xl">
+          <p className="mt-3 text-base text-[#A4A7AF] font-sans max-w-xl">
             A visual chronicle across Devcon Mumbai, Monad Blitz, HeyGen developer summits, and hackathon war rooms.
           </p>
         </motion.div>

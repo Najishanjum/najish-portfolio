@@ -52,9 +52,10 @@ export const About = () => {
           className="mb-14 sm:mb-20"
         >
           <h2 className="editorial-section-title text-white">
-            <span>NOT JUST WRITING CODE.</span>
+            <span>Not just writing code.</span>
             <br />
-            <span className="text-[#246BFD]">BUILDING WHAT'S NEXT.</span>
+            <span>Building <span className="italic font-normal text-[#246BFD]">what matters</span></span>{" "}
+            <span className="text-[#246BFD]">next.</span>
           </h2>
         </motion.div>
 
@@ -83,7 +84,7 @@ export const About = () => {
                 </div>
 
                 <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-[#050505]/85 backdrop-blur-md border border-[#252830]">
-                  <p className="font-display text-xl text-white uppercase tracking-wide">Najish Anjum</p>
+                  <p className="font-display text-2xl text-white tracking-wide">Najish Anjum</p>
                   <p className="font-mono text-xs text-[#4D8DFF] mt-0.5">B.Tech CSE (AI &amp; ML)</p>
                 </div>
               </div>
