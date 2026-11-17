@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Calendar, MapPin, Maximize2, X, ChevronRight, ChevronLeft } from "lucide-react";
+import { ArrowUpRight, Calendar, Maximize2, X } from "lucide-react";
 
 import ilmTechLogo from "@/assets/ilm-tech-logo.jpg";
 import ilmTechProfile from "@/assets/ilm-tech-profile.jpg";
@@ -8,7 +8,6 @@ import ajinavaEdgeLogo from "@/assets/ajinava-edge-logo.jpg";
 import paranoxLogo from "@/assets/paranox-logo.png";
 import techfestLogo from "@/assets/techfest-logo.png";
 import gssocLogo from "@/assets/gssoc-logo.png";
-import moodIndigoLogo from "@/assets/mood-indigo-logo.png";
 import osciLogo from "@/assets/osci-logo.png";
 import googleCloudLogo from "@/assets/google-cloud-logo.png";
 import googleCloudImg1 from "@/assets/google-cloud-img1.jpg";
@@ -27,6 +26,17 @@ import esummitImg1 from "@/assets/esummit-iitb-1.jpg";
 import esummitImg2 from "@/assets/esummit-iitb-2.jpg";
 import esummitImg3 from "@/assets/esummit-iitb-3.jpg";
 import esummitImg4 from "@/assets/esummit-iitb-4.jpg";
+import esummitImg5 from "@/assets/esummit-iitb-5.jpg";
+import esummitImg6 from "@/assets/esummit-iitb-6.jpg";
+import esummitImg7 from "@/assets/esummit-iitb-7.jpg";
+import esummitImg8 from "@/assets/esummit-iitb-8.jpg";
+import certEcwocCampusRep from "@/assets/cert-ecwoc-campus-rep.jpg";
+import certEcwocAssessment from "@/assets/cert-ecwoc-assessment.jpg";
+import osciProfile from "@/assets/osci-profile.jpg";
+import certOsci from "@/assets/cert-osci.jpg";
+import certParanox from "@/assets/cert-paranox.png";
+import certTechfestIitb from "@/assets/cert-techfest-iitb.png";
+import passStellarMastery from "@/assets/pass-stellar-mastery.jpg";
 
 interface ExperienceItem {
   id: string;
@@ -73,7 +83,7 @@ const experiences: ExperienceItem[] = [
     skills: ["Community Building", "Developer Relations", "AI", "Web3"],
     logo: ajinavaEdgeLogo,
     link: "https://www.instagram.com/ajinava.edge",
-    images: [],
+    images: [ajinavaEdgeLogo],
   },
   {
     id: "stellar-india",
@@ -87,7 +97,7 @@ const experiences: ExperienceItem[] = [
     responsibilities: [],
     skills: ["Web3", "Blockchain", "Stellar Network", "Soroban", "Ecosystem Growth"],
     logo: stellarAmbassador,
-    images: [stellarAmbassador],
+    images: [stellarAmbassador, passStellarMastery],
   },
   {
     id: "esummit-iitb",
@@ -101,7 +111,16 @@ const experiences: ExperienceItem[] = [
     responsibilities: [],
     skills: ["Entrepreneurship", "Tech Innovation", "Networking"],
     logo: techfestLogo,
-    images: [esummitImg1, esummitImg2, esummitImg3, esummitImg4],
+    images: [
+      esummitImg1,
+      esummitImg2,
+      esummitImg3,
+      esummitImg4,
+      esummitImg5,
+      esummitImg6,
+      esummitImg7,
+      esummitImg8,
+    ],
   },
   {
     id: "ecwoc",
@@ -115,7 +134,7 @@ const experiences: ExperienceItem[] = [
     responsibilities: [],
     skills: ["Open Source", "Mentoring", "Git & GitHub", "Code Reviews"],
     logo: ecwocLogo,
-    images: [ecwocBadges, ecwocWork],
+    images: [ecwocBadges, ecwocWork, certEcwocCampusRep, certEcwocAssessment],
   },
   {
     id: "google-cloud-arcade",
@@ -143,7 +162,13 @@ const experiences: ExperienceItem[] = [
     responsibilities: [],
     skills: ["Open Source", "Git", "GitHub Workflow", "Collaboration"],
     logo: hacktoberfestLogo,
-    images: [hacktoberfestProfile, hacktoberfestBadges1, hacktoberfestBadges2, hacktoberfestSwag, hacktoberfestSelfie],
+    images: [
+      hacktoberfestProfile,
+      hacktoberfestBadges1,
+      hacktoberfestBadges2,
+      hacktoberfestSwag,
+      hacktoberfestSelfie,
+    ],
   },
   {
     id: "gssoc",
@@ -157,7 +182,7 @@ const experiences: ExperienceItem[] = [
     responsibilities: [],
     skills: ["Open Source", "TypeScript", "React", "Git"],
     logo: gssocLogo,
-    images: [],
+    images: [gssocLogo],
   },
   {
     id: "osci",
@@ -171,7 +196,7 @@ const experiences: ExperienceItem[] = [
     responsibilities: [],
     skills: ["Leadership", "Community Growth", "Open Source"],
     logo: osciLogo,
-    images: [],
+    images: [osciProfile, certOsci],
   },
   {
     id: "paranox",
@@ -185,7 +210,7 @@ const experiences: ExperienceItem[] = [
     responsibilities: [],
     skills: ["Leadership", "Community Engagement"],
     logo: paranoxLogo,
-    images: [],
+    images: [certParanox],
   },
   {
     id: "techfest",
@@ -199,7 +224,7 @@ const experiences: ExperienceItem[] = [
     responsibilities: [],
     skills: ["Event Outreach", "Leadership"],
     logo: techfestLogo,
-    images: [],
+    images: [certTechfestIitb],
   },
 ];
 
@@ -210,175 +235,121 @@ interface ExperienceCardProps {
   onOpenImage: (img: string) => void;
 }
 
-const ExperienceCardItem = ({ exp, index, total, onOpenImage }: ExperienceCardProps) => {
-  const [activeImgIndex, setActiveImgIndex] = useState(0);
+const ExperienceCardItem = ({ exp, index, onOpenImage }: ExperienceCardProps) => {
   const images = exp.images || [];
   const hasImages = images.length > 0;
-  const currentImage = hasImages ? images[activeImgIndex] : null;
-
-  const nextImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveImgIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const prevImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveImgIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  // Sticky top offset: comfortable sticky header margin
-  const topOffset = `calc(4.5rem + ${index * 8}px)`;
 
   return (
-    <div
-      style={{
-        top: topOffset,
-        zIndex: index + 1,
-      }}
-      className={`sticky rounded-[24px] sm:rounded-[32px] bg-[#12151B] border border-[#252830] p-5 sm:p-7 md:p-8 hover:border-[#246BFD]/60 transition-all duration-300 shadow-[0_-20px_50px_rgba(0,0,0,0.95)] group mb-36 sm:mb-52 last:mb-12`}
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: index * 0.04 }}
+      className="rounded-2xl sm:rounded-3xl bg-[#0E1116] border border-[#252830] p-5 sm:p-7 md:p-8 hover:border-[#246BFD]/50 transition-all duration-300 shadow-lg group flex flex-col justify-between"
     >
-      {/* Top Metadata Strip */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#252830]">
-        <div className="flex items-center gap-2.5">
-          <span className="font-mono text-xs font-bold text-[#246BFD]">
-            {exp.num} //
-          </span>
-          <span className="font-mono text-[11px] sm:text-xs text-[#9A9CA3] uppercase tracking-wider">
-            {exp.category}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2 font-mono text-xs text-[#9A9CA3]">
-          <Calendar className="w-3.5 h-3.5 text-[#246BFD]" />
-          <span>{exp.period}</span>
-        </div>
-      </div>
-
-      {/* Role, Visit Link & Organization */}
-      <div className="pt-4 pb-2">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h3 className="font-display text-2xl sm:text-3xl text-white tracking-tight group-hover:text-[#4D8DFF] transition-colors">
-            {exp.role}
-          </h3>
-
-          {exp.link && (
-            <a
-              href={exp.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-mono text-xs text-[#9A9CA3] hover:text-[#246BFD] transition-colors border border-[#252830] px-3 py-1 rounded-full bg-[#0B0D10]"
-            >
-              <span>VISIT</span>
-              <ArrowUpRight className="w-3 h-3 text-[#246BFD]" />
-            </a>
-          )}
-        </div>
-
-        <p className="font-sans font-semibold text-sm sm:text-base text-[#F7F7F7] mt-1">
-          {exp.organization}
-          <span className="text-[#9A9CA3] font-normal text-xs sm:text-sm font-mono ml-2 sm:ml-3">
-            &middot; {exp.location}
-          </span>
-        </p>
-      </div>
-
-      {/* Description */}
-      <p className="text-xs sm:text-sm text-[#9A9CA3] font-sans leading-relaxed my-2">
-        {exp.description}
-      </p>
-
-      {/* Skills Chips */}
-      <div className="flex flex-wrap gap-1.5 pt-1">
-        {exp.skills.map((skill) => (
-          <span key={skill} className="editorial-tag text-[10px]">
-            {skill}
-          </span>
-        ))}
-      </div>
-
-      {/* Verified Attachments Showcase: Large uncropped full image display */}
-      {hasImages && currentImage && (
-        <div className="pt-4 border-t border-[#252830]/80 mt-4">
-          <div className="flex items-center justify-between pb-2 mb-2 font-mono text-[10px] sm:text-[11px]">
-            <span className="text-[#246BFD] font-bold uppercase tracking-wider flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#246BFD]" />
-              VERIFIED ATTACHMENTS
+      <div>
+        {/* Top Metadata Strip */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#252830]">
+          <div className="flex items-center gap-2.5">
+            <span className="font-mono text-xs font-bold text-[#246BFD]">
+              {exp.num} //
             </span>
-            {images.length > 1 && (
-              <span className="text-[#9A9CA3] uppercase tracking-wider">
-                IMAGE {activeImgIndex + 1} OF {images.length}
-              </span>
+            <span className="font-mono text-[11px] sm:text-xs text-[#9A9CA3] uppercase tracking-wider">
+              {exp.category}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 font-mono text-xs text-[#9A9CA3]">
+            <Calendar className="w-3.5 h-3.5 text-[#246BFD]" />
+            <span>{exp.period}</span>
+          </div>
+        </div>
+
+        {/* Role, Visit Link & Organization */}
+        <div className="pt-4 pb-2">
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h3 className="font-display text-2xl sm:text-3xl text-white tracking-tight group-hover:text-[#4D8DFF] transition-colors">
+              {exp.role}
+            </h3>
+
+            {exp.link && (
+              <a
+                href={exp.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-mono text-xs text-[#9A9CA3] hover:text-[#246BFD] transition-colors border border-[#252830] px-3 py-1 rounded-full bg-[#0B0D10]"
+              >
+                <span>VISIT</span>
+                <ArrowUpRight className="w-3 h-3 text-[#246BFD]" />
+              </a>
             )}
           </div>
 
-          {/* Large showcase box with object-contain: shows full image, never cuts up or below */}
-          <div className="relative w-full h-64 sm:h-80 md:h-[350px] rounded-2xl bg-[#060709] border border-[#252830] p-2.5 sm:p-4 flex items-center justify-center overflow-hidden group/showcase">
-            <img
-              src={currentImage}
-              alt={`${exp.organization} attachment ${activeImgIndex + 1}`}
-              className="max-w-full max-h-full object-contain filter contrast-105 select-none transition-transform duration-300"
-            />
+          <p className="font-sans font-semibold text-sm sm:text-base text-[#F7F7F7] mt-1">
+            {exp.organization}
+            <span className="text-[#9A9CA3] font-normal text-xs sm:text-sm font-mono ml-2 sm:ml-3">
+              &middot; {exp.location}
+            </span>
+          </p>
+        </div>
 
-            {/* Click to expand overlay */}
-            <button
-              type="button"
-              onClick={() => onOpenImage(currentImage)}
-              className="absolute top-3 right-3 flex items-center gap-1.5 bg-[#050505]/85 hover:bg-[#246BFD] text-white border border-[#252830] hover:border-[#246BFD] px-2.5 py-1 rounded-lg font-mono text-[10px] transition-all duration-200 backdrop-blur-md shadow-lg"
-              title="View full resolution"
-            >
-              <Maximize2 className="w-3 h-3" />
-              <span className="hidden sm:inline">FULLSCREEN</span>
-            </button>
+        {/* Description */}
+        <p className="text-xs sm:text-sm text-[#9A9CA3] font-sans leading-relaxed my-2">
+          {exp.description}
+        </p>
 
-            {/* Previous & Next controls if multiple images */}
-            {images.length > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={prevImage}
-                  className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#050505]/85 hover:bg-[#246BFD] text-white border border-[#252830] hover:border-[#246BFD] transition-all backdrop-blur-md shadow-lg"
-                  aria-label="Previous image"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={nextImage}
-                  className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-[#050505]/85 hover:bg-[#246BFD] text-white border border-[#252830] hover:border-[#246BFD] transition-all backdrop-blur-md shadow-lg"
-                  aria-label="Next image"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </>
-            )}
+        {/* Skills Chips */}
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          {exp.skills.map((skill) => (
+            <span key={skill} className="editorial-tag text-[10px]">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Undercards: All Images Displayed Under Each Experience */}
+      {hasImages && (
+        <div className="pt-5 border-t border-[#252830]/80 mt-5">
+          <div className="flex items-center justify-between pb-3">
+            <span className="font-mono text-xs text-[#246BFD] font-bold uppercase tracking-wider flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#246BFD]" />
+              VERIFIED ATTACHMENTS &amp; MEDIA ({images.length})
+            </span>
+            <span className="font-mono text-[11px] text-[#9A9CA3] hidden sm:inline">
+              CLICK TO ENLARGE
+            </span>
           </div>
 
-          {/* Miniature thumbnail selector strip if multiple images */}
-          {images.length > 1 && (
-            <div className="flex items-center gap-2 pt-2.5 overflow-x-auto pb-1">
-              {images.map((img, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setActiveImgIndex(i)}
-                  className={`relative flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden border p-1 bg-[#050505] transition-all ${
-                    activeImgIndex === i
-                      ? "border-[#246BFD] ring-2 ring-[#246BFD]/40 opacity-100"
-                      : "border-[#252830] opacity-50 hover:opacity-100"
-                  }`}
-                >
-                  <img
-                    src={img}
-                    alt={`Thumbnail ${i + 1}`}
-                    className="w-full h-full object-contain"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+            {images.map((img, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => onOpenImage(img)}
+                className="group/undercard relative h-36 sm:h-44 rounded-xl overflow-hidden border border-[#252830] bg-[#060709] hover:border-[#246BFD] hover:shadow-[0_0_20px_rgba(36,107,253,0.25)] transition-all duration-300 flex items-center justify-center p-2 text-left"
+              >
+                <img
+                  src={img}
+                  alt={`${exp.organization} attachment ${i + 1}`}
+                  className="w-full h-full object-contain filter contrast-105 group-hover/undercard:scale-105 transition-transform duration-300 select-none"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 via-transparent to-transparent opacity-0 group-hover/undercard:opacity-100 transition-opacity duration-200 flex items-end justify-between p-2.5 pointer-events-none">
+                  <span className="font-mono text-[10px] text-white flex items-center gap-1.5 bg-[#050505]/85 px-2 py-0.5 rounded border border-[#252830]">
+                    <Maximize2 className="w-3 h-3 text-[#246BFD]" />
+                    EXPAND
+                  </span>
+                  <span className="font-mono text-[10px] text-[#9A9CA3]">
+                    #{i + 1}
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
@@ -386,13 +357,13 @@ export const Experience = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <section id="experience" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#0B0D10] text-white border-t border-[#252830] relative overflow-visible">
+    <section id="experience" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-[#0B0D10] text-white border-t border-[#252830] relative overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Marker */}
         <div className="flex items-center justify-between pb-6 border-b border-[#252830] mb-12 sm:mb-16">
           <span className="editorial-eyebrow">[ 03 // TRACK RECORD ]</span>
           <span className="font-mono text-xs text-[#9A9CA3] uppercase tracking-widest hidden sm:inline-block">
-            STACKING EXPERIENCE CARDS
+            CHRONOLOGICAL TRACK RECORD
           </span>
         </div>
 
@@ -402,7 +373,7 @@ export const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-14 sm:mb-20"
+          className="mb-12 sm:mb-16"
         >
           <h2 className="editorial-section-title text-white">
             <span>Building. Leading.</span>
@@ -415,8 +386,8 @@ export const Experience = () => {
           </p>
         </motion.div>
 
-        {/* Stacking Overlapping Cards Container */}
-        <div className="relative pb-36">
+        {/* Non-overlapping line-by-line experience cards container */}
+        <div className="space-y-6 sm:space-y-8">
           {experiences.map((exp, index) => (
             <ExperienceCardItem
               key={exp.id}
@@ -442,6 +413,7 @@ export const Experience = () => {
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-6 right-6 p-2 rounded-full border border-[#252830] text-white hover:border-[#246BFD] transition-colors"
+              aria-label="Close modal"
             >
               <X className="w-6 h-6" />
             </button>

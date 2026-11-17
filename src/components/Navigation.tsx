@@ -101,35 +101,39 @@ export const Navigation = ({ onReplayIntro }: NavigationProps) => {
             </a>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1 bg-[#0B0D10]/80 border border-[#252830] rounded-full px-3 py-1.5 backdrop-blur-md">
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
               {navItems.map((item) => {
                 const isActive = item.isRoute
                   ? location.pathname === item.href
                   : activeSection === item.href;
 
+                const linkClasses = `relative py-1 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-200 ${
+                  isActive
+                    ? "text-[#246BFD]"
+                    : "text-[#9A9CA3] hover:text-white"
+                }`;
+
                 return item.isRoute ? (
                   <Link
                     key={item.label}
                     to={item.href}
-                    className={`relative px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all duration-200 ${
-                      isActive
-                        ? "text-white bg-[#246BFD]"
-                        : "text-[#9A9CA3] hover:text-white hover:bg-[#12151B]"
-                    }`}
+                    className={linkClasses}
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <span className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-[#246BFD] rounded-full" />
+                    )}
                   </Link>
                 ) : (
                   <button
                     key={item.label}
                     onClick={() => scrollToSection(item.href)}
-                    className={`relative px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full transition-all duration-200 ${
-                      isActive
-                        ? "text-white bg-[#246BFD]"
-                        : "text-[#9A9CA3] hover:text-white hover:bg-[#12151B]"
-                    }`}
+                    className={linkClasses}
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <span className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-[#246BFD] rounded-full" />
+                    )}
                   </button>
                 );
               })}

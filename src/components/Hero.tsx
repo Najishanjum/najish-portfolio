@@ -158,22 +158,6 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center">
-        {/* Eyebrow Badge & Portfolio Indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
-        >
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#246BFD]/50 bg-[#0B0D10]/90 font-mono text-xs font-semibold tracking-wider text-[#4D8DFF] uppercase shadow-[0_0_15px_rgba(36,107,253,0.18)]">
-            <span className="w-2 h-2 rounded-full bg-[#246BFD]" />
-            AI/ML &middot; FULL-STACK &middot; WEB3 BUILDER
-          </span>
-          <span className="font-mono text-xs text-[#9A9CA3]/70 tracking-wider">
-            [ NAJISH ANJUM &mdash; PORTFOLIO '26 ]
-          </span>
-        </motion.div>
-
         {/* Oversized Ultra-Bold Condensed Headline matching exact image typography & 3-line layout */}
         <div className="w-full">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-8">
