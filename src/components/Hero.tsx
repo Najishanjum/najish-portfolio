@@ -237,10 +237,10 @@ export const Hero = ({ onReplayIntro }: HeroProps) => {
                 href="/resume/Najish_Anjum_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                download
-                className="px-4 py-3 font-mono text-xs font-semibold tracking-wider text-[#9A9CA3] hover:text-white transition-colors underline underline-offset-4"
+                className="px-4 py-3 font-mono text-xs font-semibold tracking-wider text-[#9A9CA3] hover:text-[#4D8DFF] transition-colors underline underline-offset-4 flex items-center gap-1.5"
               >
-                DOWNLOAD CV
+                <span>VIEW RESUME</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>

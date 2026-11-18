@@ -9,6 +9,7 @@ import { TechStack } from "@/components/TechStack";
 import { GitHubActivity } from "@/components/GitHubActivity";
 import { FeaturedVideo } from "@/components/FeaturedVideo";
 import { Gallery } from "@/components/Gallery";
+import { Devcon8India } from "@/components/Devcon8India";
 import { Testimonials } from "@/components/Testimonials";
 import { VisitingCard } from "@/components/VisitingCard";
 import { Contact } from "@/components/Contact";
@@ -62,6 +63,7 @@ const Index = () => {
         <GitHubActivity />
         <FeaturedVideo />
         <Gallery />
+        <Devcon8India />
         <Testimonials />
         <VisitingCard />
         <Contact />

@@ -149,19 +149,30 @@ export const Contact = () => {
             </div>
 
             {/* Resume Button */}
-            <div className="p-6 rounded-[24px] bg-[#0B0D10] border border-[#252830] flex items-center justify-between">
+            <div className="p-6 rounded-[24px] bg-[#0B0D10] border border-[#252830] flex flex-wrap items-center justify-between gap-4">
               <div>
                 <p className="font-sans font-bold text-sm text-white">Curriculum Vitae</p>
                 <p className="font-mono text-xs text-[#A4A7AF]">Updated &middot; 2026 Edition</p>
               </div>
-              <a
-                href="/resume/Najish_Anjum_Resume.pdf"
-                download
-                className="editorial-btn-secondary py-2.5 px-4 text-xs font-mono"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>DOWNLOAD</span>
-              </a>
+              <div className="flex items-center gap-2">
+                <a
+                  href="/resume/Najish_Anjum_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="editorial-btn-secondary py-2.5 px-4 text-xs font-mono flex items-center gap-2"
+                >
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#246BFD]" />
+                  <span>VIEW RESUME</span>
+                </a>
+                <a
+                  href="/resume/Najish_Anjum_Resume.pdf"
+                  download="Najish_Anjum_Resume.pdf"
+                  className="p-2.5 rounded-xl border border-[#252830] bg-[#12151B] text-[#9A9CA3] hover:text-white hover:border-[#246BFD] transition-colors"
+                  title="Download PDF"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
           </div>
 
