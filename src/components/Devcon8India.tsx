@@ -1,22 +1,84 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Globe,
-  MapPin,
-  Calendar,
-  Users,
-  ExternalLink,
   Maximize2,
   X,
-  CheckCircle2,
   Sparkles,
-  Layers,
-  ShieldCheck,
+  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
+  Camera,
+  Image as ImageIcon,
 } from "lucide-react";
-import devconImg from "@/assets/devcon8-india.jpg";
+import devconHeroImg from "@/assets/devcon8-india.jpg";
+
+// All 39 authentic Devcon images copied from C:\Users\Lenovo\Pictures\Devcon
+const devconPhotos = [
+  "photo_2026-11-01_23-42-16.jpg",
+  "photo_2026-11-01_23-42-18 (2).jpg",
+  "photo_2026-11-02_00-13-19.jpg",
+  "photo_2026-11-02_06-50-49.jpg",
+  "photo_2026-11-02_11-46-56.jpg",
+  "photo_2026-11-02_22-15-49.jpg",
+  "photo_2026-11-03_10-50-24.jpg",
+  "photo_2026-11-03_10-50-28.jpg",
+  "photo_2026-11-03_10-53-12 (2).jpg",
+  "photo_2026-11-03_10-53-12.jpg",
+  "photo_2026-11-03_10-53-13.jpg",
+  "photo_2026-11-03_10-53-16.jpg",
+  "photo_2026-11-03_10-53-17.jpg",
+  "photo_2026-11-03_10-53-19 (2).jpg",
+  "photo_2026-11-03_10-53-20 (2).jpg",
+  "photo_2026-11-03_10-53-20.jpg",
+  "photo_2026-11-03_10-53-21.jpg",
+  "photo_2026-11-03_10-54-41.jpg",
+  "photo_2026-11-03_17-28-03 (2).jpg",
+  "photo_2026-11-03_17-28-11 (2).jpg",
+  "photo_2026-11-03_17-28-11.jpg",
+  "photo_2026-11-03_17-28-13 (2).jpg",
+  "photo_2026-11-03_17-28-16 (2).jpg",
+  "photo_2026-11-03_17-28-16.jpg",
+  "photo_2026-11-03_17-28-19.jpg",
+  "photo_2026-11-03_18-19-10.jpg",
+  "photo_2026-11-03_18-20-27.jpg",
+  "photo_2026-11-03_18-21-10.jpg",
+  "photo_2026-11-03_18-21-12.jpg",
+  "photo_2026-11-03_18-21-22.jpg",
+  "photo_2026-11-03_18-22-17.jpg",
+  "photo_2026-11-03_18-22-23.jpg",
+  "photo_2026-11-03_18-22-31.jpg",
+  "photo_2026-11-03_18-22-38.jpg",
+  "photo_2026-11-03_18-23-21.jpg",
+  "photo_2026-11-03_18-23-34.jpg",
+  "photo_2026-11-03_18-23-57.jpg",
+  "photo_2026-11-03_18-23-59.jpg",
+  "photo_2026-11-03_18-24-15.jpg",
+];
 
 export const Devcon8India = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
+  const [showAllPhotos, setShowAllPhotos] = useState(false);
+
+  // Gallery view: show initial 12 or all 39
+  const visiblePhotos = showAllPhotos ? devconPhotos : devconPhotos.slice(0, 12);
+
+  const openLightbox = (index: number) => {
+    setActivePhotoIndex(index);
+  };
+
+  const nextPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (activePhotoIndex !== null) {
+      setActivePhotoIndex((activePhotoIndex + 1) % devconPhotos.length);
+    }
+  };
+
+  const prevPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (activePhotoIndex !== null) {
+      setActivePhotoIndex((activePhotoIndex - 1 + devconPhotos.length) % devconPhotos.length);
+    }
+  };
 
   return (
     <section
@@ -66,8 +128,8 @@ export const Devcon8India = () => {
           </p>
         </motion.div>
 
-        {/* Showcase Grid: Image + Context Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        {/* Showcase Grid: Hero Stage Photo + Context Details */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-16 sm:mb-20">
           {/* Left Column: Official Stage Photo Showcase */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -80,7 +142,7 @@ export const Devcon8India = () => {
               {/* Image Preview Container */}
               <div className="relative w-full h-[380px] sm:h-[460px] md:h-[500px] overflow-hidden bg-[#050505] flex items-center justify-center p-2 sm:p-3">
                 <img
-                  src={devconImg}
+                  src={devconHeroImg}
                   alt="Md Najish Anjum at Devcon 8 India, Mumbai"
                   className="w-full h-full object-cover sm:object-contain rounded-2xl filter contrast-105 group-hover:scale-[1.02] transition-transform duration-500 select-none"
                 />
@@ -90,7 +152,7 @@ export const Devcon8India = () => {
                 {/* Fullscreen Expand Button */}
                 <button
                   type="button"
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => openLightbox(0)}
                   className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#050505]/85 backdrop-blur-md border border-[#252830] text-xs font-mono text-white hover:text-[#4D8DFF] hover:border-[#246BFD] transition-all shadow-lg"
                   title="Expand to Fullscreen"
                 >
@@ -206,33 +268,142 @@ export const Devcon8India = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Comprehensive Photo Gallery: All 39 Photos from C:\Users\Lenovo\Pictures\Devcon */}
+        <div className="pt-10 border-t border-[#252830]/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <Camera className="w-4 h-4 text-[#246BFD]" />
+                <span className="font-mono text-xs text-[#246BFD] font-bold uppercase tracking-wider">
+                  DEVCON 8 MUMBAI &middot; PHOTO ARCHIVE
+                </span>
+              </div>
+              <h3 className="font-display text-2xl sm:text-3xl text-white">
+                Moments &amp; On-Ground Activations
+              </h3>
+              <p className="font-mono text-xs text-[#9A9CA3] mt-1">
+                Showing {visiblePhotos.length} of {devconPhotos.length} authentic photos from the conference &amp; builder side events.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowAllPhotos(!showAllPhotos)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#252830] bg-[#0B0D10] font-mono text-xs font-semibold text-[#C5C8D0] hover:text-white hover:border-[#246BFD] transition-colors self-start sm:self-auto shadow-md"
+            >
+              <ImageIcon className="w-3.5 h-3.5 text-[#246BFD]" />
+              <span>
+                {showAllPhotos ? "SHOW LESS" : `VIEW ALL ${devconPhotos.length} PHOTOS`}
+              </span>
+            </button>
+          </div>
+
+          {/* Photo Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+            {visiblePhotos.map((photoName, index) => {
+              const photoUrl = `/images/devcon/${photoName}`;
+              return (
+                <motion.div
+                  key={photoName}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.35, delay: (index % 12) * 0.03 }}
+                  onClick={() => openLightbox(index)}
+                  className="group/photo relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-[#252830] bg-[#0A0D14] cursor-pointer hover:border-[#246BFD] hover:shadow-[0_0_20px_rgba(36,107,253,0.3)] transition-all duration-300 flex items-center justify-center p-1.5"
+                >
+                  <img
+                    src={photoUrl}
+                    alt={`Devcon 8 Mumbai moment ${index + 1}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover rounded-xl filter contrast-105 group-hover/photo:scale-105 transition-transform duration-300 select-none"
+                  />
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-[#050505]/85 via-transparent to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity duration-200 flex items-end justify-between p-2.5 pointer-events-none">
+                    <span className="font-mono text-[10px] text-white flex items-center gap-1 bg-[#050505]/80 px-2 py-0.5 rounded border border-[#252830]">
+                      <Maximize2 className="w-3 h-3 text-[#246BFD]" />
+                      EXPAND
+                    </span>
+                    <span className="font-mono text-[10px] text-[#9A9CA3]">
+                      #{index + 1}
+                    </span>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Bottom Expand Toggle button if not already expanded */}
+          {!showAllPhotos && devconPhotos.length > 12 && (
+            <div className="mt-8 text-center">
+              <button
+                type="button"
+                onClick={() => setShowAllPhotos(true)}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#252830] bg-[#0E121B] font-mono text-xs font-bold uppercase tracking-wider text-[#93C5FD] hover:text-white hover:border-[#246BFD] hover:bg-[#121625] transition-all shadow-lg"
+              >
+                <span>EXPLORE ALL {devconPhotos.length} DEVCON 8 MOMENTS</span>
+                <ChevronRight className="w-4 h-4 text-[#246BFD]" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Fullscreen Lightbox Modal with Next / Prev */}
       <AnimatePresence>
-        {isModalOpen && (
+        {activePhotoIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#050505]/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8"
-            onClick={() => setIsModalOpen(false)}
+            className="fixed inset-0 z-50 bg-[#050505]/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 select-none"
+            onClick={() => setActivePhotoIndex(null)}
           >
+            {/* Close Button */}
             <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-6 right-6 p-2 rounded-full border border-[#252830] text-white hover:border-[#246BFD] transition-colors"
-              aria-label="Close modal"
               type="button"
+              onClick={() => setActivePhotoIndex(null)}
+              className="absolute top-6 right-6 p-2 rounded-full border border-[#252830] text-white hover:border-[#246BFD] transition-colors z-20 bg-[#0B0D10]/80"
+              aria-label="Close modal"
             >
               <X className="w-6 h-6" />
             </button>
+
+            {/* Top Indicator */}
+            <div className="absolute top-6 left-6 font-mono text-xs text-[#9A9CA3] bg-[#0B0D10]/80 px-3 py-1 rounded-full border border-[#252830]">
+              Devcon 8 India &middot; Photo {activePhotoIndex + 1} of {devconPhotos.length}
+            </div>
+
+            {/* Previous Photo Button */}
+            <button
+              type="button"
+              onClick={prevPhoto}
+              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-[#0B0D10]/85 border border-[#252830] text-white hover:border-[#246BFD] hover:text-[#4D8DFF] transition-all z-20 backdrop-blur-md"
+              aria-label="Previous photo"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            {/* Next Photo Button */}
+            <button
+              type="button"
+              onClick={nextPhoto}
+              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-[#0B0D10]/85 border border-[#252830] text-white hover:border-[#246BFD] hover:text-[#4D8DFF] transition-all z-20 backdrop-blur-md"
+              aria-label="Next photo"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            {/* Image Preview Container */}
             <div
-              className="max-w-5xl max-h-[85vh] rounded-2xl overflow-hidden border border-[#252830] bg-[#0B0D10] p-2 flex items-center justify-center"
+              className="max-w-5xl max-h-[85vh] rounded-2xl overflow-hidden border border-[#252830] bg-[#0B0D10] p-2 flex items-center justify-center shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={devconImg}
-                alt="Devcon 8 India Preview"
+                src={`/images/devcon/${devconPhotos[activePhotoIndex]}`}
+                alt={`Devcon 8 preview ${activePhotoIndex + 1}`}
                 className="w-full h-full max-h-[80vh] object-contain select-none"
               />
             </div>
