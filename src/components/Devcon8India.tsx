@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Maximize2,
@@ -8,11 +8,16 @@ import {
   ChevronLeft,
   ChevronRight,
   Camera,
+  Folder,
+  FolderOpen,
   Image as ImageIcon,
+  Layers,
+  ArrowRight,
+  Eye,
 } from "lucide-react";
 import devconHeroImg from "@/assets/devcon8-india.jpg";
 
-// All 39 authentic Devcon images copied from C:\Users\Lenovo\Pictures\Devcon
+// All 39 authentic Devcon images in public/images/devcon/
 const devconPhotos = [
   "photo_2026-11-01_23-42-16.jpg",
   "photo_2026-11-01_23-42-18 (2).jpg",
@@ -56,13 +61,37 @@ const devconPhotos = [
 ];
 
 export const Devcon8India = () => {
+  const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
-  const [showAllPhotos, setShowAllPhotos] = useState(false);
 
-  // Gallery view: show initial 12 or all 39
-  const visiblePhotos = showAllPhotos ? devconPhotos : devconPhotos.slice(0, 12);
+  // Keyboard navigation for Lightbox and Folder modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activePhotoIndex !== null) {
+        if (e.key === "Escape") {
+          setActivePhotoIndex(null);
+        } else if (e.key === "ArrowRight") {
+          setActivePhotoIndex((prev) =>
+            prev !== null ? (prev + 1) % devconPhotos.length : null
+          );
+        } else if (e.key === "ArrowLeft") {
+          setActivePhotoIndex((prev) =>
+            prev !== null
+              ? (prev - 1 + devconPhotos.length) % devconPhotos.length
+              : null
+          );
+        }
+      } else if (isFolderOpen && e.key === "Escape") {
+        setIsFolderOpen(false);
+      }
+    };
 
-  const openLightbox = (index: number) => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activePhotoIndex, isFolderOpen]);
+
+  const openLightbox = (index: number, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     setActivePhotoIndex(index);
   };
 
@@ -76,7 +105,9 @@ export const Devcon8India = () => {
   const prevPhoto = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (activePhotoIndex !== null) {
-      setActivePhotoIndex((activePhotoIndex - 1 + devconPhotos.length) % devconPhotos.length);
+      setActivePhotoIndex(
+        (activePhotoIndex - 1 + devconPhotos.length) % devconPhotos.length
+      );
     }
   };
 
@@ -160,26 +191,35 @@ export const Devcon8India = () => {
                   <span>FULLSCREEN</span>
                 </button>
 
-                {/* Bottom Overlay Pill on Image */}
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none">
-                  <span className="font-mono text-xs text-white bg-[#050505]/80 backdrop-blur-md border border-[#252830] px-3 py-1 rounded-full">
-                    DEVCON VIII INDIA &middot; OFFICIAL STAGE
-                  </span>
-                  <span className="font-mono text-xs text-[#4D8DFF] bg-[#050505]/80 backdrop-blur-md border border-[#252830] px-3 py-1 rounded-full hidden sm:inline-block">
-                    MUMBAI, INDIA
+                {/* Badge Overlay */}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-xl bg-[#050505]/80 backdrop-blur-md border border-[#252830]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#246BFD] animate-ping" />
+                    <span className="font-mono text-xs text-white font-medium">
+                      Official Stage Installation &middot; Devcon 8 India
+                    </span>
+                  </div>
+                  <span className="font-mono text-[11px] text-[#A4A7AF]">
+                    Mumbai, 2026
                   </span>
                 </div>
               </div>
 
-              {/* Caption Footer */}
-              <div className="p-5 sm:p-6 bg-[#0E1116] border-t border-[#252830] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-                <div className="flex items-center gap-2 text-[#C5C8D0]">
-                  <span className="w-2 h-2 rounded-full bg-[#246BFD]" />
-                  <span>Najish Anjum &middot; Volunteer Lead at Devcon 8</span>
+              {/* Photo Caption Strip */}
+              <div className="p-5 sm:p-6 border-t border-[#252830] bg-[#0E1117]/80">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <h3 className="font-sans font-bold text-base text-white">
+                      Ethereum Foundation &mdash; Devcon VIII
+                    </h3>
+                    <p className="font-mono text-xs text-[#9A9CA3] mt-0.5">
+                      Main Conference &middot; Mumbai Exhibition Centre
+                    </p>
+                  </div>
+                  <span className="font-mono text-xs text-[#246BFD] px-2.5 py-1 rounded-md bg-[#246BFD]/10 border border-[#246BFD]/30 self-start sm:self-auto">
+                    STAGE PRESENCE
+                  </span>
                 </div>
-                <span className="text-[#9A9CA3]">
-                  ETHEREUM FOUNDATION &middot; NOV 2026
-                </span>
               </div>
             </div>
           </motion.div>
@@ -249,8 +289,8 @@ export const Devcon8India = () => {
                 <span className="font-display text-lg text-white font-bold block mt-1">
                   Ethereum Global
                 </span>
-                <span className="font-mono text-[11px] text-[#246BFD]">
-                  L1 &amp; L2 Protocols
+                <span className="font-mono text-[11px] text-[#4D8DFF] block mt-0.5">
+                  Main Conference
                 </span>
               </div>
 
@@ -261,7 +301,7 @@ export const Devcon8India = () => {
                 <span className="font-display text-lg text-white font-bold block mt-1">
                   130+ Side Events
                 </span>
-                <span className="font-mono text-[11px] text-[#246BFD]">
+                <span className="font-mono text-[11px] text-[#246BFD] block mt-0.5">
                   30+ Partners
                 </span>
               </div>
@@ -269,96 +309,227 @@ export const Devcon8India = () => {
           </motion.div>
         </div>
 
-        {/* Comprehensive Photo Gallery: All 39 Photos from C:\Users\Lenovo\Pictures\Devcon */}
+        {/* ======================================================== */}
+        {/* INTERACTIVE FOLDER: Devcon 8 Mumbai Image Vault           */}
+        {/* Photos are cleanly stored inside this single folder!     */}
+        {/* ======================================================== */}
         <div className="pt-10 border-t border-[#252830]/80">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <Camera className="w-4 h-4 text-[#246BFD]" />
-                <span className="font-mono text-xs text-[#246BFD] font-bold uppercase tracking-wider">
-                  DEVCON 8 MUMBAI &middot; PHOTO ARCHIVE
-                </span>
-              </div>
-              <h3 className="font-display text-2xl sm:text-3xl text-white">
-                Moments &amp; On-Ground Activations
-              </h3>
-              <p className="font-mono text-xs text-[#9A9CA3] mt-1">
-                Showing {visiblePhotos.length} of {devconPhotos.length} authentic photos from the conference &amp; builder side events.
-              </p>
-            </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            onClick={() => setIsFolderOpen(true)}
+            className="group relative rounded-3xl bg-gradient-to-br from-[#0D111A] via-[#090C12] to-[#06080C] border border-[#252830] hover:border-[#246BFD]/70 p-6 sm:p-10 cursor-pointer transition-all duration-300 shadow-[0_15px_45px_rgba(0,0,0,0.7)] hover:shadow-[0_20px_60px_rgba(36,107,253,0.18)] overflow-hidden"
+          >
+            {/* Ambient folder back glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#246BFD]/10 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#246BFD]/20 transition-all duration-500" />
+            <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-[#4D8DFF]/10 rounded-full blur-[90px] pointer-events-none" />
 
-            <button
-              type="button"
-              onClick={() => setShowAllPhotos(!showAllPhotos)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#252830] bg-[#0B0D10] font-mono text-xs font-semibold text-[#C5C8D0] hover:text-white hover:border-[#246BFD] transition-colors self-start sm:self-auto shadow-md"
-            >
-              <ImageIcon className="w-3.5 h-3.5 text-[#246BFD]" />
-              <span>
-                {showAllPhotos ? "SHOW LESS" : `VIEW ALL ${devconPhotos.length} PHOTOS`}
-              </span>
-            </button>
-          </div>
-
-          {/* Photo Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-            {visiblePhotos.map((photoName, index) => {
-              const photoUrl = `/images/devcon/${photoName}`;
-              return (
-                <motion.div
-                  key={photoName}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-20px" }}
-                  transition={{ duration: 0.35, delay: (index % 12) * 0.03 }}
-                  onClick={() => openLightbox(index)}
-                  className="group/photo relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-[#252830] bg-[#0A0D14] cursor-pointer hover:border-[#246BFD] hover:shadow-[0_0_20px_rgba(36,107,253,0.3)] transition-all duration-300 flex items-center justify-center p-1.5"
-                >
-                  <img
-                    src={photoUrl}
-                    alt={`Devcon 8 Mumbai moment ${index + 1}`}
-                    loading="lazy"
-                    className="w-full h-full object-cover rounded-xl filter contrast-105 group-hover/photo:scale-105 transition-transform duration-300 select-none"
-                  />
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-[#050505]/85 via-transparent to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity duration-200 flex items-end justify-between p-2.5 pointer-events-none">
-                    <span className="font-mono text-[10px] text-white flex items-center gap-1 bg-[#050505]/80 px-2 py-0.5 rounded border border-[#252830]">
-                      <Maximize2 className="w-3 h-3 text-[#246BFD]" />
-                      EXPAND
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Left Column: Folder Info & Action */}
+              <div className="lg:col-span-7 flex flex-col justify-between">
+                <div>
+                  {/* Top Folder Pill & Badges */}
+                  <div className="flex flex-wrap items-center gap-2.5 mb-4">
+                    <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#246BFD]/15 border border-[#246BFD]/40 font-mono text-xs font-semibold text-[#4D8DFF] uppercase tracking-wider">
+                      <Folder className="w-3.5 h-3.5 text-[#246BFD]" />
+                      OFFICIAL EVENT VAULT
                     </span>
-                    <span className="font-mono text-[10px] text-[#9A9CA3]">
-                      #{index + 1}
+                    <span className="px-3 py-1.5 rounded-full bg-[#121622] border border-[#252830] font-mono text-xs text-[#C5C8D0] flex items-center gap-1.5">
+                      <Layers className="w-3 h-3 text-[#246BFD]" />
+                      39 IMAGES INSIDE
                     </span>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
 
-          {/* Bottom Expand Toggle button if not already expanded */}
-          {!showAllPhotos && devconPhotos.length > 12 && (
-            <div className="mt-8 text-center">
-              <button
-                type="button"
-                onClick={() => setShowAllPhotos(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#252830] bg-[#0E121B] font-mono text-xs font-bold uppercase tracking-wider text-[#93C5FD] hover:text-white hover:border-[#246BFD] hover:bg-[#121625] transition-all shadow-lg"
-              >
-                <span>EXPLORE ALL {devconPhotos.length} DEVCON 8 MOMENTS</span>
-                <ChevronRight className="w-4 h-4 text-[#246BFD]" />
-              </button>
+                  {/* Folder Main Title */}
+                  <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl text-white group-hover:text-[#93C5FD] transition-colors">
+                    Devcon 8 Mumbai &middot; Photo Archive
+                  </h3>
+                  <p className="mt-3 text-sm sm:text-base text-[#9A9CA3] font-sans leading-relaxed max-w-xl">
+                    Archived collection of 39 on-ground photographs capturing stage moments, Ethereum Foundation volunteer leadership, international developer summits, and community activations across Mumbai Web3 Week.
+                  </p>
+                </div>
+
+                {/* Folder Action Trigger Button */}
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-[#246BFD] text-white font-mono text-xs font-bold uppercase tracking-wider group-hover:bg-[#3B82F6] transition-all duration-200 shadow-[0_0_25px_rgba(36,107,253,0.4)] group-hover:shadow-[0_0_35px_rgba(36,107,253,0.6)]">
+                    <FolderOpen className="w-4 h-4" />
+                    <span>OPEN FOLDER &middot; 39 PHOTOS</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                  <span className="font-mono text-xs text-[#9A9CA3] hidden sm:inline-block">
+                    Tap to explore full high-res album
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Column: Visual 3D Stacked Folder Pocket Effect */}
+              <div className="lg:col-span-5 flex items-center justify-center py-4">
+                <div className="relative w-64 h-48 sm:w-72 sm:h-52 flex items-center justify-center select-none">
+                  {/* Photo 1: Left Tilted Preview */}
+                  <div className="absolute w-36 h-44 sm:w-40 sm:h-48 rounded-xl overflow-hidden border-2 border-[#252830] bg-[#0A0D14] shadow-2xl transform -rotate-12 -translate-x-12 translate-y-2 group-hover:-rotate-[16deg] group-hover:-translate-x-16 transition-all duration-300">
+                    <img
+                      src={`/images/devcon/${devconPhotos[2]}`}
+                      alt="Devcon moment preview left"
+                      className="w-full h-full object-cover filter contrast-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/30" />
+                  </div>
+
+                  {/* Photo 2: Right Tilted Preview */}
+                  <div className="absolute w-36 h-44 sm:w-40 sm:h-48 rounded-xl overflow-hidden border-2 border-[#252830] bg-[#0A0D14] shadow-2xl transform rotate-12 translate-x-12 translate-y-2 group-hover:rotate-[16deg] group-hover:translate-x-16 transition-all duration-300">
+                    <img
+                      src={`/images/devcon/${devconPhotos[5]}`}
+                      alt="Devcon moment preview right"
+                      className="w-full h-full object-cover filter contrast-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/30" />
+                  </div>
+
+                  {/* Photo 3: Center Highlight Card */}
+                  <div className="relative z-10 w-40 h-48 sm:w-44 sm:h-52 rounded-2xl overflow-hidden border-2 border-[#246BFD]/60 bg-[#0B0E17] shadow-[0_15px_35px_rgba(0,0,0,0.9)] transform group-hover:scale-105 group-hover:-translate-y-2 transition-all duration-300">
+                    <img
+                      src={`/images/devcon/${devconPhotos[0]}`}
+                      alt="Devcon moment preview center"
+                      className="w-full h-full object-cover filter contrast-110"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 via-transparent to-transparent flex items-end justify-between p-3">
+                      <span className="font-mono text-[10px] text-white flex items-center gap-1 bg-[#050505]/80 px-2 py-0.5 rounded border border-[#252830]">
+                        <Eye className="w-3 h-3 text-[#246BFD]" />
+                        PREVIEW
+                      </span>
+                      <span className="font-mono text-[11px] text-[#4D8DFF] font-bold">
+                        39 Photos
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
+          </motion.div>
         </div>
       </div>
 
-      {/* Fullscreen Lightbox Modal with Next / Prev */}
+      {/* ======================================================== */}
+      {/* FOLDER EXPLORER MODAL: Opens when user taps the folder    */}
+      {/* ======================================================== */}
+      <AnimatePresence>
+        {isFolderOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-[#050505]/90 backdrop-blur-2xl flex items-center justify-center p-3 sm:p-6 lg:p-8"
+            onClick={() => setIsFolderOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.94, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.94, y: 20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-6xl max-h-[92vh] flex flex-col rounded-3xl bg-[#090C12] border border-[#252830] shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden"
+            >
+              {/* Modal Header */}
+              <div className="p-5 sm:p-6 border-b border-[#252830] bg-[#0E121B] flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-[#246BFD]/15 border border-[#246BFD]/40 flex items-center justify-center">
+                    <FolderOpen className="w-5 h-5 text-[#246BFD]" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-display text-lg sm:text-xl text-white">
+                        Devcon 8 Mumbai &middot; Photo Archive
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full bg-[#246BFD]/20 border border-[#246BFD]/40 font-mono text-[11px] text-[#93C5FD] font-semibold">
+                        39 Items
+                      </span>
+                    </div>
+                    <p className="font-mono text-xs text-[#9A9CA3] mt-0.5">
+                      /gallery/devcon-8-india/mumbai-2026/ &middot; Click any photo to enlarge
+                    </p>
+                  </div>
+                </div>
+
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsFolderOpen(false)}
+                  className="p-2.5 rounded-2xl bg-[#141824] border border-[#252830] text-[#9A9CA3] hover:text-white hover:border-[#246BFD] transition-colors flex items-center gap-1.5"
+                  aria-label="Close folder"
+                >
+                  <span className="font-mono text-xs hidden sm:inline-block">CLOSE [ESC]</span>
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Modal Body: Scrollable Grid of All 39 Photos */}
+              <div className="p-4 sm:p-6 overflow-y-auto flex-1 custom-scrollbar">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+                  {devconPhotos.map((photoName, index) => {
+                    const photoUrl = `/images/devcon/${photoName}`;
+                    return (
+                      <div
+                        key={photoName}
+                        onClick={(e) => openLightbox(index, e)}
+                        className="group/photo relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-[#252830] bg-[#0A0D14] cursor-pointer hover:border-[#246BFD] hover:shadow-[0_0_20px_rgba(36,107,253,0.35)] transition-all duration-200 flex items-center justify-center p-1.5"
+                      >
+                        <img
+                          src={photoUrl}
+                          alt={`Devcon 8 Mumbai photo ${index + 1}`}
+                          loading="lazy"
+                          className="w-full h-full object-cover rounded-xl filter contrast-105 group-hover/photo:scale-105 transition-transform duration-200 select-none"
+                        />
+
+                        {/* Hover Overlay */}
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-[#050505]/90 via-transparent to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity duration-150 flex items-end justify-between p-2.5 pointer-events-none">
+                          <span className="font-mono text-[10px] text-white flex items-center gap-1 bg-[#050505]/80 px-2 py-0.5 rounded border border-[#252830]">
+                            <Maximize2 className="w-3 h-3 text-[#246BFD]" />
+                            EXPAND
+                          </span>
+                          <span className="font-mono text-[10px] text-[#9A9CA3]">
+                            #{index + 1}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-4 sm:p-5 border-t border-[#252830] bg-[#0E121B] flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs text-[#9A9CA3]">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span>39 of 39 photos loaded &middot; Ethereum Foundation &amp; Mumbai Web3 Week</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsFolderOpen(false)}
+                  className="px-4 py-2 rounded-xl bg-[#141824] border border-[#252830] text-white hover:border-[#246BFD] transition-colors"
+                >
+                  DONE BROWSING
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ======================================================== */}
+      {/* FULLSCREEN LIGHTBOX MODAL: Next / Prev Navigation        */}
+      {/* ======================================================== */}
       <AnimatePresence>
         {activePhotoIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#050505]/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 select-none"
+            className="fixed inset-0 z-[60] bg-[#050505]/95 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-8 select-none"
             onClick={() => setActivePhotoIndex(null)}
           >
             {/* Close Button */}
