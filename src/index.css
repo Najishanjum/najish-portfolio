@@ -84,18 +84,25 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--bg-primary);
+    background-color: #07080a;
     overflow-x: clip;
   }
 
   body {
-    background-color: var(--bg-primary);
+    background-color: #07080a;
     color: var(--text-primary);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
     line-height: 1.6;
+  }
+
+  /* Make section, footer, and page wrappers transparent so the continuous topographic background covers all sections */
+  section,
+  footer,
+  .min-h-screen {
+    background-color: transparent !important;
   }
 
   /* Scrollbar */
