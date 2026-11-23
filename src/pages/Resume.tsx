@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 
 const Resume = () => {
   return (
-    <div className="min-h-screen bg-[#050505] text-white">
+    <div className="relative z-10 min-h-screen bg-transparent text-white">
       <Navigation />
 
       <div className="pt-24 sm:pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">

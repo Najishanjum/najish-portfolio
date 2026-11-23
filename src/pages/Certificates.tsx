@@ -744,7 +744,7 @@ const Certificates = () => {
   const duplicatedCertificates = [...certificates, ...certificates];
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white">
+    <div className="relative z-10 min-h-screen bg-transparent text-white">
       <Navigation />
 
       <main className="pt-28 sm:pt-36 pb-24">

@@ -365,3 +365,25 @@
 .animate-pulse-subtle {
   animation: pulse-subtle 4s ease-in-out infinite;
 }
+
+/* ============================================================
+   GLOBAL TOPOGRAPHIC BACKGROUND TRANSPARENCY OVERRIDES
+   Ensures sections let the continuous background shine through
+   ============================================================ */
+html,
+body {
+  background-color: #07080a !important;
+}
+
+#root {
+  background-color: transparent !important;
+}
+
+section,
+footer,
+main,
+div.min-h-screen {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+

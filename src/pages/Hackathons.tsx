@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 const HackathonsPage = () => {
   return (
-    <div className="min-h-screen bg-[#050505] text-white">
+    <div className="relative z-10 min-h-screen bg-transparent text-white">
       <Navigation />
       <div className="pt-24 sm:pt-28">
         {/* Back Button */}
